@@ -4,35 +4,29 @@ const express = require('express')
 const mongoose = require('mongoose')
 const workoutRoutes = require('./routes/workouts')
 
-
-
-
-//express app in a variable
+// express app
 const app = express()
 
+// middleware
+app.use(express.json())
 
-//middleware
-app.use(express.json()) //check is theres some data coming
-app.use((req, res, next)=>{
-    console.log(req.path, req.method)
-    next()
+app.use((req, res, next) => {
+  console.log(req.path, req.method)
+  next()
 })
 
-//Routes
+// routes
 app.use('/api/workouts', workoutRoutes)
 
-
-//connect to db
+// connect to db
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => {
-        // listen for request
-        app.listen(process.env.PORT, () =>{
-            console.log("Connected to db", process.env.PORT)
-        })
+  .then(() => {
+    console.log('connected to database')
+    // listen to port
+    app.listen(process.env.PORT, () => {
+      console.log('listening for requests on port', process.env.PORT)
     })
-    .catch((Error) => {
-        console.log(Error)
-    })
-
-
-
+  })
+  .catch((err) => {
+    console.log(err)
+  }) 
