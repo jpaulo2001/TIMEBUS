@@ -1,18 +1,43 @@
+const { Timestamp } = require('mongodb')
 const mongoose = require('mongoose')
-
-
-
 const Schema = mongoose.Schema
+
+/*
+Routes: 
+  "_id": ObjectId("..."), 
+  "startingPoint": "Start Location", 
+  "endingPoint": "End Location", 
+  "distance": 10, 
+}
+
+*/
+
+
 
 
 const routesSchema = new Schema({
-name: {}, //Name or number of the route
-origin: {}, //Origin city or location
-destination:{}, //Destination city or location
-distance:{}, //Distance in kilometers or miles
-duration:{}, //Estimated travel duration
-stops: {}, //Array of stops along the route (each stop can have a name, latitude, and longitude)
-}, {timestamps: true })
-module.exports = mongoose.model('Workout', routesSchema)
+                    startingPoint: {
+                                        type: String,
+                                        required: true,
+                    },
+                    endingPoint: {
+                                        type: String,
+                                        required: true
+                    },
+                    distance: { 
+                                        type: Number, 
+                                        required: true },
+                    duration: {
+                                        type: Timestamp,
+                                        required: true
+                    },
+                    stops: {
+                                        type: Array,
+                                        required: true
+                    },
+
+
+}, { timestamps: true })
+module.exports = mongoose.model('Routes', routesSchema)
 
 
