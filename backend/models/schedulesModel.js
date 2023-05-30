@@ -20,6 +20,7 @@ const schedulesSchema = new Schema({
                                         type: Array,
                                         required: true,
                     },
+                    
 }, { timestamps: true })
 module.exports = mongoose.model('Schedules', schedulesSchema)
 
