@@ -53,7 +53,7 @@ const WorkoutForm = () => {
 
       <label>Location A:</label>
       <input 
-        type="number" 
+        type="string"
         onChange={(e) => setLoad(e.target.value)} 
         value={load}
         className={emptyFields.includes('load') ? 'error' : ''}
@@ -62,7 +62,7 @@ const WorkoutForm = () => {
   
       <label>Location B</label>
       <input 
-        type="number" 
+        type="string"
         onChange={(e) => setReps(e.target.value)} 
         value={reps}
         className={emptyFields.includes('reps') ? 'error' : ''}

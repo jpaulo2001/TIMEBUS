@@ -1,11 +1,26 @@
-
+const { Timestamp } = require('mongodb')
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 /*
-Schedules:
+Schedules: 
 
-_id: Unique identifier for the schedule
-route_id: Reference to the associated route
-bus_number: Number or identifier of the bus operating the schedule
-departure_time: Departure time of the bus
-arrival_time: Arrival time at the destination
-fare: Fare or ticket price for the schedule
+{ 
+  "_id": ObjectId("..."), 
+  "routeId": ObjectId("..."), 
+  "busId": ObjectId("..."), 
+  "departureTimes": ["08:00", "10:00", "12:00"], 
 */
+
+const schedulesSchema = new Schema({
+                    routeId: {//foreign key from route
+                    },
+                    busId: {//foreign key from bus
+                    },
+                    departureTimes: {
+                                        type: Array,
+                                        required: true,
+                    },
+                    
+}, { timestamps: true })
+module.exports = mongoose.model('Schedules', schedulesSchema)
+
