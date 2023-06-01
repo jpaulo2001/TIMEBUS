@@ -105,3 +105,28 @@ div.error {
 input.error {
   border: 1px solid var(--error);
 }
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.pages {
+  flex: 1;
+}
+
+.mapContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
