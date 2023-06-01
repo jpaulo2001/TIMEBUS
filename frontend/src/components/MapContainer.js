@@ -1,52 +1,57 @@
-import React, { useState } from 'react';
-import { Source, Layer, Marker } from 'react-map-gl';
+import React, { Component } from 'react';
+import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import "../app.css"
 
-function MapComponent() {
-  const [viewport, setViewport] = useState({
-    latitude: 40.67,
-    longitude: -103.59,
-    zoom: 5
-  });
+class MapContainer extends Component {
+    state = {
+        busStops: [
+            { name: 'Bus Stop 1', lat: 37.747638073710164, lng: -25.666447572839147 },
+            { name: 'Bus Stop 2', lat: 37.779, lng: -122.415 },
+            // Add more bus stops
+        ],
+    };
 
-  const busStops = [
-    { latitude: 40.67, longitude: -103.59 },
-    // Add more bus stops here
-  ];
+    render() {
+        const mapStyles = {
+            width: '100%',
+            height: '100%',
+        };
 
-  const busRoute = {
-    type: 'Feature',
-    geometry: {
-      type: 'LineString',
-      coordinates: busStops.map(stop => [stop.longitude, stop.latitude])
+        const style = {
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0
+        }
+
+        return (
+            <div style={style}>
+                <Map
+                    google={this.props.google}
+                    zoom={15}
+                    initialCenter={{lat: 37.738924, lng: -25.668171 }}
+                >
+                    {this.state.busStops.map((busStop, index) => (
+                        <Marker
+                            key={index}
+                            position={{ lat: busStop.lat, lng: busStop.lng }}
+                            title={busStop.name}
+                            icon={{
+                                url: 'path_to_marker_icon.png',
+                                scaledSize: new this.props.google.maps.Size(32, 32),
+                            }}
+                            onClick={() => {
+                                // Handle marker click event
+                            }}
+                        />
+                    ))}
+                </Map>
+            </div>
+        );
     }
-  };
-
-  return (
-    <ReactMapGL
-      {...viewport}
-      width="100%"
-      height="100%"
-      mapStyle="mapbox://styles/mapbox/streets-v11"
-      onViewportChange={nextViewport => setViewport(nextViewport)}
-      mapboxApiAccessToken={process.env.MAPBOX_TOKEN}
-    >
-      {busStops.map((stop, i) => (
-        <Marker key={i} longitude={stop.longitude} latitude={stop.latitude}>
-          <div style={{ color: 'red' }}>•</div>
-        </Marker>
-      ))}
-
-      <Source type="geojson" data={busRoute}>
-        <Layer
-          type="line"
-          paint={{
-            'line-color': '#888',
-            'line-width': 8
-          }}
-        />
-      </Source>
-    </ReactMapGL>
-  );
 }
 
-export default MapComponent;
+export default GoogleApiWrapper({
+    apiKey: 'AIzaSyCACoeFYxAZ7TFZz5SssNv0cOqalH-4EUQ',
+})(MapContainer);

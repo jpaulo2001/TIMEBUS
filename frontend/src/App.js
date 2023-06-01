@@ -2,20 +2,14 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
-import BusTimetable from './components/BusTimetable';
+import MapContainer from './components/MapContainer';
+import WorkoutForm from './components/WorkoutForm';
 
 function App() {
   return (
       <div className="App">
-        <BrowserRouter>
-          <Navbar />
-          <div className="content">
-            <Routes>
-              <Route path="/" element={<Home />} />
-            </Routes>
-          </div>
-            <BusTimetable />
-        </BrowserRouter>
+        <MapContainer />
+        <WorkoutForm/>
       </div>
   );
 }

@@ -123,10 +123,3 @@ input.error {
 .pages {
   flex: 1;
 }
-
-.mapContainer {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
