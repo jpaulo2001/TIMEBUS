@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
-import "../app.css"
+import "../app.css";
+import {styles} from "./mapstyle.js";
 
 class MapContainer extends Component {
     state = {
@@ -12,10 +13,6 @@ class MapContainer extends Component {
     };
 
     render() {
-        const mapStyles = {
-            width: '100%',
-            height: '100%',
-        };
 
         const style = {
             position: 'fixed',
@@ -31,6 +28,7 @@ class MapContainer extends Component {
                     google={this.props.google}
                     zoom={15}
                     initialCenter={{lat: 37.738924, lng: -25.668171 }}
+                    styles = {styles}
                 >
                     {this.state.busStops.map((busStop, index) => (
                         <Marker

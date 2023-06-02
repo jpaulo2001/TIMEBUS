@@ -37,7 +37,7 @@ header a {
 #leftBar {
   position: fixed;
   left: 0;
-  width: 20%;
+  width: 25%;
   height: 100%;
   background: rgb(105, 150, 255);
   border-top-right-radius: 25px;
