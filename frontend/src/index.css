@@ -13,12 +13,9 @@ body {
 }
 header {
   background: #fff;
+  
 }
 
-img {
-  height: 100px;
-  width: 200px;
-}
 header .container {
   max-width: 1400px;
   margin: 0 auto;
@@ -35,6 +32,17 @@ header a {
   max-width: 1400px;
   padding: 20px;
   margin: 0 auto;
+}
+
+#leftBar {
+  position: fixed;
+  left: 0;
+  width: 20%;
+  height: 100%;
+  background: rgb(105, 150, 255);
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border: 2px black dotted;
 }
 
 /* homepage */

@@ -39,14 +39,11 @@ const WorkoutForm = () => {
 
   }
   const style = {
-    position: 'fixed',
-    border_color: 'red',
-    border: '1px solid black',
-    background: 'white',
-    left: '0',
-    width: '20%',
-    height: '100%',
+    position: 'relative',
+    marginTop : '10%',
+    margin : '20%',
   }
+
   return (
     <form className="create" style={style} onSubmit={handleSubmit}> 
       <h3>MAKE YOUR SEARCH</h3>

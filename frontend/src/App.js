@@ -9,7 +9,10 @@ function App() {
   return (
       <div className="App">
         <MapContainer />
-        <WorkoutForm/>
+        <div id="leftBar">
+          <Navbar/>
+          <WorkoutForm/>
+        </div>
       </div>
   );
 }
