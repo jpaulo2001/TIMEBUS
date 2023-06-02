@@ -15,6 +15,9 @@ const Navbar = () => {
   const img = {
     maxWidth: '100%',
     maxHeight: '100%',
+    background: 'white',
+    border: '2px black dotted',
+    borderRadius: '30px'
   }
 
   const imgContainer = {

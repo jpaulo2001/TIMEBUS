@@ -41,7 +41,11 @@ const WorkoutForm = () => {
   const style = {
     position: 'relative',
     marginTop : '10%',
-    margin : '20%',
+    margin : '5%',
+    background : 'white',
+    border: '50px white solid',
+    borderRadius: '30px',
+    margin: '10px',
   }
 
   return (

@@ -39,7 +39,7 @@ header a {
   left: 0;
   width: 25%;
   height: 100%;
-  background: rgb(105, 150, 255);
+  background: rgb(255, 241, 220);
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
   border: 2px black dotted;
@@ -78,6 +78,7 @@ header a {
   padding: 6px;
   border-radius: 50%;
   color: #333;
+  
 }
 
 /* new workout form */

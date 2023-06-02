@@ -1,9 +1,6 @@
 const routes = require('../models/routesModel')
 const mongoose = require('mongoose')
 
-
-
-
 // get all routes
 const getRoutes = async (req, res) => {
   const routes = await routes.find({}).sort({createdAt: -1})
