@@ -1,15 +1,20 @@
 const express = require('express')
 const {
   getStop,
-  getStops
+  getStops,
+  searchBuses,
+  searchStops,
+  updateStop,
+  deleteStop
 } = require('../controllers/busStopController.js')
 
 const router = express.Router()
 
-// GET all workouts
-router.get('/', getStop)
-
-// GET a single workout
-router.get('/:id', getStops)
+router.get('/', getStop);
+router.get('/:id', getStops);
+router.get('/buses/search/:name', searchBuses)
+router.get('/search/:name', searchStops);
+router.put('/:id', updateStop);
+router.delete('/:id', deleteStop);
 
 module.exports = router
