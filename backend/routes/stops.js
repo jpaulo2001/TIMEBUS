@@ -1,6 +1,6 @@
 const express = require('express')
 const {
-  getStop,
+  getStopByName,
   getStops,
   searchBuses,
   searchStops,
@@ -10,11 +10,10 @@ const {
 
 const router = express.Router()
 
-router.get('/:id', getStop);
+router.get('/:stopName', getStopByName);
 router.get('/', getStops);
-router.get('/buses/search/:name', searchBuses)
-router.get('/search/:name', searchStops);
-router.put('/:id', updateStop);
-router.delete('/:id', deleteStop);
+// router.get('/buses/:id', searchBuses)
+// router.put('/:id', updateStop);
+// router.delete('/:id', deleteStop);
 
 module.exports = router

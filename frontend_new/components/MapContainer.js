@@ -51,7 +51,8 @@ export default function MapContainer() {
       >
         {stops.map((stop) => (
           <Marker
-            coordinate={{ latitude: stop.lat, longitude: stop.lng }}
+            key={stop._id}
+            coordinate={{ latitude: parseFloat(stop.lat), longitude: parseFloat(stop.lng) }}
             title={stop.stopName}
           />
         ))}
