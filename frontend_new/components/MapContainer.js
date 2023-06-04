@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from 'react-native-maps';
 import { StyleSheet, View, TouchableOpacity, Image, Dimensions } from 'react-native';
 import axios from 'axios';
 
@@ -32,6 +32,11 @@ export default function MapContainer() {
     }
   };
 
+  const pathCoordinates = stops.map((stop) => ({
+    latitude: stop.lat,
+    longitude: stop.lng,
+  }));
+
   return (
     <View style={styles.container}>
       <MapView
@@ -50,6 +55,11 @@ export default function MapContainer() {
             title={stop.stopName}
           />
         ))}
+        <Polyline
+          coordinates={pathCoordinates}
+          strokeColor="#FF0000" // Specify the color of the polyline
+          strokeWidth={3} // Specify the width of the polyline
+        />
       </MapView>
       <TouchableOpacity onPress={toggleMapSize}>
         <Image source={require('../public/assets/buttons/enlarge.png')} style={buttonStyle} />
