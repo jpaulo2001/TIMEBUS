@@ -98,7 +98,7 @@ const updateRoutes = async (req, res) => {
 module.exports = {
   getRoutes,
   getRoute,
-  createRoutes,
+  
   deleteRoutes,
   updateRoutes
 }

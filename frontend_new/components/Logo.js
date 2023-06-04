@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        width: '20%',
+        width: '40%',
         resizeMode: 'contain',
-        top: '-25%',
+        top: '-30%',
     },
 });

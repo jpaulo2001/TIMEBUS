@@ -1,5 +1,5 @@
 const express = require('express')
-const {getRoutes,getRoute, createRoutes, deleteRoutes, updateRoutes
+const {getRoutes,getRoute, deleteRoutes, updateRoutes
 } = require('../controllers/routesController')
 
 
@@ -13,8 +13,8 @@ router.get('/', getRoutes)
 // GET a single route
 router.get('/:id', getRoute)
 
-// POST a new route
-router.post('/', createRoutes)
+// // POST a new route
+// router.post('/', createRoutes)
 
 // DELETE a route
 router.delete('/:id', deleteRoutes)
