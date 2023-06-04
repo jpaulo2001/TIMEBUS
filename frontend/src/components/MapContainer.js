@@ -10,6 +10,7 @@ class MapContainer extends Component {
             { name: 'Bus Stop 2', lat: 37.779, lng: -122.415 },
             // Add more bus stops
         ],
+        
     };
 
     render() {

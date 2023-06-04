@@ -10,10 +10,11 @@ const {
 
 const router = express.Router()
 
-router.get('/', getStop);
-router.get('/:id', getStops);
-router.get('/buses/search/:name', searchBuses)
-router.get('/search/:name', searchStops);
+router.get('/:id', getStop);
+router.get('/', getStops);
+router.get('/search/:name?', searchStops)
+// router.get('/search/:name', searchBuses)
+// router.get('/search/:name', searchStops);
 router.put('/:id', updateStop);
 router.delete('/:id', deleteStop);
 

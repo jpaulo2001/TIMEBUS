@@ -1,5 +1,7 @@
 const BusStop = require('../models/busStopModel')
 const mongoose = require('mongoose')
+const Bus = require('../models/busModel');
+
 
 // get all routes
 const getStops = async (req, res) => {
@@ -18,13 +20,13 @@ const getStop = async (req, res) => {
   const { id } = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({error: 'No such stop'})
+    return res.status(404).json({ error: 'No such stop' })
   }
 
   const stop = await BusStop.findById(id);
 
   if (!routes) {
-    return res.status(404).json({error: 'No such stop'})
+    return res.status(404).json({ error: 'No such stop' })
   }
 
   res.status(200).json(stop)
@@ -35,7 +37,7 @@ const searchStops = async (req, res) => {
 
   try {
     // Search for stops with a case-insensitive match to the name
-    const matchingStops = await BusStop.find({ name: { $regex: name, $options: 'i' } });
+    const matchingStops = await BusStop.find({ name: { $regex: new RegExp(name, 'i') } });
 
     res.status(200).json(matchingStops);
   } catch (error) {
@@ -50,7 +52,7 @@ const searchBuses = async (req, res) => {
 
   try {
     // Find buses with a case-insensitive match to the name
-    const matchingBuses = await Bus.find({ name: { $regex: name, $options: 'i' } });
+    const matchingBuses = await Bus.find({ name });
 
     res.status(200).json(matchingBuses);
   } catch (error) {
