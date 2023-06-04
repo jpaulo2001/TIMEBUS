@@ -10,8 +10,8 @@ const {
 
 const router = express.Router()
 
-router.get('/', getStop);
-router.get('/:id', getStops);
+router.get('/:id', getStop);
+router.get('/', getStops);
 router.get('/buses/search/:name', searchBuses)
 router.get('/search/:name', searchStops);
 router.put('/:id', updateStop);
