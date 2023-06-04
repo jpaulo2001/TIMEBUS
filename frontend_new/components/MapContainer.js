@@ -1,31 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Image, Dimensions } from 'react-native';
 
 export default function MapContainer() {
+
+  const [isMapEnlarged, setIsMapEnlarged] = useState(false);
+
+  const toggleMapSize = () => {
+    setIsMapEnlarged(!isMapEnlarged);
+  };
+
+  const mapStyle = isMapEnlarged ? styles.enlargedMap : styles.map;
+  const buttonStyle = isMapEnlarged ? styles.enlargeButtonEnlarged : styles.enlargeButton;
+
   return (
     <View style={styles.container}>
       <MapView
-        style={styles.map}
+        style={mapStyle}
         provider={PROVIDER_GOOGLE}
         initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
+            latitude: 37.73893724181937,
+            longitude: -25.669530728849,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
         }}
         />
+      <TouchableOpacity onPress={toggleMapSize}>
+      <Image source={require('../public/assets/buttons/enlarge.png')} style={buttonStyle}/>
+      </TouchableOpacity>
     </View>
   );
 }
 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
+
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: '50%',
-    left: '25%',
-    right: '25%',
-    bottom: '25%',
+    top: '55%',
+    left: '15%',
+    right: '15%',
+    bottom: '10%',
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
@@ -38,5 +55,35 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'black',
     borderRadius: '25px',
+  },
+
+  enlargedMap: {
+    ...StyleSheet.absoluteFill,
+    position: 'absolute',
+    top: -windowHeight / 2,
+    left: -windowWidth / 2,
+    width: windowWidth * 2,
+    height: windowHeight * 2,
+    zIndex: 0, // Adjust the zIndex value to bring the map in front
+  },
+
+  enlargeButton: {
+    width: 50,
+    resizeMode: 'contain',
+    top: '-650%',
+    left: '45%',
+    width: 40,
+    height: 40,
+    zIndex: 3,
+  },
+
+  enlargeButtonEnlarged: {
+    width: 50,
+    resizeMode: 'contain',
+    top: '-1600%',
+    left: '50%',
+    width: 40,
+    height: 40,
+    zIndex: 3,
   }
 });

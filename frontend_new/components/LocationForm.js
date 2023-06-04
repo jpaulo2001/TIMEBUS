@@ -14,15 +14,17 @@ export default function LocationForm() {
 const styles = StyleSheet.create({
     container: {
         position: 'absolute',
-        top: '35%',
-        left: '25%',
-        right: '25%',
+        top: '40%',
+        left: '0%',
+        right: '0%',
         justifyContent: 'flex-end',
         alignItems: 'center',
     },
     textInput: {
+        height: '50%',
         width: '70%',
         borderWidth: 2,
         borderColor: 'black',
+        borderRadius: '15px',
     }
 });
