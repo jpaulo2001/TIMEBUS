@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const busStopSchema = new Schema({
-  name: {
+  stopName: {
     type: String,
     required: true,
   },

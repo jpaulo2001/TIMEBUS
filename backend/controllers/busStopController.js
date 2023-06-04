@@ -5,8 +5,7 @@ const Bus = require('../models/busModel');
 
 // get all routes
 const getStops = async (req, res) => {
-  // const stops = await stops.find({}).sort({createdAt: -1})
-  // res.status(200).json(stops)
+
   try {
     const stops = await BusStop.find();
     res.status(200).json(stops);
@@ -15,22 +14,36 @@ const getStops = async (req, res) => {
   }
 };
 
-// get a single route
-const getStop = async (req, res) => {
-  const { id } = req.params
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: 'No such stop' })
+const getStopByName = async (req, res) => {
+  const { stopName } = req.params;
+
+  const stop = await BusStop.findOne({ stopName: stopName });
+
+  if (!stop) {
+    return res.status(404).json({ error: 'No such stop' });
   }
 
-  const stop = await BusStop.findById(id);
-
-  if (!routes) {
-    return res.status(404).json({ error: 'No such stop' })
-  }
-
-  res.status(200).json(stop)
+  res.status(200).json(stop);
 };
+
+// // get a single route
+// const getStop = async (req, res) => {
+//   const { id } = req.params
+
+//   if (!mongoose.Types.ObjectId.isValid(id)) {
+//     return res.status(404).json({error: 'No such stop'})
+//   }
+
+//   const stop = await BusStop.findById(id);
+
+//   if (!stop) {
+//     return res.status(404).json({error: 'No such stop'})
+//   }
+
+//   res.status(200).json(stop)
+// };
+
 
 const searchStops = async (req, res) => {
   const { name } = req.params;
@@ -110,9 +123,9 @@ const deleteStop = async (req, res) => {
 
 module.exports = {
   getStops,
-  getStop,
   searchBuses,
   searchStops,
   updateStop,
-  deleteStop
+  deleteStop,
+  getStopByName
 }
