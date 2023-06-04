@@ -7,6 +7,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "ajv-keywords": "^5.1.0",
     "axios": "^1.4.0",
     "date-fns": "^2.30.0",
     "google-maps-react": "^2.0.6",
@@ -15,6 +16,8 @@
     "react-map-gl": "^7.0.25",
     "react-router-dom": "^6.11.2",
     "react-scripts": "^2.1.3",
+    "spdy": "^4.0.2",
+    "spdy-transport": "^3.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
