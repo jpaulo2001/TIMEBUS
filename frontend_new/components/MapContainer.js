@@ -13,14 +13,16 @@ export default function MapContainer() {
   const mapStyle = isMapEnlarged ? styles.enlargedMap : styles.map;
   const buttonStyle = isMapEnlarged ? styles.enlargeButtonEnlarged : styles.enlargeButton;
 
+  const coorPontaDelgada = {latitude: 37.73893724181937, longitude: -25.669530728849 }
+
   return (
     <View style={styles.container}>
       <MapView
         style={mapStyle}
         provider={PROVIDER_GOOGLE}
         initialRegion={{
-            latitude: 37.73893724181937,
-            longitude: -25.669530728849,
+            latitude: coorPontaDelgada.latitude,
+            longitude: coorPontaDelgada.longitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
         }}
@@ -72,7 +74,6 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     top: '-650%',
     left: '45%',
-    width: 40,
     height: 40,
     zIndex: 3,
   },
