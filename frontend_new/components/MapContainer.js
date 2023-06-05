@@ -79,10 +79,10 @@ const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: '55%',
-    left: '15%',
-    right: '15%',
-    bottom: '10%',
+    top: windowHeight*0.51,
+    left: windowWidth*0.05,
+    right: windowWidth*0.05,
+    bottom: windowHeight*0.05,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
@@ -108,21 +108,28 @@ const styles = StyleSheet.create({
   },
 
   enlargeButton: {
-    width: 50,
     resizeMode: 'contain',
-    top: '-650%',
-    left: '45%',
-    height: 40,
-    zIndex: 3,
-  },
-
-  enlargeButtonEnlarged: {
-    width: 50,
-    resizeMode: 'contain',
-    top: '-1600%',
-    left: '50%',
+    top: -windowHeight/2.4,
+    left: windowWidth/2.3,
     width: 40,
     height: 40,
     zIndex: 3,
+    backgroundColor:'lightblue',
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+
+  enlargeButtonEnlarged: {
+    resizeMode: 'contain',
+    top: -windowHeight/2,
+    left: windowWidth/2.5,
+    width: 40,
+    height: 40,
+    zIndex: 3,
+    backgroundColor:'light-blue',
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 5,
   }
 });
