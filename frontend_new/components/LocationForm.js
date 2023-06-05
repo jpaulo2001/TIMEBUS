@@ -1,6 +1,8 @@
 import { Image, StyleSheet, TextInput, View, Text, TouchableOpacity, } from 'react-native';
 
 export default function LocationForm() {
+  
+
   return (
     <View style={styles.container}>
         <View style={styles.textInputConainer}>

@@ -4,6 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const busesRoutes = require('./routes/buses')
 const stopRoutes = require('./routes/stops')
+const routesRoutes = require('./routes/routes')
 const cors = require('cors');
 
 // express app
@@ -13,7 +14,6 @@ const app = express()
 app.use(express.json())
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
-
 app.use((req, res, next) => {
   console.log(req.path, req.method)
   next()
@@ -21,6 +21,8 @@ app.use((req, res, next) => {
 
 // routes
 app.use('/api/stops', stopRoutes)
+app.use('/api/routes', routesRoutes)
+app.use('/api/buses', busesRoutes)
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI)

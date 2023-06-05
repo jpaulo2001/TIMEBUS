@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const RouteSchema = new mongoose.Schema({
-  name: String,
+  ID: String,
   stops: [String], // List of stops
   schedules: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -9,6 +9,6 @@ const RouteSchema = new mongoose.Schema({
   }]
 });
 
-const Route = mongoose.model('Route', RouteSchema);
+const Route = mongoose.model('busRoute', RouteSchema);
 
 module.exports = Route;

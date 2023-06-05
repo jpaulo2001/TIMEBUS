@@ -10,8 +10,8 @@ const {
 
 const router = express.Router()
 
-router.get('/:stopName', getStopByName);
 router.get('/', getStops);
+
 // router.get('/buses/:id', searchBuses)
 // router.put('/:id', updateStop);
 // router.delete('/:id', deleteStop);

@@ -1,25 +1,23 @@
 const express = require('express')
-const {getRoutes,getRoute, deleteRoutes, updateRoutes
+const {
+    getRoutes,
+    getRoute, 
+    deleteRoutes, 
+    updateRoutes
 } = require('../controllers/routesController')
 
-
-
-
-
 const router = express.Router()
-// GET all routes
+
 router.get('/', getRoutes)
+router.get('/:ID', getRoute)
 
-// GET a single route
-router.get('/:id', getRoute)
+// // // POST a new route
+// // router.post('/', createRoutes)
 
-// // POST a new route
-// router.post('/', createRoutes)
+// // DELETE a route
+// router.delete('/:id', deleteRoutes)
 
-// DELETE a route
-router.delete('/:id', deleteRoutes)
-
-// UPDATE a route
-router.patch('/:id', updateRoutes)
+// // UPDATE a route
+// router.patch('/:id', updateRoutes)
 
 module.exports = router

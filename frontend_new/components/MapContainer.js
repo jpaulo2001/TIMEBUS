@@ -3,6 +3,9 @@ import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from 'react-native-maps';
 import { StyleSheet, View, TouchableOpacity, Image, Dimensions } from 'react-native';
 import axios from 'axios';
 
+const request = 'https://maps.googleapis.com/maps/api/directions/json?origin=37.7749,-122.4194&destination=37.7749,-122.5113&key={}'
+
+
 
 export default function MapContainer() {
 
