@@ -1,32 +1,32 @@
-const Buses = require('../models/busesModel')
+const busSchema = require('../models/busesModel')
 const mongoose = require('mongoose')
 
 // get all buses
 const getBuses = async (req, res) => {
-  try{
-    const buses = await Buses.find()
+  try {
+    const buses = await busSchema.find()
     res.status(200).json(buses)
-  } catch(error){
+  } catch (error) {
     res.status(500).json({ error: 'Failed to find Buses' });
   }
 };
 
 // get a single bus
-const getBus = async (req, res) => {
-  const { ID } = req.params
+const getBusName = async (req, res) => {
+  try {
 
-  console.log(`Received ID: ${ID}`);  // This will log the received bus name to the console
+    let busName = req.params.busName;
+    busName = busName.trim().toLowerCase();
 
-
-  const bus = await Buses.findOne({ name: ID });
-
-  if (!bus) {
-    return res.status(404).json({ error: 'No such Bus' });
+    console.log(`Received name: ${busName}`);  // This will log the received bus name to the console
+    const bus = await busSchema.findOne({ busName: busName });
+    res.status(200).json(bus);
+  } catch (err) {
+    return res.status(404).json({ err: 'No such Bus' });
   }
-  res.status(200).json(bus);
 }
 
 module.exports = {
-    getBuses,
-    getBus,
+  getBuses,
+  getBusName,
 }

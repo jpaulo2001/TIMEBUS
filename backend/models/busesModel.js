@@ -13,18 +13,22 @@ Buses:
 
 
 const busSchema = new Schema({
-                    number: {
-                                        type: String,
-                                        required: true,
-                    },
-                    gpslocation: {
-                                        type: String,
-                                        required: true,
-                    },
-                    capacity: {
-                                        type: Number,
-                                        required: true,
-                    }
+  busName: {
+    type: String,
+    required: true,
+  },
+  busRoute:{
+    type: String,
+    required: true
+  },
+  capacity: {
+    type: Number,
+    required: true,
+  },
+  isAvailable:{
+    type: Boolean,
+    required: true
+  }
 }, { timestamps: true })
-module.exports = mongoose.model('Bus', busSchema)
 
+module.exports = mongoose.model('Bus', busSchema)
