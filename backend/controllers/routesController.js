@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const getRoutes = async (req, res) => {
   try{
     const routes = await Routes.find()
-    res.status(200).json(Routes)
+    res.status(200).json(routes)
   } catch(error){
     res.status(500).json({ error: 'Failed to find Routes' });
   }

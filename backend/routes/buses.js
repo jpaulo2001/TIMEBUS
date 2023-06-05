@@ -10,7 +10,7 @@ const router = express.Router()
 router.get('/', getBuses)
 
 // GET a single workout
-router.get('/:name', getBuses)
+router.get('/:ID', getBus)
 
 // // POST a new workout
 // router.post('/', createWorkout)

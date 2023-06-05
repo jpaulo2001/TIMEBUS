@@ -1,18 +1,16 @@
 const express = require('express')
 const {
-  getStopByName,
+  
   getStops,
-  searchBuses,
-  searchStops,
-  updateStop,
-  deleteStop
+  getStopByName
+  
 } = require('../controllers/busStopController.js')
 
 const router = express.Router()
 
 router.get('/', getStops);
+router.get('/:stopName', getStopByName)
 
-// router.get('/buses/:id', searchBuses)
 // router.put('/:id', updateStop);
 // router.delete('/:id', deleteStop);
 

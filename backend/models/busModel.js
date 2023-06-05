@@ -15,6 +15,10 @@ const seatSchema = new Schema({
     ref: 'Passenger',
     default: null,
   },
+  name: {
+    type: String,
+    required: true,
+  },
 });
 
 const busSchema = new Schema({

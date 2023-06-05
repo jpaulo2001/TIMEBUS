@@ -18,7 +18,7 @@ Routes:
 const routesSchema = new Schema({
                     name: {
                                         type: String,
-                                        requires: true,
+                                        required: true,
                     },
                     startingPoint: {
                                         type: String,
@@ -39,9 +39,12 @@ const routesSchema = new Schema({
                                         type: Array,
                                         required: true
                     },
-
-
+                    ID: {
+                                        type: String,
+                                        required: true,
+                    },
+                    
 }, { timestamps: true })
-module.exports = mongoose.model('busRoutes', routesSchema)
+module.exports = mongoose.model('busroutes', routesSchema)
 
 
