@@ -1,27 +1,26 @@
-const routes = require('../models/routesModel')
+const Routes = require('../models/routesModel')
 const mongoose = require('mongoose')
 
 // get all routes
 const getRoutes = async (req, res) => {
-  const routes = await routes.find({}).sort({createdAt: -1})
-  res.status(200).json(routes)
-}
+  try{
+    const routes = await Routes.find()
+    res.status(200).json(routes)
+  } catch(error){
+    res.status(500).json({ error: 'Failed to find Routes' });
+  }
+};
 
 // get a single route
 const getRoute = async (req, res) => {
-  const { id } = req.params
+  const { ID } = req.params
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({error: 'No such route'})
+  const route = await Routes.findOne({ ID:ID });
+
+  if (!route) {
+    return res.status(404).json({ error: 'No such route' });
   }
-
-  const route = await routes.findById(id)
-
-  if (!routes) {
-    return res.status(404).json({error: 'No such route'})
-  }
-
-  res.status(200).json(routes)
+  res.status(200).json(route);
 }
 
 

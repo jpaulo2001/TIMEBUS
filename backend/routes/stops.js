@@ -1,12 +1,14 @@
 const express = require('express')
 const {
-  getStopByName,
+  
   getStops,
+  getStopByName
+  
 } = require('../controllers/busStopController.js')
 
 const router = express.Router()
 
-router.get('/:stopName', getStopByName);
 router.get('/', getStops);
+router.get('/:stopName', getStopByName)
 
 module.exports = router

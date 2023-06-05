@@ -1,9 +1,8 @@
 const BusStop = require('../models/busStopModel')
-
+const mongoose = require('mongoose')
 
 // get all routes
 const getStops = async (req, res) => {
-
   try {
     const stops = await BusStop.find();
     res.status(200).json(stops);
@@ -11,7 +10,6 @@ const getStops = async (req, res) => {
     res.status(500).json({ error: 'Failed to find stops' });
   }
 };
-
 
 const getStopByName = async (req, res) => {
   const { stopName } = req.params;
