@@ -11,6 +11,9 @@ export default function LocationForm() {
   const [masterDataB, setmasterDataB] = useState([]);
   const [searchB, setSearchB] = useState('');
 
+  const [activeInput, setActiveInput] = useState('');
+
+
   useEffect(()=>{
     fetchStops(setfilterDataA, setmasterDataA);
     fetchStops(setfilterDataB, setmasterDataB);
@@ -45,12 +48,22 @@ export default function LocationForm() {
     }
   }
 
+  const suggestionPress = (item) =>{
+    if (activeInput === 'A') {
+      setSearchA(item.stopName);
+    } else if (activeInput === 'B') {
+      setSearchB(item.stopName);
+    }
+    setfilterDataA([]);
+    setfilterDataB([]);
+  }
+
   const ItemView = ({item}) => {
     return(
       <View style={styles.itemStyle}>
-        <Text style={styles.suggestionBoxTypography}>
-          {item.stopName}{' => lat: '}{item.lat.toFixed(2)}{', lng: '}{item.lng.toFixed(2)}
-        </Text>
+        <TouchableOpacity onPress={()=>suggestionPress(item)}>
+          <Text style={styles.suggestionBoxTypography}>{item.stopName}{' => lat: '}{item.lat.toFixed(2)}{', lng: '}{item.lng.toFixed(2)}</Text>
+        </TouchableOpacity>
       </View> 
     )
   }
@@ -71,8 +84,9 @@ export default function LocationForm() {
               style={styles.textInput}
               value={searchA}
               onChangeText={(text) => searchFilter(text, setfilterDataA, masterDataA, setSearchA)}
+              onFocus={() => setActiveInput('A')}
             />
-            {searchA&&filterDataA.length>0 ? (
+            {searchA && filterDataA.length>0 && activeInput==='A' ? (
               <View style={styles.suggestionBox}>
                 <FlatList
                   data={filterDataA}
@@ -87,8 +101,9 @@ export default function LocationForm() {
               style={styles.textInput}
               value={searchB}
               onChangeText={(text) => searchFilter(text, setfilterDataB, masterDataB, setSearchB)}
+              onFocus={() => setActiveInput('B')}
             />
-            {searchB&&filterDataB.length>0 ? (
+            {searchB && filterDataB.length>0 && activeInput==='B' ? (
               <View style={styles.suggestionBox}>
                 <FlatList
                   data={filterDataB}
@@ -166,7 +181,7 @@ const styles = StyleSheet.create({
       position: 'absolute',
     },
     suggestionBoxTypography:{
-      fontSize:13,
+      fontSize:12,
     },
     itemStyle:{
       maxHeight:windowHeight*0.03,
