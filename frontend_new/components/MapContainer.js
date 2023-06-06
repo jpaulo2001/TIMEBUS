@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from 'react-native-maps';
 import { StyleSheet, View, TouchableOpacity, Image, Dimensions } from 'react-native';
 import axios from 'axios';
+import { REACT_APP_BACKEND_IP } from '@env'
+import {mapStyleTemplate} from '../public/mapStyle/mapstyle'
+
 
 const request = 'https://maps.googleapis.com/maps/api/directions/json?origin=37.7749,-122.4194&destination=37.7749,-122.5113&key={}'
 
@@ -28,7 +31,7 @@ export default function MapContainer() {
   //get every stop
   const fetchStops = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/stops/');
+      const response = await axios.get(`http://${REACT_APP_BACKEND_IP}:4000/api/stops/`);
       setStops(response.data);
     } catch (error) {
       console.error('Error fetching stops:', error);
@@ -44,6 +47,7 @@ export default function MapContainer() {
     <View style={styles.container}>
       <MapView
         style={mapStyle}
+        customMapStyle={mapStyleTemplate}
         provider={PROVIDER_GOOGLE}
         initialRegion={{
           latitude: coorPontaDelgada.latitude,
@@ -95,6 +99,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'black',
     borderRadius: '25px',
+    borderStyle: 'dashed'
   },
 
   enlargedMap: {
@@ -116,7 +121,7 @@ const styles = StyleSheet.create({
     zIndex: 3,
     backgroundColor:'lightblue',
     borderColor: 'black',
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 5,
   },
 
@@ -127,9 +132,9 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     zIndex: 3,
-    backgroundColor:'light-blue',
+    backgroundColor:'lightblue',
     borderColor: 'black',
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 5,
   }
 });

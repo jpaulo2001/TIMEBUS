@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, Dimensions } from 'react-native';
 
 export default function Logo() {
     return (
@@ -9,14 +9,17 @@ export default function Logo() {
     );
   }
 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
     Image: {
-        flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: 'transparent',
         alignItems: 'center',
         justifyContent: 'center',
-        width: '40%',
+        width: windowWidth*0.35,
         resizeMode: 'contain',
-        top: '-30%',
+        top: windowHeight*-0.3,
+        borderRadius: 25
     },
 });
