@@ -21,7 +21,7 @@ const WorkoutForm = () => {
 
     try {
       const encodedName = encodeURIComponent(name);
-      const response = await axios.get(`http://localhost:4000/api/stops/${encodedName}`);
+      const response = await axios.get(`http://localhost:4000/api/buses/${encodedName}`);
       const data = response.data;
 
       if (Array.isArray(data) && data.length > 0) {
