@@ -68,13 +68,7 @@ export default function LocationForm() {
     )
   }
 
-  const ItemSeparatorView = () => {
-    return(
-      <View
-        style={{height: 0.5, width: '100%', backgroundColor: 'black'}}
-      />
-    )
-  }
+  const ItemSeparatorView = () => {return(<View style={{height: 0.5, width: '100%', backgroundColor: 'black'}}/>)}
   
   return (
     <View style={styles.container}>
