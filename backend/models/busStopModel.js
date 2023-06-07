@@ -5,6 +5,7 @@ const busStopSchema = new Schema({
   stopName: {
     type: String,
     required: true,
+    unique: true,
   },
   lat: {
     type: Number,

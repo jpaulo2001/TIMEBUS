@@ -4,10 +4,12 @@ import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import MapContainer from './components/MapContainer';
 import WorkoutForm from './components/WorkoutForm';
+import AuthComponent from './components/AuthComponent';
 
 function App() {
   return (
       <div className="App">
+        {/* <AuthComponent /> */}
         <MapContainer />
         <div id="leftBar">
           <Navbar/>

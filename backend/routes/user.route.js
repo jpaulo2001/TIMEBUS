@@ -7,4 +7,5 @@ const router = express.Router();
 router.delete("/:id", verifyToken, deleteUser);
 router.get("/:id", getUser);
 
+
 module.exports = router;
