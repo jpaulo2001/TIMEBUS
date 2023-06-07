@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login Page</title>
+</head>
+<body>
+<h1>Login</h1>
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="login.html">Login</a></li>
+    </ul>
+</nav>
+<form action="http://127.0.0.1:8020/api/auth/login" method="POST" id="login-form">
+    <div>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required>
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+    <button type="submit" action="http://127.0.0.1:8020/api/auth/login" method="POST">Login</button>
+    <!-- <p>Forgot password? Click <a href="forgotpw.html"> here to change password</a></p> -->
+    <p>Not a user? Click <a href="register.html">here to register</a></p>
+</form>
+
+<script src="login.js"></script>
+
+</body>
+</html>

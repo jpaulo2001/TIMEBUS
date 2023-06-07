@@ -20,7 +20,7 @@ export default function LocationForm() {
   }, [])
   
   const fetchStops = (setFilterData,setMasterData) => {
-    const apiURL = `http://localhost:4000/api/stops/`;
+    const apiURL = `http://${REACT_APP_BACKEND_IP}:4000/api/stops/`;
     fetch(apiURL)
     .then((response)=>response.json())
     .then((responseJson) => {
