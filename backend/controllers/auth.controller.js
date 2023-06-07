@@ -15,7 +15,7 @@ const register = async (req, res, next) => {
       password: hash,
     });
 
-    newUser.save(); // Remove 'await' here
+    await newUser.save(); 
     res.status(201).send("User has been created.");
   } catch (err) {
     console.log(err);

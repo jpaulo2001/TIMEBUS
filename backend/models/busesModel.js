@@ -17,7 +17,7 @@ const busSchema = new Schema({
     type: String,
     required: true,
   },
-  busRoute:{
+  busRoute: {
     type: String,
     required: true
   },
@@ -25,10 +25,12 @@ const busSchema = new Schema({
     type: Number,
     required: true,
   },
-  isAvailable:{
+  isAvailable: {
     type: Boolean,
     required: true
   }
 }, { timestamps: true })
 
-module.exports = mongoose.model('Bus', busSchema)
+const Bus = mongoose.model('Bus', busSchema)
+
+module.exports = Bus

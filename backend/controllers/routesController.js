@@ -1,103 +1,79 @@
 const Routes = require('../models/routesModel')
 const mongoose = require('mongoose')
 
-// get all routes
 const getRoutes = async (req, res) => {
-  try{
+  try {
     const routes = await Routes.find()
     res.status(200).json(routes)
-  } catch(error){
+  } catch (error) {
     res.status(500).json({ error: 'Failed to find Routes' });
   }
 };
 
-// get a single route
-const getRoute = async (req, res) => {
-  const { ID } = req.params
+const getRouteNumber = async (req, res) => {
+  const { routeNumber } = req.params
 
-  const route = await Routes.findOne({ ID:ID });
+  const route = await Routes.findOne({ routeNumber: routeNumber });
 
   if (!route) {
     return res.status(404).json({ error: 'No such route' });
   }
   res.status(200).json(route);
-}
+};
 
-
-// fix para novo modulo
-/*
-// create a new routes
-const createRoutes = async (req, res) => {
-  const {title, load, reps} = req.body
-
-  let emptyFields = []
-
-  if (!title) {
-    emptyFields.push('title')
-  }
-  if (!load) {
-    emptyFields.push('load')
-  }
-  if (!reps) {
-    emptyFields.push('reps')
-  }
-  if (emptyFields.length > 0) {
-    return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
-  }
-
-  // add to the database
+const createRoute = async (req, res) => {
   try {
-    const routes = await routes.create({ title, load, reps })
-    res.status(200).json(routes)
+
+    console.log(req.body);
+    const { routeNumber, stops } = req.body;
+    const newRoute = await Routes.create({ routeNumber, stops });
+    res.status(201).json(newRoute);
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    res.status(500).json({ error: 'Failed to create a bus stop' });
   }
 }
-*/
 
+const updateRoute = async (req, res) => {
+  try {
+    const { _id } = req.params
+    const { routeNumber, stops } = req.body;
+    console.log(req.body);
 
-// delete a routes
-const deleteRoutes = async (req, res) => {
-  const { id } = req.params
+    const updatedRoute = await Routes.findByIdAndUpdate(
+      _id,
+      { routeNumber, stops },
+      { new: true }
+    );
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({error: 'No such routes'})
+    if (updatedRoute) {
+      res.status(200).json(updatedRoute);
+    } else {
+      res.status(404).json({ erro: 'Route not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update the route' })
   }
+};
 
-  const routes = await routes.findOneAndDelete({_id: id})
-
-  if(!routes) {
-    return res.status(400).json({error: 'No such routes'})
+const deleteRoute = async (req, res) => {
+  try {
+    const { _id } = req.params
+    const deletedRoute = await Routes.findByIdAndDelete(_id);
+    if (deletedRoute) {
+      res.status(200).json({ message: 'Route deleted successfully' })
+    } else {
+      res.status(404).json({ error: 'Route not found' });
+    }
+  }catch(error){
+    res.status(500).json({error:'Failed to delete route'});
   }
+};
 
-  res.status(200).json(routes)
-}
-
-
-
-// update a routes
-const updateRoutes = async (req, res) => {
-  const { id } = req.params
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({error: 'No such routes'})
-  }
-
-  const routes = await routes.findOneAndUpdate({_id: id}, {
-    ...req.body
-  })
-
-  if (!routes) {
-    return res.status(400).json({error: 'No such routes'})
-  }
-
-  res.status(200).json(routes)
-}
 
 module.exports = {
   getRoutes,
-  getRoute,
-  
-  deleteRoutes,
-  updateRoutes
+  getRouteNumber,
+  createRoute,
+  updateRoute,
+  deleteRoute
 }
