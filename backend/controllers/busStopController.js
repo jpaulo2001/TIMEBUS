@@ -2,7 +2,7 @@ const BusStop = require('../models/busStopModel')
 const createError = require('../utils/createError');
 
 
-// get all routes
+// get all stops
 const getStops = async (req, res) => {
   try {
     const stops = await BusStop.find();
@@ -12,6 +12,8 @@ const getStops = async (req, res) => {
   }
 };
 
+
+//get a single stop
 const getStopByName = async (req, res) => {
   const { stopName } = req.params;
 
@@ -24,6 +26,8 @@ const getStopByName = async (req, res) => {
   res.status(200).json(stop);
 };
 
+
+//create a stop
 const createStop = async (req, res) => {
   try {
     // if (!req.user.isAdmin) {
@@ -39,6 +43,8 @@ const createStop = async (req, res) => {
   }
 };
 
+
+//update a stop
 const updateStop = async (req, res) => {
   try {
     // if (!req.user.isAdmin) {
@@ -64,6 +70,8 @@ const updateStop = async (req, res) => {
   }
 };
 
+
+//delete a stop
 const deleteStop = async (req, res) => {
   try {
     // if (!req.user.isAdmin) {

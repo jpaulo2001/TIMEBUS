@@ -1,6 +1,8 @@
 const Routes = require('../models/routesModel')
 const mongoose = require('mongoose')
 
+
+//get all routes
 const getRoutes = async (req, res) => {
   try {
     const routes = await Routes.find()
@@ -10,6 +12,8 @@ const getRoutes = async (req, res) => {
   }
 };
 
+
+//get a single route
 const getRouteNumber = async (req, res) => {
   const { routeNumber } = req.params
 
@@ -21,6 +25,8 @@ const getRouteNumber = async (req, res) => {
   res.status(200).json(route);
 };
 
+
+// create a new Route
 const createRoute = async (req, res) => {
   try {
 
@@ -33,6 +39,8 @@ const createRoute = async (req, res) => {
   }
 }
 
+
+//upate route
 const updateRoute = async (req, res) => {
   try {
     const { _id } = req.params
@@ -55,6 +63,8 @@ const updateRoute = async (req, res) => {
   }
 };
 
+
+//delete route
 const deleteRoute = async (req, res) => {
   try {
     const { _id } = req.params
