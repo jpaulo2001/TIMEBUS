@@ -61,6 +61,8 @@ const styles = {
       border: '1px solid #ccc',
       fontSize: '100%',
       fontFamily: 'American Typewriter',
+      height: '0px',
+
     },
     formGroup: {
       display: 'flex',

@@ -8,9 +8,9 @@ function LoginComponent() {
       <div style={styles.formGroup}>
         <div style={styles.inputContainer}>
           <label for="email" style={styles.Typography}>Email:</label>
-          <input type="text" id="email" name="email" required/>
+          <input type="text" id="email" name="email" required style={styles.inputField}/>
           <label for="password" style={styles.Typography}>Password:</label>
-          <input type="password" id="password" name="password" required/>
+          <input type="password" id="password" name="password" required style={styles.inputField}/>
         </div>
       </div>
         <button type="submit" style={styles.LoginButton} action="http://localhost:8020/api/auth/login" method="POST">Login</button>
