@@ -13,7 +13,13 @@ const userSchema = new Schema({
   },
   isAdmin: {
     type: Boolean,
-    required: true
+    required: true,
+    default: false
+  },
+  isActive: {
+    type: Boolean,
+    required: false,
+    default: true
   }
 },{
   timestamps:true,
