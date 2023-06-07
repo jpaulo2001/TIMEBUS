@@ -20,7 +20,7 @@ const AuthComponent = () => {
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post('http://localhost:4000/api/auth/register', {
+      const response = await axios.post('http://192.168.1.36:4000/api/auth/register', {
         email,
         password
       });

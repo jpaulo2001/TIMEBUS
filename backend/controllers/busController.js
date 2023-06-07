@@ -75,6 +75,8 @@ const deleteBus = async (req, res) => {
 };
 
 
+
+//export functions
 module.exports = {
   getBuses,
   getBusName,
