@@ -1,4 +1,6 @@
 import React from "react";
+import {Link} from "react-router-dom"
+import RegisterComponent from "./RegisterComponent";
 
 function LoginComponent() {
   return (
@@ -14,7 +16,7 @@ function LoginComponent() {
         </div>
       </div>
         <button type="submit" style={styles.LoginButton} action="http://localhost:8020/api/auth/login" method="POST">Login</button>
-        <p>Not a user? Click <a href="register.html">here to register</a></p>
+        <p>Not a user? Click <Link to="/Register">here to register</Link></p>
       </form>
     </div>
     

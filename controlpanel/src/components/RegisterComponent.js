@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom'
 
 function RegisterComponent() {
   return (
@@ -15,6 +16,7 @@ function RegisterComponent() {
               <input type="password" id="confirm_password" name="confirm_password" required style={styles.inputField}/>
             </div>
               <button type="submit" action="/http://localhost:8020/api/auth/register" method="POST" style={styles.RegisterButton}>Register</button>
+              <p>Already a user? Click <Link to="/">here to login</Link></p>
           </ul>
       </form>
     </div>

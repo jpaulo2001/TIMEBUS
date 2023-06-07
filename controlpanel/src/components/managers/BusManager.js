@@ -1,25 +1,18 @@
 import React from "react";
 
-function StopForm() {
+function BusManager() {
   return (
-    <form id="busStopForm" action="your-api-url-here" method="POST" style={styles.formContainer}>
+    <form id="busForm" action="your-api-url-here" method="POST" style={styles.formContainer}>
       <div style={styles.inputContainer}>
-        <label htmlFor="stopName" style={styles.Typography}>Stop Name:</label>
-        <input type="text" id="stopName" name="stopName" required style={styles.inputField}/>
-
-        <label htmlFor="lat" style={styles.Typography}>Latitude:</label>
-        <input type="number" id="lat" name="lat" required style={styles.inputField}/>
-        
-        <label htmlFor="lng" style={styles.Typography}>Longitude:</label>
-        <input type="number" id="lng" name="lng" required style={styles.inputField}/>
+        <ul>
+            
+        </ul>
       </div>
-
-      <button type="submit" style={styles.addButton}>Add Stop</button>
     </form>
   );
 }
 
-export default StopForm
+export default BusManager
 
 const styles = {
   formContainer:{
