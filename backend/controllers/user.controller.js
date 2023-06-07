@@ -1,6 +1,10 @@
 const User = require("../models/user.model.js");
 const createError = ("../utils/createError.js");
 
+
+
+
+
 const deleteUser = async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
