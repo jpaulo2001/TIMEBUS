@@ -14,8 +14,10 @@ const busStopSchema = new Schema({
   lng: {
     type: Number,
     required: true,
-  },
-});
+  }}
+  ,{
+    timestamps:true
+  });
 
 const BusStop = mongoose.model('BusStop', busStopSchema);
 

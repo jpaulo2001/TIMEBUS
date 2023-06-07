@@ -1,5 +1,6 @@
 const Bus = require('../models/busesModel')
 
+
 // get all buses
 const getBuses = async (req, res) => {
   try {
@@ -21,6 +22,7 @@ const getBusName = async (req, res) => {
   }
 };
 
+//create a bus
 const createBus = async (req, res) => {
   try {
     const { busName, busRoute, capacity, isAvailable } = req.body;
@@ -33,6 +35,8 @@ const createBus = async (req, res) => {
   }
 };
 
+
+//update bus
 const updateBus = async (req, res) => {
   try {
     const { _id } = req.params;
@@ -54,6 +58,8 @@ const updateBus = async (req, res) => {
   }
 };
 
+
+//delete bus
 const deleteBus = async (req, res) => {
   try{
     const {_id} = req.params;
@@ -69,6 +75,8 @@ const deleteBus = async (req, res) => {
 };
 
 
+
+//export functions
 module.exports = {
   getBuses,
   getBusName,

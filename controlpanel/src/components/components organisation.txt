@@ -1,0 +1,14 @@
+- Dashboard
+  - Navbar
+  - BusManager
+    - BusList
+    - BusForm
+  - StopManager
+    - StopList
+    - StopForm
+  - ScheduleManager
+    - ScheduleList
+    - ScheduleForm
+  - RouteManager
+    - RouteList
+    - RouteForm

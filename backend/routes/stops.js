@@ -14,6 +14,7 @@ const router = express.Router()
 router.get('/', getStops);
 router.get('/:stopName', getStopByName);
 
+
 // Admin
 router.post('/', createStop);
 router.put('/:_id', updateStop);
