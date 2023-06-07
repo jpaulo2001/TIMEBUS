@@ -1,6 +1,6 @@
 import React from "react";
 import NavbarComponent from "./NavbarComponent";
-import BusForm from "./managers/BusForm";
+import BusForm from "./forms/BusForm";
 import { Route, Routes } from "react-router-dom";
 
 function DashboardComponent() {
