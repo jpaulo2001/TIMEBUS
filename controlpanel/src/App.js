@@ -8,12 +8,13 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/Dashboard/*" element={<DashboardComponent/>}/>
-        <Route path="/Register" element={<RegisterComponent/>}/>
-        <Route path="/Login" element={<LoginComponent/>}/>
+        <Route path="/Dashboard/*" element={<DashboardComponent />} />
+        <Route path="/Register" element={<RegisterComponent />} />
+        <Route path="/Login" element={<LoginComponent />} />
       </Routes>
     </div>
   );
 }
+
 
 export default App;
