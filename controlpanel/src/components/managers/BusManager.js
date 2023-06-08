@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import {Link} from 'react-router-dom'
 
 function BusManager() {
+
+  const [buses, setBuses] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:4000/api/buses')
+      .then((res) => res.json())
+      .then((data) => setBuses(data))
+      .catch((err) => console.log(err));
+    }, []);
+
   return (
-    <form id="busForm" action="your-api-url-here" method="POST" style={styles.formContainer}>
-      <div style={styles.inputContainer}>
-        <ul>
-            
+      <div style={styles.formContainer}>
+        <ul style={styles.elementsList}>
+            {buses.map((bus, index)=>(
+              <div>
+                <li style={styles.Typography}>Name: {bus.busName} , Route: {bus.busRoute} , Capacity: {bus.capacity}</li>
+                <hr style={styles.separatorItem}/>
+              </div>
+            ))}
         </ul>
+        <Link to="/Dashboard/BusForm" style={styles.addBusTypography}>Add Bus</Link>
       </div>
-    </form>
   );
 }
 
@@ -26,11 +41,17 @@ const styles = {
     borderStyle: 'dashed',
     borderRadius:'30px',
     backgroundColor: '#8ab8a8',
-    padding: '5%'
+    padding: '5%',
   },
   Typography:{
-    fontSize: '100%',
+    fontSize: '2rem',
     fontFamily: 'American Typewriter',
+  },
+  addBusTypography:{
+    backgroundColor: 'Green',
+    borderRadius: '25px',
+    marginTop: '10vh',
+    padding: '20px',
   },
   addButton:{
     height: '50px',
@@ -45,9 +66,7 @@ const styles = {
     fontFamily: 'American Typewriter',
   },
   inputContainer:{
-    display: 'grid',
-    gap: '10px',
-    gridTemplateColumns: '1fr 2fr',
+    height: '100vh',
   },
   inputField: {
     padding: '5px',
@@ -61,4 +80,16 @@ const styles = {
     flexDirection: 'column',
     marginBottom: '20px',
   },
+  elementsList: {
+    display: 'block',
+    listStyle: 'none',
+    background: 'grey',
+    borderRadius: '20px',
+    padding: '30px',
+    width: '70vw'
+  },
+  separatorItem: {
+    backgroundColor: 'Transparent',
+
+  }
 }

@@ -6,7 +6,7 @@ function RegisterComponent() {
     <div>
       <h1>Registration Form</h1>
       <form action="http://localhost:8020/api/auth/register" method="POST" id="registration-form" style={styles.RegistrationContainer}>
-          <ul>            
+          <ul>
             <div style={styles.inputContainer}>
               <label for="email" style={styles.Typography}>Email:</label>
               <input type="email" id="email" name="email" required style={styles.inputField}/>
@@ -15,7 +15,7 @@ function RegisterComponent() {
               <label for="confirm_password" style={styles.Typography}>Confirm Password:</label>
               <input type="password" id="confirm_password" name="confirm_password" required style={styles.inputField}/>
             </div>
-              <button type="submit" action="/http://localhost:8020/api/auth/register" method="POST" style={styles.RegisterButton}>Register</button>
+              <button type="submit" action="http://localhost:8020/api/auth/register" method="POST" style={styles.RegisterButton}>Register</button>
               <p>Already a user? Click <Link to="/">here to login</Link></p>
           </ul>
       </form>
