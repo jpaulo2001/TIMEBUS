@@ -29,6 +29,7 @@ const login = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
 
+    console.log(req.body);
     if (!user) {
       return next(createError(404, "User not found!"));
     }
@@ -40,7 +41,7 @@ const login = async (req, res, next) => {
     const token = jwt.sign(
       {
         id: user._id,
-        isSeller: user.isSeller,
+        isAdmin: user.isAdmin,
       },
       process.env.JWT_KEY
     );
