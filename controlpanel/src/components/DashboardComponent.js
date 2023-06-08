@@ -36,5 +36,6 @@ export default DashboardComponent
 const styles = {
   dashContainer:{
     backgroundColor: '#879676',
+    height: '100vh'
   }
 }
