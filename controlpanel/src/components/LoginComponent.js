@@ -1,74 +1,131 @@
 import React from "react";
-import {Link} from "react-router-dom"
-import RegisterComponent from "./RegisterComponent";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 function LoginComponent() {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
+
+    const formData = new FormData(event.target);
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    const loginData = {
+      email,
+      password,
+    };
+
+    try {
+      const response = await fetch("http://localhost:4000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginData),
+      });
+
+      if (response.ok) {
+        // Login successful
+        const user = await response.json();
+  
+        if (user.isAdmin) {
+          console.log("Admin login successful:", user);
+          navigate("/Home");
+        } else {
+          console.log("Non-admin user attempted to login");
+          // Handle the case where a non-admin user tries to log in
+        }
+      } else {
+        // Login failed
+        const errorData = await response.json();
+        console.log("Login failed:", errorData);
+        // Handle the error, such as displaying an error message to the user
+      } 
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    handleSubmit(event);
+  };
+
   return (
     <div>
       <h1>Login Form</h1>
-      <form action="http://127.0.0.1:8020/api/auth/login" method="POST" id="login-form" style={styles.LoginContainer}>
-      <div style={styles.formGroup}>
-        <div style={styles.inputContainer}>
-          <label for="email" style={styles.Typography}>Email:</label>
-          <input type="text" id="email" name="email" required style={styles.inputField}/>
-          <label for="password" style={styles.Typography}>Password:</label>
-          <input type="password" id="password" name="password" required style={styles.inputField}/>
+      <form onSubmit={handleFormSubmit} id="login-form" style={styles.LoginContainer}>
+        <div style={styles.formGroup}>
+          <div style={styles.inputContainer}>
+            <label htmlFor="email" style={styles.Typography}>
+              Email:
+            </label>
+            <input type="text" id="email" name="email" required style={styles.inputField} />
+            <label htmlFor="password" style={styles.Typography}>
+              Password:
+            </label>
+            <input type="password" id="password" name="password" required style={styles.inputField} />
+          </div>
         </div>
-      </div>
-        <button type="submit" style={styles.LoginButton} action="http://localhost:8020/api/auth/login" method="POST">Login</button>
-        <p>Not a user? Click <Link to="/Register">here to register</Link></p>
+        <button type="submit" style={styles.LoginButton}>
+          Login
+        </button>
+        <p>
+          Not a user? Click <Link to="/Register">here to register</Link>
+        </p>
       </form>
     </div>
-    
   );
 }
 
-export default LoginComponent
+export default LoginComponent;
 
 const styles = {
-  LoginContainer:{
-    margin: '25%',
-    justifyContent: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    borderColor: 'black',
-    borderWidth: '2px',
-    borderStyle: 'dashed',
-    borderRadius:'30px',
-    padding: '5%'
+  LoginContainer: {
+    margin: "25%",
+    justifyContent: "center",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    borderColor: "black",
+    borderWidth: "2px",
+    borderStyle: "dashed",
+    borderRadius: "30px",
+    padding: "5%",
   },
-  Typography:{
-    fontSize: '100%',
-    fontFamily: 'American Typewriter',
+  Typography: {
+    fontSize: "100%",
+    fontFamily: "American Typewriter",
   },
-  LoginButton:{
-    height: '50px',
-    width: '100px',
-    margin: '20px',
-    backgroundColor: '#4CAF50',
-    color: 'white',
-    borderRadius: '5px',
-    border: 'none',
-    cursor: 'pointer',
-    fontSize: '100%',
-    fontFamily: 'American Typewriter',
+  LoginButton: {
+    height: "50px",
+    width: "100px",
+    margin: "20px",
+    backgroundColor: "#4CAF50",
+    color: "white",
+    borderRadius: "5px",
+    border: "none",
+    cursor: "pointer",
+    fontSize: "100%",
+    fontFamily: "American Typewriter",
   },
-  inputContainer:{
-    display: 'grid',
-    gap: '10px',
-    gridTemplateColumns: '1fr 2fr',
+  inputContainer: {
+    display: "grid",
+    gap: "10px",
+    gridTemplateColumns: "1fr 2fr",
   },
   inputField: {
-    padding: '5px',
-    borderRadius: '5px',
-    border: '1px solid #ccc',
-    fontSize: '100%',
-    fontFamily: 'American Typewriter',
+    padding: "5px",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+    fontSize: "100%",
+    fontFamily: "American Typewriter",
   },
   formGroup: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginBottom: '20px',
+    display: "flex",
+    flexDirection: "column",
+    marginBottom: "20px",
   },
-}
+};

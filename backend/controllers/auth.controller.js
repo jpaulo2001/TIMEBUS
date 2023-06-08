@@ -27,26 +27,26 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const existingUser = await User.findOne({ email: req.body.email });
 
-    console.log(req.body);
-    if (!user) {
+    console.log(req.body.email);
+    if (!existingUser) {
       return next(createError(404, "User not found!"));
     }
 
-    const isCorrect = bcrypt.compareSync(req.body.password, user.password);
+    const isCorrect = bcrypt.compareSync(req.body.password, existingUser.password);
     if (!isCorrect)
       return next(createError(400, "Wrong password or username!"));
 
     const token = jwt.sign(
       {
-        id: user._id,
-        isAdmin: user.isAdmin,
+        id: existingUser._id,
+        isAdmin: existingUser.isAdmin,
       },
       process.env.JWT_KEY
     );
 
-    const { password, ...info } = user._doc;
+    const { password, ...info } = existingUser._doc;
     res
       .cookie("accessToken", token, {
         httpOnly: true,
