@@ -1,33 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom'
 
-function BusManager() {
+function StopManager() {
 
-  const [buses, setBuses] = useState([]);
+  const [stops, setStops] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/buses')
+    fetch('http://localhost:4000/api/stops')
       .then((res) => res.json())
-      .then((data) => setBuses(data))
+      .then((data) => setStops(data))
       .catch((err) => console.log(err));
     }, []);
 
   return (
       <div style={styles.formContainer}>
         <ul style={styles.elementsList}>
-            {buses.map((bus, index)=>(
+            {stops.map((stop, index)=>(
               <div>
-                <li style={styles.Typography}>Name: {bus.busName} , Route: {bus.busRoute} , Capacity: {bus.capacity}</li>
+                <li style={styles.Typography}>Name: {stop.stopName} , lat: {stop.lat} , lng: {stop.lng}</li>
                 <hr style={styles.separatorItem}/>
               </div>
             ))}
         </ul>
-        <Link to="/Dashboard/BusForm" style={styles.addBusTypography}>Add Bus</Link>
+        <Link to="/Dashboard/StopForm" style={styles.addTypography}>Add Stop</Link>
       </div>
   );
 }
 
-export default BusManager
+export default StopManager
 
 const styles = {
   formContainer:{
@@ -47,7 +47,7 @@ const styles = {
     fontSize: '2rem',
     fontFamily: 'American Typewriter',
   },
-  addBusTypography:{
+  addTypography:{
     backgroundColor: 'Green',
     borderRadius: '25px',
     marginTop: '10vh',

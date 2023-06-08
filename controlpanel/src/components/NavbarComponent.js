@@ -40,8 +40,9 @@ const styles = {
       fontFamily: 'American Typewriter',
       borderRadius: '15px',
       backgroundColor: '#c6cca5',
-      padding:'5px',
+      padding:'30px',
       display: 'inline-block',
-      lineHeight: '1em'
+      lineHeight: '1em',
+      fontSize: '1em',
       },
 }

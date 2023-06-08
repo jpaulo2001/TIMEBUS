@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {Link} from 'react-router-dom'
 
 function SchedulesForm() {
   const [departureTimes, setDepartureTimes] = useState([""]);
@@ -21,6 +22,7 @@ function SchedulesForm() {
 
   return (
     <form id="schedulesForm" action="your-api-url-here" method="POST" style={styles.formContainer}>
+      <Link to="/Dashboard/ScheduleManager" style={styles.goBack}>Go Back</Link>
       <div style={styles.inputContainer}>
         <label htmlFor="routeId" style={styles.Typography}>Route ID:</label>
         <input type="text" id="routeId" name="routeId" required style={styles.inputField}/>
@@ -99,5 +101,11 @@ const styles = {
       flexDirection: 'column',
       marginBottom: '20px',
     },
+    goBack: {
+      marginBottom: '30px',
+      backgroundColor: 'green',
+      padding: '15px',
+      borderRadius: '15px',
+    }
   }
   

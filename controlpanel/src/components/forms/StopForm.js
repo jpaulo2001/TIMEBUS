@@ -1,8 +1,10 @@
 import React from "react";
+import {Link} from "react-router-dom"
 
 function StopForm() {
   return (
     <form id="busStopForm" action="your-api-url-here" method="POST" style={styles.formContainer}>
+      <Link to="/Dashboard/StopManager" style={styles.goBack}>Go Back</Link>
       <div style={styles.inputContainer}>
         <label htmlFor="stopName" style={styles.Typography}>Stop Name:</label>
         <input type="text" id="stopName" name="stopName" required style={styles.inputField}/>
@@ -68,4 +70,10 @@ const styles = {
     flexDirection: 'column',
     marginBottom: '20px',
   },
+  goBack: {
+    marginBottom: '30px',
+    backgroundColor: 'green',
+    padding: '15px',
+    borderRadius: '15px',
+  }
 }

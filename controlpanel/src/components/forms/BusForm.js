@@ -1,8 +1,10 @@
 import React from "react";
+import {Link} from "react-router-dom"
 
 function BusForm() {
   return (
     <form id="busForm" action="your-api-url-here" method="POST" style={styles.formContainer}>
+      <Link to="/Dashboard/BusManager" style={styles.goBack}>Go Back</Link>
       <div style={styles.inputContainer}>
         <label for="busName" style={styles.Typography}>Bus Name:</label>
         <input type="text" id="busName" name="busName" required style={styles.inputField}/>
@@ -20,9 +22,8 @@ function BusForm() {
           <option value="false">No</option>
         </select>
       </div>
-
-      <button type="submit" style={styles.addButton}>Add Bus</button>
-    </form>
+    <button type="submit" style={styles.addButton}>Add Bus</button>
+  </form>
   );
 }
 
@@ -75,4 +76,10 @@ const styles = {
     flexDirection: 'column',
     marginBottom: '20px',
   },
+  goBack: {
+    marginBottom: '30px',
+    backgroundColor: 'green',
+    padding: '15px',
+    borderRadius: '15px',
+  }
 }

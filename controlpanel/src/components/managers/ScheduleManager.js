@@ -1,33 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom'
 
-function BusManager() {
+function ScheduleManager() {
 
-  const [buses, setBuses] = useState([]);
+  const [schedules, setSchedules] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/buses')
+    fetch('http://localhost:4000/api/schedules/')
       .then((res) => res.json())
-      .then((data) => setBuses(data))
+      .then((data) => setSchedules(data))
       .catch((err) => console.log(err));
     }, []);
 
   return (
       <div style={styles.formContainer}>
         <ul style={styles.elementsList}>
-            {buses.map((bus, index)=>(
+            {schedules.map((schedule, index)=>(
               <div>
-                <li style={styles.Typography}>Name: {bus.busName} , Route: {bus.busRoute} , Capacity: {bus.capacity}</li>
+                <li style={styles.Typography}>Name: {schedule.stopName} , lat: {schedule.lat} , lng: {schedule.lng}</li>
                 <hr style={styles.separatorItem}/>
               </div>
             ))}
         </ul>
-        <Link to="/Dashboard/BusForm" style={styles.addBusTypography}>Add Bus</Link>
+        <Link to="/Dashboard/ScheduleForm" style={styles.addTypography}>Add Schedule</Link>
       </div>
   );
 }
 
-export default BusManager
+export default ScheduleManager
 
 const styles = {
   formContainer:{
@@ -47,7 +47,7 @@ const styles = {
     fontSize: '2rem',
     fontFamily: 'American Typewriter',
   },
-  addBusTypography:{
+  addTypography:{
     backgroundColor: 'Green',
     borderRadius: '25px',
     marginTop: '10vh',

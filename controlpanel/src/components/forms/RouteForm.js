@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import {Link} from "react-router-dom"
 
 function RoutesForm() {
   return (
     <form id="routesForm" action="your-api-url-here" method="POST" style={styles.formContainer}>
+      <Link to="/Dashboard/RouteManager" style={styles.goBack}>Go Back</Link>
       <div style={styles.inputContainer}>
         <label htmlFor="routeNumber" style={styles.Typography}>Route Number:</label>
         <input type="text" id="routeNumber" name="routeNumber" required style={styles.inputField}/>
@@ -64,4 +66,10 @@ const styles = {
       flexDirection: 'column',
       marginBottom: '20px',
     },
+    goBack: {
+      marginBottom: '30px',
+      backgroundColor: 'green',
+      padding: '15px',
+      borderRadius: '15px',
+    }
   }
