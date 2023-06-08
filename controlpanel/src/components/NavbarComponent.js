@@ -4,12 +4,12 @@ import {Link} from "react-router-dom"
 function navbarComponent() {
   return (
     <div style={styles.navBarContainer}>
-      <a href="/Home" style={styles.Typography}>Home</a>
+      <a href="/Dashboard/" style={styles.Typography}>Home</a>
       <ul style={styles.list}>
-        <li><Link to="/BusManager" style={styles.Typography}>Bus Manager</Link></li>
-        <li><Link to="/StopManager" style={styles.Typography}>Stop Manager</Link></li>
-        <li><Link to="/ScheduleManager" style={styles.Typography}>Schedule Manager</Link></li>
-        <li><Link to="/RouteManager" style={styles.Typography}>Route Manager</Link></li>
+        <li><Link to="/Dashboard/BusManager" style={styles.Typography}>Bus Manager</Link></li>
+        <li><Link to="/Dashboard/StopManager" style={styles.Typography}>Stop Manager</Link></li>
+        <li><Link to="/Dashboard/ScheduleManager" style={styles.Typography}>Schedule Manager</Link></li>
+        <li><Link to="/Dashboard/RouteManager" style={styles.Typography}>Route Manager</Link></li>
       </ul>
     </div>
   );

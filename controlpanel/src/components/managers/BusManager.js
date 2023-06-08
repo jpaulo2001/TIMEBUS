@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 
 function BusManager() {
+
+  const [buses, setBuses] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:4000/api/buses')
+      .then((res) => res.json())
+      .then((data) => setBuses(data))
+      .catch((err) => console.log(err));
+    }, []);
+
+  console.log(buses)
   return (
     <form id="busForm" action="your-api-url-here" method="POST" style={styles.formContainer}>
       <div style={styles.inputContainer}>
