@@ -27,7 +27,6 @@ function LoginComponent() {
       });
 
       if (response.ok) {
-        // Login successful
         const user = await response.json();
   
         if (user.isAdmin) {
@@ -35,14 +34,11 @@ function LoginComponent() {
           navigate("/Home");
         } else {
           console.log("Non-admin user attempted to login");
-          // Handle the case where a non-admin user tries to log in
         }
       } else {
-        // Login failed
         const errorData = await response.json();
         console.log("Login failed:", errorData);
-        // Handle the error, such as displaying an error message to the user
-      } 
+      }
     } catch (error) {
       console.log("Error:", error);
     }
