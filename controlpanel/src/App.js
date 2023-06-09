@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Router, Routes, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 import DashboardComponent from './components/DashboardComponent';
 import RegisterComponent from './components/RegisterComponent';
@@ -9,12 +9,12 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route exact path='/*' element={<PrivateRoute />}>
+        {/* <Route exact path='/*' element={<PrivateRoute />}>
           <Route exact path='/*' element={<DashboardComponent />} />
-        </Route>
-
-        <Route path="/Register" element={<RegisterComponent />} />
-        <Route path="/Login" element={<LoginComponent />} />
+        </Route> */}
+        <Route path="/" element={<PrivateRoute component={DashboardComponent} />} />
+        <Route path="/register" element={<RegisterComponent />} />
+        <Route path="/login" element={<LoginComponent />} />
       </Routes>
     </div>
   );
