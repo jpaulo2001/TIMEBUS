@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function LoginComponent() {
   const navigate = useNavigate();
-
+  
   const handleSubmit = async (event) => {
 
     const formData = new FormData(event.target);
@@ -31,7 +31,7 @@ function LoginComponent() {
   
         if (user.isAdmin) {
           console.log("Admin login successful:", user);
-          navigate("/Home");
+          navigate("/");
         } else {
           console.log("Non-admin user attempted to login");
         }
