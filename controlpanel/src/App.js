@@ -24,4 +24,9 @@ function App() {
   );
 }
 
+function RequireAuth({ redirectTo }) {
+  let isAuthenticated = localStorage.getItem('accessToken');
+  return isAuthenticated ? <Outlet /> : <Navigate to={redirectTo} />;
+}
+
 export default App;
