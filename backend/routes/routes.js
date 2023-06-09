@@ -8,13 +8,14 @@ const {
 } = require('../controllers/routesController')
 
 const router = express.Router()
+const authenticate = require('../middleware/authenticate')
 
-router.get('/', getRoutes)
-router.get('/:routeNumber', getRouteNumber)
+router.get('/', authenticate,getRoutes)
+router.get('/:routeNumber', authenticate,getRouteNumber)
 
 //Admin
-router.post('/', createRoute)
-router.put('/:_id', updateRoute);
-router.delete('/:_id', deleteRoute);
+router.post('/', authenticate,createRoute)
+router.put('/:_id', authenticate,updateRoute);
+router.delete('/:_id', authenticate,deleteRoute);
 
 module.exports = router

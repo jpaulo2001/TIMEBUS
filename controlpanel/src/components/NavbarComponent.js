@@ -1,10 +1,18 @@
 import React from "react";
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 
-function navbarComponent() {
+function NavbarComponent() {
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem('jwt');
+    navigate('/Login')
+  }
+
   return (
     <div style={styles.navBarContainer}>
-      <a href="/Dashboard/" style={styles.Typography}>Home</a>
+      <Link to="/Dashboard/" style={styles.Typography}>Home</Link>
+      <button onClick={logout} style={styles.Typography}>logout</button>
       <ul style={styles.list}>
         <li><Link to="/Dashboard/BusManager" style={styles.Typography}>Bus Manager</Link></li>
         <li><Link to="/Dashboard/StopManager" style={styles.Typography}>Stop Manager</Link></li>
@@ -15,7 +23,7 @@ function navbarComponent() {
   );
 }
 
-export default navbarComponent
+export default NavbarComponent
 
 const styles = {
     navBarContainer:{

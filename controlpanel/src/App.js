@@ -1,45 +1,25 @@
 import React from 'react';
-import { Route, Routes, Outlet, Navigate } from 'react-router-dom';
-import PrivateRoute from './components/PrivateRoute';
+import { Navigate, Route, Routes} from 'react-router-dom';
 import DashboardComponent from './components/DashboardComponent';
 import RegisterComponent from './components/RegisterComponent';
 import LoginComponent from './components/LoginComponent';
+import ProtectedRoutes from './components/ProtectedRoutes';
+import PublicRoute from './components/PublicRoute';
 
 function App() {
   return (
     <div className="App">
-      {/* <Routes>
-        <Route path="/" element={<PrivateRoute component={DashboardComponent} />} />
-        <Route path="/register" element={<RegisterComponent />} />
-        <Route path="/login" element={<LoginComponent />} />
-      </Routes> */}
+      <Routes>
+        <Route path="/" element={<Navigate to="/Login" replace />} />
 
-      {/* <Switch>
-      <Route path="/register">
-        <RegisterComponent />
-      </Route>
-      <Route path="/login">
-        <LoginComponent />
-      </Route>
-      <Route
-        path="/"
-        render={() => (
-          <PrivateRoute redirectTo="/login">
-            <DashboardComponent />
-          </PrivateRoute>
-        )}
-      />
-    </Switch> */}
-
-    <Routes>
-      <Route path="/register" element={<RegisterComponent />} />
-      <Route path="/login" element={<LoginComponent />} />
-
-      <Route path="/" element={<RequireAuth redirectTo="/login" />}>
-        <Route index element={<DashboardComponent />} />
-      </Route>
-    </Routes>
-
+        <Route element={<ProtectedRoutes/>}>
+          <Route path="/Dashboard" element={<DashboardComponent/>} />
+        </Route>
+        <Route element={<PublicRoute/>}>
+          <Route path="/Register" element={<RegisterComponent />} />
+          <Route path="/Login" element={<LoginComponent />} />
+        </Route>
+      </Routes>
     </div>
   );
 }

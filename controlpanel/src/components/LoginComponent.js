@@ -4,37 +4,33 @@ import { useNavigate } from "react-router-dom";
 
 
 function LoginComponent() {
-  const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
+  const navigate = useNavigate();
+  
+  const login = async (event) => {
+    event.preventDefault();
 
     const formData = new FormData(event.target);
-    const email = formData.get("email");
+    const username = formData.get("email");
     const password = formData.get("password");
-
+  
     const loginData = {
-      email,
+      username,
       password,
     };
 
     try {
       const response = await fetch("http://localhost:4000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginData),
-      });
+        method:   "POST",
+        headers:  {"Content-Type": "application/json",},
+        body: JSON.stringify(loginData),});
 
       if (response.ok) {
         const user = await response.json();
-
-        if (user.isAdmin) {
-          console.log("Admin login successful:", user);
-          navigate("/");
-        } else {
-          console.log("Non-admin user attempted to login");
-        }
+        console.log("Login successful:", user);
+        localStorage.setItem('jwt',user.token)
+        console.log(user.token)
+        navigate("/Dashboard"); 
       } else {
         const errorData = await response.json();
         console.log("Login failed:", errorData);
@@ -44,15 +40,10 @@ function LoginComponent() {
     }
   };
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    handleSubmit(event);
-  };
-
   return (
     <div>
       <h1>Login Form</h1>
-      <form onSubmit={handleFormSubmit} id="login-form" style={styles.LoginContainer}>
+      <form onSubmit={login} id="login-form" style={styles.LoginContainer}>
         <div style={styles.formGroup}>
           <div style={styles.inputContainer}>
             <label htmlFor="email" style={styles.Typography}>
