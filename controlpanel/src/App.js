@@ -13,7 +13,7 @@ function App() {
         <Route path="/" element={<Navigate to="/Login" replace />} />
 
         <Route element={<ProtectedRoutes/>}>
-          <Route path="/Dashboard" element={<DashboardComponent/>} />
+          <Route path="/Dashboard/*" element={<DashboardComponent/>} />
         </Route>
         <Route element={<PublicRoute/>}>
           <Route path="/Register" element={<RegisterComponent />} />
@@ -24,9 +24,9 @@ function App() {
   );
 }
 
-function RequireAuth({ redirectTo }) {
-  let isAuthenticated = localStorage.getItem('accessToken');
-  return isAuthenticated ? <Outlet /> : <Navigate to={redirectTo} />;
-}
+// function RequireAuth({ redirectTo }) {
+//   let isAuthenticated = localStorage.getItem('accessToken');
+//   return isAuthenticated ? <Outlet /> : <Navigate to={redirectTo} />;
+// }
 
 export default App;
