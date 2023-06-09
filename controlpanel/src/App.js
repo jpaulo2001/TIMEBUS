@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/Dashboard/*" element={<DashboardComponent/>}/>
         <Route path="/Register" element={<RegisterComponent/>}/>
-        <Route path="/Login" element={<LoginComponent/>}/>
+        <Route path="/" element={<LoginComponent/>}/>
       </Routes>
     </div>
   );
