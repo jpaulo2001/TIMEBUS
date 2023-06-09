@@ -8,7 +8,7 @@ import StopForm from "./forms/StopForm";
 import StopManager from "./managers/StopManager";
 import RouteManager from "./managers/RouteManager"
 import RouteForm from "./forms/RouteForm";
-import { Route, useRoutes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 
 function DashboardComponent() {
   let element = useRoutes([

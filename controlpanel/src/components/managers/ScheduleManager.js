@@ -6,7 +6,14 @@ function ScheduleManager() {
   const [schedules, setSchedules] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/schedules/')
+    const token = localStorage.getItem('jwt');
+    fetch('http://localhost:4000/api/schedules/',{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
       .then((res) => res.json())
       .then((data) => setSchedules(data))
       .catch((err) => console.log(err));
@@ -16,7 +23,7 @@ function ScheduleManager() {
       <div style={styles.formContainer}>
         <ul style={styles.elementsList}>
             {schedules.map((schedule, index)=>(
-              <div>
+              <div key={index}>
                 <li style={styles.Typography}>Name: {schedule.stopName} , lat: {schedule.lat} , lng: {schedule.lng}</li>
                 <hr style={styles.separatorItem}/>
               </div>

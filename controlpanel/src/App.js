@@ -13,7 +13,7 @@ function App() {
         <Route path="/" element={<Navigate to="/Login" replace />} />
 
         <Route element={<ProtectedRoutes/>}>
-          <Route path="/Dashboard" element={<DashboardComponent/>} />
+          <Route path="/Dashboard/*" element={<DashboardComponent/>} />
         </Route>
         <Route element={<PublicRoute/>}>
           <Route path="/Register" element={<RegisterComponent />} />
