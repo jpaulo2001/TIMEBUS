@@ -12,13 +12,13 @@ function NavbarComponent() {
   return (
     <div style={styles.navBarContainer}>
       <Link to="/Dashboard/" style={styles.Typography}>Home</Link>
-      <button onClick={logout} style={styles.Typography}>logout</button>
       <ul style={styles.list}>
         <li><Link to="/Dashboard/BusManager" style={styles.Typography}>Bus Manager</Link></li>
         <li><Link to="/Dashboard/StopManager" style={styles.Typography}>Stop Manager</Link></li>
         <li><Link to="/Dashboard/ScheduleManager" style={styles.Typography}>Schedule Manager</Link></li>
         <li><Link to="/Dashboard/RouteManager" style={styles.Typography}>Route Manager</Link></li>
       </ul>
+      <button onClick={logout} style={styles.Typography}>logout</button>
     </div>
   );
 }

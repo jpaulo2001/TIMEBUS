@@ -6,7 +6,14 @@ function BusManager() {
   const [routes, setRoutes] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/Routes')
+    const token = localStorage.getItem('jwt');
+    fetch('http://localhost:4000/api/Routes',{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
       .then((res) => res.json())
       .then((data) => setRoutes(data))
       .catch((err) => console.log(err));
@@ -16,7 +23,7 @@ function BusManager() {
       <div style={styles.formContainer}>
         <ul style={styles.elementsList}>
             {routes.map((route, index)=>(
-              <div>
+              <div key={index}>
                 <li style={styles.Typography}>Route number: {route.routeNumber} , stops: {route.stops}</li>
                 <hr style={styles.separatorItem}/>
               </div>
