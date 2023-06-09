@@ -6,21 +6,26 @@ function RegisterComponent() {
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
+    event.preventDefault();
 
     const formData = new FormData(event.target);
+    const name = formData.get("username")
     const email = formData.get("email");
+    const phone = formData.get("mobile");
     const password = formData.get("password");
     const confirm_password = formData.get("confirm_password");
 
     const loginData = {
-      email,
+      name,
       password,
-      confirm_password,
+      email,
+      phone,
     };
 
-    console.log(formData);
+    try { 
 
-    try {
+      if(password!==confirm_password){throw Error("Confirm password doesn't match the password")}
+
       const response = await fetch("http://localhost:4000/api/auth/register", {
         method: "POST",
         headers: {
@@ -32,44 +37,37 @@ function RegisterComponent() {
       const responseData = await response.json();
 
       if (response.ok) {
-        console.log(responseData)
-        const user = await response.json;
-
-        if (user.isAdmin) {
-          console.log("Register successful:", user);
-          navigate("/Login");
-        } else {
-          console.log("Non-admin user attempted to Register");
-        }
+        const user = responseData;
+        console.log("Register successful:", user);
+        navigate("/Login");
       } else {
         console.log("Register failed:", responseData);
       }
-    } catch (error) {
-      console.log("Error:", error);
-    }
+    } catch (error) {console.log("Error:", error);}
   }
-
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    handleSubmit(event);
-  };
 
   return (
     <div>
       <h1>Registration Form</h1>
-      <form onSubmit={handleFormSubmit} id="registration-form" style={styles.RegistrationContainer}>
-        <ul>
+      <form onSubmit={handleSubmit} id="registration-form" style={styles.RegistrationContainer}>
           <div style={styles.inputContainer}>
+            <label htmlFor="username" style={styles.Typography}>Username:</label>
+            <input type="text" id="username" name="username" required style={styles.inputField} />
+
             <label htmlFor="email" style={styles.Typography}>Email:</label>
             <input type="email" id="email" name="email" required style={styles.inputField} />
+
+            <label htmlFor="mobile" style={styles.Typography}>Mobile Phone:</label>
+            <input type="tel" id="mobile" name="mobile" required style={styles.inputField} />
+
             <label htmlFor="password" style={styles.Typography}>Password:</label>
             <input type="password" id="password" name="password" required style={styles.inputField} />
+
             <label htmlFor="confirm_password" style={styles.Typography}>Confirm Password:</label>
             <input type="password" id="confirm_password" name="confirm_password" required style={styles.inputField} />
           </div>
           <button type="submit" style={styles.RegisterButton}>Register</button>
           <p>Already a user? Click <Link to="/Login">here to login</Link></p>
-        </ul>
       </form>
     </div>
   );

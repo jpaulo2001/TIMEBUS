@@ -7,18 +7,17 @@ const {
   deleteStop
 } = require('../controllers/busStopController.js')
 
-const { verifyToken } = require('../middleware/jwt');
-
 const router = express.Router()
+const authenticate = require('../middleware/authenticate')
 
-router.get('/', getStops);
-router.get('/:stopName', getStopByName);
+router.get('/', authenticate,getStops);
+router.get('/:stopName', authenticate,getStopByName);
 
 
 // Admin
-router.post('/', createStop);
-router.put('/:_id', updateStop);
-router.delete('/:_id', deleteStop);
+router.post('/', authenticate,createStop);
+router.put('/:_id', authenticate,updateStop);
+router.delete('/:_id', authenticate,deleteStop);
 
 
 module.exports = router

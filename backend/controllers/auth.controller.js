@@ -8,55 +8,51 @@ dotenv.config();
 
 
 const register = async (req, res, next) => {
-  try {
-    const hash = bcrypt.hashSync(req.body.password, 5);
-    const newUser = new User({
-      ...req.body,
-      password: hash,
-    });
-
-    await newUser.save(); 
-    res.status(201).send("User has been created.");
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
+  bcrypt.hash(req.body.password, 10, function(err, hashedPass){
+    if(err){
+      res.json({
+        error: err
+      })
+    }
+    let user = new User({
+      name: req.body.name,
+      password: hashedPass,
+      email: req.body.email,
+      phone: req.body.phone,
+    })
+    user.save().then(user=>{
+      res.json({
+        message: 'User added successfully!'
+      })
+    })
+    .catch(error => {
+      res.json({
+        message: 'An error occured!',
+      })
+    })
+  })
 };
 
-
-
 const login = async (req, res, next) => {
-  try {
-    const existingUser = await User.findOne({ email: req.body.email });
+  let username = req.body.username;
+  let password = req.body.password;
 
-    console.log(req.body.email);
-    if (!existingUser) {
-      return next(createError(404, "User not found!"));
-    }
-
-    const isCorrect = bcrypt.compareSync(req.body.password, existingUser.password);
-    if (!isCorrect)
-      return next(createError(400, "Wrong password or username!"));
-
-    const token = jwt.sign(
-      {
-        id: existingUser._id,
-        isAdmin: existingUser.isAdmin,
-      },
-      process.env.JWT_KEY
-    );
-
-    const { password, ...info } = existingUser._doc;
-    res
-      .cookie("accessToken", token, {
-        httpOnly: true,
+  User.findOne({$or: [{email:username},{name:username}]}).then(user => {
+    console.log(user)
+    if(user){
+      bcrypt.compare(password, user.password, function(err, result){
+        if(err) {res.json({error: err})}
+        if(result){
+          let token = jwt.sign({name: user.name}, 'private key :) I hope no one knows me', {expiresIn: '1h'})
+          res.json({
+            message: 'Login Successful!',
+            token: token,
+          })
+        }
+        else{res.json({message: 'Password not matched!'})}
       })
-      .status(200)
-      .send(info);
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
+    }else{res.json({message: 'No user found!'})}
+  })
 };
 
 const logout = async (req, res) => {
@@ -72,5 +68,5 @@ const logout = async (req, res) => {
 module.exports = {
   register,
   login,
-  logout
+  logout,
 }

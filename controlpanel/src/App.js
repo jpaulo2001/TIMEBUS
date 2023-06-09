@@ -1,20 +1,24 @@
 import React from 'react';
-import { Route, Router, Routes, Switch } from 'react-router-dom';
-import PrivateRoute from './components/PrivateRoute';
+import { Navigate, Route, Routes} from 'react-router-dom';
 import DashboardComponent from './components/DashboardComponent';
 import RegisterComponent from './components/RegisterComponent';
 import LoginComponent from './components/LoginComponent';
+import ProtectedRoutes from './components/ProtectedRoutes';
+import PublicRoute from './components/PublicRoute';
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route exact path='/*' element={<PrivateRoute />}>
-          <Route exact path='/*' element={<DashboardComponent />} />
-        </Route>
+        <Route path="/" element={<Navigate to="/Login" replace />} />
 
-        <Route path="/Register" element={<RegisterComponent />} />
-        <Route path="/Login" element={<LoginComponent />} />
+        <Route element={<ProtectedRoutes/>}>
+          <Route path="/Dashboard" element={<DashboardComponent/>} />
+        </Route>
+        <Route element={<PublicRoute/>}>
+          <Route path="/Register" element={<RegisterComponent />} />
+          <Route path="/Login" element={<LoginComponent />} />
+        </Route>
       </Routes>
     </div>
   );
