@@ -13,7 +13,6 @@ const verifyToken = (req, res, next) => {
       id: payload.id,
       isAdmin: payload.admin,
     };
-
     next();
   });
 };
