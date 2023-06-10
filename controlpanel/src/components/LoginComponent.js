@@ -29,8 +29,7 @@ function LoginComponent() {
         const user = await response.json();
         console.log("Login successful:", user);
         localStorage.setItem('jwt',user.token)
-        console.log(user.token)
-        navigate("/Dashboard"); 
+        navigate("/Dashboard");
       } else {
         const errorData = await response.json();
         console.log("Login failed:", errorData);

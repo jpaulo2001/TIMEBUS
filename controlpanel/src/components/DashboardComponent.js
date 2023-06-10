@@ -12,14 +12,6 @@ import RouteForm from "./forms/RouteForm";
 
 
 function DashboardComponent() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!localStorage.getItem("accessToken")) {
-      navigate("/login", { replace: true });
-    }
-  }, [navigate]);
-
   return (
     <div style={styles.dashContainer}>
       <NavbarComponent />
