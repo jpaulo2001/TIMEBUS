@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom'
 
 function BusManager() {
-
   const [buses, setBuses] = useState([]);
 
   useEffect(() => {
@@ -18,19 +17,33 @@ function BusManager() {
       .then((res) => res.json())
       .then((data) => setBuses(data))
       .catch((err) => console.log(err));
-    }, []);
+  }, []);
 
+  const removeSelection = (selection) => {
+    selection.forEach((element) => {
+      element.remove();
+    });
+  }
+
+  let selection = [];
+  const handleOnChange = (event) => {
+    if(event.target.checked) selection.push(event.target.parentNode)
+  }
+    
   return (
       <div style={styles.formContainer}>
+        <div style={styles.buttonContainerStyle}>
+          <Link to="/Dashboard/BusForm" style={styles.buttonStyle}>Add Bus</Link>
+          <input type='button' value="Remove" style={styles.buttonStyle} onClick={() => removeSelection(selection)}/>
+        </div>
         <ul style={styles.elementsList}>
             {buses.map((bus, index)=>(
               <div key={index}>
-                <li style={styles.Typography}>Name: {bus.busName} , Route: {bus.busRoute} , Capacity: {bus.capacity}</li>
+                <li style={styles.Typography}><input type="checkbox" onChange={handleOnChange}></input>Name: {bus.busName} , Route: {bus.busRoute} , Capacity: {bus.capacity}</li>
                 <hr style={styles.separatorItem}/>
               </div>
             ))}
         </ul>
-        <Link to="/Dashboard/BusForm" style={styles.addBusTypography}>Add Bus</Link>
       </div>
   );
 }
@@ -39,7 +52,7 @@ export default BusManager
 
 const styles = {
   formContainer:{
-    margin: '5%',
+    margin: '2%',
     justifyContent: 'center',
     display: 'flex',
     flexDirection: 'column',
@@ -55,11 +68,12 @@ const styles = {
     fontSize: '2rem',
     fontFamily: 'American Typewriter',
   },
-  addBusTypography:{
+  buttonStyle:{
     backgroundColor: 'Green',
     borderRadius: '25px',
     marginTop: '10vh',
     padding: '20px',
+    margin: '1vw'
   },
   addButton:{
     height: '50px',
@@ -98,6 +112,9 @@ const styles = {
   },
   separatorItem: {
     backgroundColor: 'Transparent',
-
-  }
+  },
+  buttonContainerStyle:{
+    display: 'flex',
+    marginLeft: '70%',
+    }
 }
