@@ -7,7 +7,7 @@ const isAuth = ()=>{
 }
 
 const PublicRoute = () => {
-    return isAuth() ? <Navigate to="/Login" /> : <Outlet />
+  return isAuth() ? <Navigate to="/Dashboard" /> : <Outlet />
 }
 
-export default PublicRoute;
+export default PublicRoute
