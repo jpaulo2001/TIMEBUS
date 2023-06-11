@@ -1,16 +1,17 @@
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import MapContainer from './components/MapContainer';
-import LocationForm from './components/LocationForm';
-import Logo from './components/Logo';
-import HomeScreen from './components/HomeScreen';
 import Login from './components/Login';
+import HomeScreen from './components/HomeScreen'
+import LoginScreen from './components/Login';
 
 
 export default function App() {
+  const [stops, setStops] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <View style={styles.container}>
-      <Login/>
+      {isLoggedIn ? (<HomeScreen/>) : (<LoginScreen/>)}
     </View>
   );
 }
