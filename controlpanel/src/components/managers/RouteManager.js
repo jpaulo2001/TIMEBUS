@@ -56,7 +56,7 @@ function RouteManager() {
        <ul style={styles.elementsList}>
             {routes.map((route, index)=>(
               <div key={index}>
-                <li style={styles.Typography}><input type="checkbox" onChange={handleOnChange}/>Route number: {route.routeNumber} , stops: {route.stops.join(', ')}</li>
+                <li style={styles.Typography}><input type="checkbox" onChange={handleOnChange}/>Route number: {route.routeNumber} , stops: {route.stops}</li>
                 <hr style={styles.separatorItem}/>
               </div>
             ))}

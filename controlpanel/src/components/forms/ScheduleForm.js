@@ -1,30 +1,8 @@
-import React, { useState, useRef } from "react";
-import {Link, useNavigate} from 'react-router-dom'
+import React, { useState } from "react";
+import {Link} from 'react-router-dom'
 
 function SchedulesForm() {
-  const navigate = useNavigate();
   const [departureTimes, setDepartureTimes] = useState([""]);
-
-  const StopNameRef = useRef();
-  const BusNameRef = useRef();
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    let schedule = {
-      busName        : BusNameRef.current.value,
-      stopName       : StopNameRef.current.value,
-      departureTimes : departureTimes,
-    };
-    const token = localStorage.getItem('jwt');
-    fetch('http://localhost:4000/api/schedules',{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify(schedule)
-      }).then(() => {navigate('/Dashboard/ScheduleManager')}).catch((err) => console.log(err));
-  }
 
   const handleDepartureChange = (index, event) => {
     const times = [...departureTimes];
@@ -43,18 +21,16 @@ function SchedulesForm() {
   };
 
   return (
-    <form id="schedulesForm" onSubmit={(event) =>handleSubmit(event)} method="POST" style={styles.formContainer}>
+    <form id="schedulesForm" action="your-api-url-here" method="POST" style={styles.formContainer}>
       <Link to="/Dashboard/ScheduleManager" style={styles.goBack}>Go Back</Link>
       <div style={styles.inputContainer}>
-        <label htmlFor="stopId" style={styles.Typography}>Stop Name:</label>
-        <input type="text" ref={StopNameRef} id="routeId" name="routeId" required style={styles.inputField}/>
+        <label htmlFor="routeId" style={styles.Typography}>Route ID:</label>
+        <input type="text" id="routeId" name="routeId" required style={styles.inputField}/>
 
-        <label htmlFor="busId" style={styles.Typography}>Bus Name:</label>
-        <input type="text" ref={BusNameRef} id="busId" name="busId" required style={styles.inputField}/>
+        <label htmlFor="busId" style={styles.Typography}>Bus ID:</label>
+        <input type="text" id="busId" name="busId" required style={styles.inputField}/>
         
         <label style={styles.Typography}>Departure Times:</label>
-        <button type="button" onClick={handleAddDeparture}>Add Time</button>
-        <div style={styles.departureTimesContainer}>
         {departureTimes.map((time, index) => (
           <div key={index} style={styles.formGroup}>
             <input
@@ -67,7 +43,7 @@ function SchedulesForm() {
             <button type="button" onClick={() => handleRemoveDeparture(index)}>Remove Time</button>
           </div>
         ))}
-        </div>
+        <button type="button" onClick={handleAddDeparture}>Add Time</button>
       </div>
 
       <button type="submit" style={styles.addButton}>Add Schedule</button>
@@ -130,12 +106,6 @@ const styles = {
       backgroundColor: 'green',
       padding: '15px',
       borderRadius: '15px',
-    },
-    departureTimesContainer:{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
+    }
   }
   
