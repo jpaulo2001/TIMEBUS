@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 function ScheduleManager() {
 
   const [schedules, setSchedules] = useState([]);
+  const [selection, setSelection] = useState([]);
 
   const scheduleItem = (schedule, event) =>{
     return (
@@ -17,8 +18,12 @@ function ScheduleManager() {
   }
 
   useEffect(() => {
+    fetchSchedules()
+    }, []);
+
+  const fetchSchedules = () => {
     const token = localStorage.getItem('jwt');
-    fetch('http://localhost:4000/api/schedules/',{
+    fetch('http://localhost:4000/api/schedules',{
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -28,19 +33,45 @@ function ScheduleManager() {
       .then((res) => res.json())
       .then((data) => setSchedules(data))
       .catch((err) => console.log(err));
-    }, []);
+  }
+
+  const removeSelection = () => {
+    const token = localStorage.getItem('jwt');
+    selection.forEach((element) => {
+      fetch(`http://localhost:4000/api/schedules${element.busName}`,{
+      method: 'Delete',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    });
+    setSelection([]); // clear selection after removal
+    fetchSchedules()
+  }
+
+  const handleOnChange = (event) => {
+    if(event.target.checked) {
+      setSelection(prevSelection => [...prevSelection, event.target.parentNode]);
+    } else {
+      setSelection(prevSelection => prevSelection.filter(sel => sel !== event.target.parentNode));
+    }
+  }
 
   return (
       <div style={styles.formContainer}>
+        <div style={styles.buttonContainerStyle}>
+        <Link to="/Dashboard/ScheduleForm" style={styles.addTypography}>Add Schedule</Link>
+        <input type='button' value="Remove" style={styles.buttonStyle} onClick={() => removeSelection()}/>
+        </div>
         <ul style={styles.elementsList}>
             {schedules.map((schedule, index)=>(
               <div key={index}>
-                <li style={styles.Typography}>Name: {schedule.stopName}</li>
+                <li style={styles.Typography}><input type="checkbox" onChange={handleOnChange}/>Name: {schedule.busName}, Stops: {schedule.stopName}, Time:{schedule.departureTimes} </li>
                 <hr style={styles.separatorItem}/>
               </div>
             ))}
         </ul>
-        <Link to="/Dashboard/ScheduleForm" style={styles.addTypography}>Add Schedule</Link>
       </div>
   );
 }
@@ -60,6 +91,13 @@ const styles = {
     borderRadius:'30px',
     backgroundColor: '#8ab8a8',
     padding: '5%',
+  },
+  buttonStyle:{
+    backgroundColor: 'Green',
+    borderRadius: '25px',
+    marginTop: '10vh',
+    padding: '20px',
+    margin: '1vw'
   },
   Typography:{
     fontSize: '2rem',
@@ -108,6 +146,11 @@ const styles = {
   },
   separatorItem: {
     backgroundColor: 'Transparent',
-
-  }
+  },
+  buttonContainerStyle:{
+    display: 'flex',
+    marginLeft: '70%',
+    }
 }
+
+

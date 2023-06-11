@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import {Link, useNavigate} from 'react-router-dom'
 
 function SchedulesForm() {
-  const navigate = useNavigate();
   const [departureTimes, setDepartureTimes] = useState([""]);
   const [stops, setStops] = useState([]);
   const [buses, setBuses] = useState([]);
@@ -78,7 +77,7 @@ function SchedulesForm() {
   };
 
   return (
-    <form id="schedulesForm" onSubmit={(event) =>handleSubmit(event)} method="POST" style={styles.formContainer}>
+    <form id="schedulesForm" action="your-api-url-here" method="POST" style={styles.formContainer}>
       <Link to="/Dashboard/ScheduleManager" style={styles.goBack}>Go Back</Link>
       <div style={styles.inputContainer}>
 
@@ -95,8 +94,6 @@ function SchedulesForm() {
         </select>
 
         <label style={styles.Typography}>Departure Times:</label>
-        <button type="button" onClick={handleAddDeparture}>Add Time</button>
-        <div style={styles.departureTimesContainer}>
         {departureTimes.map((time, index) => (
           <div key={index} style={styles.formGroup}>
             <input
@@ -109,7 +106,7 @@ function SchedulesForm() {
             <button type="button" onClick={() => handleRemoveDeparture(index)}>Remove Time</button>
           </div>
         ))}
-        </div>
+        <button type="button" onClick={handleAddDeparture}>Add Time</button>
       </div>
 
       <button type="submit" style={styles.addButton}>Add Schedule</button>
@@ -172,12 +169,6 @@ const styles = {
       backgroundColor: 'green',
       padding: '15px',
       borderRadius: '15px',
-    },
-    departureTimesContainer:{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
+    }
   }
   

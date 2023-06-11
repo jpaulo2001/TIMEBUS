@@ -11,9 +11,9 @@ function StopForm() {
   const handleSubmit = (event) => {
     event.preventDefault()
     let stop = {
-      stopName : stopNameRef.current.value,
-      lat      : latRef.current.value,
-      lng      : lngRef.current.value
+      stopName: stopNameRef.current.value,
+      lat: latRef.current.value,
+      lng: lngRef.current.value
     };
     const token = localStorage.getItem('jwt');
     fetch('http://localhost:4000/api/stops',{
