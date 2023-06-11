@@ -24,7 +24,7 @@ function DashboardComponent() {
         <Route path="/ScheduleForm" element={<ScheduleForm />} />
         <Route path="/RouteManager" element={<RouteManager />} />
         <Route path="/RouteForm" element={<RouteForm />} />
-        <Route path="/" element={<h1>Welcome to the Dashboard!</h1>} />
+        <Route path="/" element={<h1>Welcome to the TimeBus Dashboard</h1>} />
       </Routes>
     </div>
   );

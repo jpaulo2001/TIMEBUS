@@ -24,22 +24,15 @@ function SchedulesForm() {
     <form id="schedulesForm" action="your-api-url-here" method="POST" style={styles.formContainer}>
       <Link to="/Dashboard/ScheduleManager" style={styles.goBack}>Go Back</Link>
       <div style={styles.inputContainer}>
-        <label htmlFor="routeId" style={styles.Typography}>route_id :</label>
+        <label htmlFor="routeId" style={styles.Typography}>Route Name:</label>
         <input type="text" id="routeId" name="routeId" required style={styles.inputField}/>
 
-        <label htmlFor="busId" style={styles.Typography}>bus_number :</label>
+        <label htmlFor="busId" style={styles.Typography}>Bus Name:</label>
         <input type="text" id="busId" name="busId" required style={styles.inputField}/>
         
-        <label htmlFor="busId" style={styles.Typography}>departure_time :</label>
-        <input type="text" id="busId" name="busId" required style={styles.inputField}/>
-        
-        <label htmlFor="busId" style={styles.Typography}>arrival_time :</label>
-        <input type="text" id="busId" name="busId" required style={styles.inputField}/>
-
-        <label htmlFor="busId" style={styles.Typography}>fare :</label>
-        <input type="text" id="busId" name="busId" required style={styles.inputField}/>
-
-  
+        <label style={styles.Typography}>Departure Times:</label>
+        <button type="button" onClick={handleAddDeparture}>Add Time</button>
+        <div style={styles.departureTimesContainer}>
         {departureTimes.map((time, index) => (
           <div key={index} style={styles.formGroup}>
             <input
@@ -52,7 +45,7 @@ function SchedulesForm() {
             <button type="button" onClick={() => handleRemoveDeparture(index)}>Remove Time</button>
           </div>
         ))}
-        <button type="button" onClick={handleAddDeparture}>Add Time</button>
+        </div>
       </div>
 
       <button type="submit" style={styles.addButton}>Add Schedule</button>
@@ -115,6 +108,12 @@ const styles = {
       backgroundColor: 'green',
       padding: '15px',
       borderRadius: '15px',
-    }
+    },
+    departureTimesContainer:{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
   }
   
