@@ -23,20 +23,20 @@ function StopForm() {
         'Authorization' : `Bearer ${token}`
       },
       body: JSON.stringify(stop)
-      }).then(() => {navigate('/Dashboard/BusManager')}).catch((err) => console.log(err));
+      }).then(() => {navigate('/Dashboard/StopManager')}).catch((err) => console.log(err));
   }
   return (
     <form id="busStopForm" onSubmit={(event) =>handleSubmit(event)} method="POST" style={styles.formContainer}>
       <Link to="/Dashboard/StopManager" style={styles.goBack}>Go Back</Link>
       <div style={styles.inputContainer}>
         <label htmlFor="stopName" style={styles.Typography}>Stop Name:</label>
-        <input type="text" ref={stopNameRef} id="stopName" name="stopName" required style={styles.inputField}/>
+        <input type="text" ref={stopNameRef} required style={styles.inputField}/>
 
         <label htmlFor="lat" style={styles.Typography}>Latitude:</label>
-        <input type="number" ref={latRef} id="lat" name="lat" required style={styles.inputField}/>
+        <input type="number" ref={latRef} style={styles.inputField}/>
         
         <label htmlFor="lng" style={styles.Typography}>Longitude:</label>
-        <input type="number" ref={lngRef} id="lng" name="lng" required style={styles.inputField}/>
+        <input type="number" ref={lngRef} style={styles.inputField}/>
       </div>
 
       <button type="submit" style={styles.addButton}>Add Stop</button>

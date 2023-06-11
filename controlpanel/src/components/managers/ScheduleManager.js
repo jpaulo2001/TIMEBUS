@@ -11,7 +11,7 @@ function ScheduleManager() {
       <div>
         <a>schedule.stopName</a>
         {schedule.departureTimes.map((time, index)=>{
-          
+
         })}
       </div>
     )
@@ -37,9 +37,9 @@ function ScheduleManager() {
 
   const removeSelection = () => {
     const token = localStorage.getItem('jwt');
-    selection.forEach((element) => {
-      fetch(`http://localhost:4000/api/schedules${element.busName}`,{
-      method: 'Delete',
+    selection.forEach((scheduleID) => {
+      fetch(`http://localhost:4000/api/schedules/${scheduleID}`,{
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
@@ -52,22 +52,22 @@ function ScheduleManager() {
 
   const handleOnChange = (event) => {
     if(event.target.checked) {
-      setSelection(prevSelection => [...prevSelection, event.target.parentNode]);
+      setSelection(prevSelection => [...prevSelection, event.target.getAttribute('data-schedule-id')]);
     } else {
-      setSelection(prevSelection => prevSelection.filter(sel => sel !== event.target.parentNode));
+      setSelection(prevSelection => prevSelection.filter(id => id !== event.target.getAttribute('data-schedule-id')));
     }
   }
 
   return (
       <div style={styles.formContainer}>
         <div style={styles.buttonContainerStyle}>
-        <Link to="/Dashboard/ScheduleForm" style={styles.addTypography}>Add Schedule</Link>
+        <Link to="/Dashboard/ScheduleForm"  style={styles.buttonStyle}>Add Schedule</Link>
         <input type='button' value="Remove" style={styles.buttonStyle} onClick={() => removeSelection()}/>
         </div>
         <ul style={styles.elementsList}>
             {schedules.map((schedule, index)=>(
               <div key={index}>
-                <li style={styles.Typography}><input type="checkbox" onChange={handleOnChange}/>Name: {schedule.busName}, Stops: {schedule.stopName}, Time:{schedule.departureTimes} </li>
+                <li style={styles.Typography}><input type="checkbox" data-schedule-id={schedule.scheduleID} onChange={handleOnChange}/>Name: {schedule.scheduleID}, Stops: {schedule.stopName}, Time:{schedule.departureTimes} </li>
                 <hr style={styles.separatorItem}/>
               </div>
             ))}

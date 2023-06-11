@@ -50,7 +50,7 @@ function StopManager() {
   return (
       <div style={styles.formContainer}>
         <div style={styles.buttonContainerStyle}>
-          <Link to="/Dashboard/StopForm" style={styles.buttonStyle}>Add Stop</Link>
+          <Link to="/Dashboard/StopForm"  style={styles.buttonStyle}>Add Stop</Link>
           <input type='button' value="Remove" style={styles.buttonStyle} onClick={() => removeSelection()}/>
         </div>
         <ul style={styles.elementsList}>
@@ -140,4 +140,5 @@ const styles = {
     padding: '20px',
     margin: '1vw'
   },
+  
 }
