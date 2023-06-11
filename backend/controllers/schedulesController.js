@@ -25,20 +25,21 @@ const getschedule = async (req, res) => {
 }
 
 // create a new schedules
-const createSchedules = async (req, res) => {
+const createschedules = async (req, res) => {
   try {
     console.log(req.body);
-    const { _id, busName, stopName, departureTimes } = req.body;
-    const newSchedules = await schedules.create({ _id, busName, stopName, departureTimes });
+    const { busName, stopName, departureTimes } = req.body;
+    const newSchedules = await schedules.create({ busName, stopName, departureTimes });
     res.status(201).json(newSchedules);
   } catch (error) {
+    console.error("Error creating schedule: ", error);
     res.status(500).json({ error: 'Failed to create a schedule' });
   }
 }
 
 
 //upate schedules
-const updateSchedules = async (req, res) => {
+const updateschedules = async (req, res) => {
   try {
     const { _id } = req.params;
     const { busName, stopName, departureTimes } = req.body;
@@ -61,7 +62,7 @@ const updateSchedules = async (req, res) => {
 };
 
 //delete schedules
-const deleteSchedules = async (req, res) => {
+const deleteschedules = async (req, res) => {
   try {
     const { stopName } = req.params;
     const deletedSchedule = await schedules.findOneAndDelete({ stopName: stopName });

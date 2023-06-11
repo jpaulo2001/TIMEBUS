@@ -2,11 +2,6 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const scheduleSchema = new Schema({
-  _id: {
-    type: Schema.Types.ObjectId,
-    required: true,
-    auto: true,
-  },
   busName: {
     type: String,
     required: true,
@@ -16,7 +11,7 @@ const scheduleSchema = new Schema({
     required: true,
   },
   departureTimes: [{
-    type: Date,
+    type: String,
     required: true,
   }],
 },{
