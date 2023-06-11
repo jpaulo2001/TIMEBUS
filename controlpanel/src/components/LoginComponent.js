@@ -28,9 +28,9 @@ function LoginComponent() {
         body: JSON.stringify(loginData),});
 
       if (response.ok) {
-        const user = await response.json();
-        console.log("Login successful:", user);
-        localStorage.setItem('jwt',user.token)
+        const answer = await response.json();
+        console.log("Login successful:", answer);
+        localStorage.setItem('jwt',answer.token)
         navigate("/Dashboard");
       } else {
         const errorData = await response.json();

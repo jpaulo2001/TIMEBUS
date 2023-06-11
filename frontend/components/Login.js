@@ -1,33 +1,41 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, Button, Alert, Dimensions } from 'react-native';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen(){
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const loginData = {
+    username,
+    password,
+  };
+
+
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      });
+        const response = await fetch('http://localhost:4000/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(loginData),
+        });
 
-      const token  = response.json()
-
-      // Store the token securely (e.g., using AsyncStorage or a secure storage mechanism)
-
-      // Clear the input fields
-      setUsername('');
-      setPassword('');
-
-      // Display a success message
-      Alert.alert('Success', 'Login successful!');
+        if (response.ok) {
+            answer = await response.json();
+            if(answer.message==="No user found!"){
+                Alert.alert('Error', 'Invalid username or password');
+                return
+            }
+            console.log("Login successful:", answer);
+            Alert.alert('Success', 'Login successful!');
+            setUsername('');
+            setPassword('');
+            await AsyncStorage.setItem('@token', answer.token);
+        }
     } catch (error) {
-      console.error(error);
-      // Display an error message
-      Alert.alert('Error', 'Invalid username or password');
+        console.error(error);
+        Alert.alert('Error', 'A problem ocurred');
     }
   };
 
