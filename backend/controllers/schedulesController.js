@@ -12,7 +12,6 @@ const getschedules = async (req, res) => {
   }
 };
 
-
 // get a single schedule
 const getschedule = async (req, res) => {
     try {
@@ -26,14 +25,16 @@ const getschedule = async (req, res) => {
 }
 
 // create a new schedules
+
 const createschedules = async (req, res) => {
   try {
     console.log(req.body);
-    const { _id, route_id, bus_number, departure_time, arrival_time } = req.body;
-    const newschedules = await schedules.create({ _id, route_id, bus_number, departure_time, arrival_time });
-    res.status(201).json(newschedules);
+    const { scheduleID, busName, stopName, departureTimes } = req.body;
+    const newSchedules = await schedules.create({ scheduleID, busName, stopName, departureTimes });
+    res.status(201).json(newSchedules);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to create a bus stop' });
+    console.error("Error creating schedule: ", error);
+    res.status(500).json({ error: 'Failed to create a schedule' });
   }
 }
 
@@ -41,46 +42,48 @@ const createschedules = async (req, res) => {
 //upate schedules
 const updateschedules = async (req, res) => {
   try {
-    const { _id } = req.params
-    const { route_id, bus_number, departure_time, arrival_time } = req.body;
+    const { _id } = req.params;
+    const { scheduleID, busName, stopName, departureTimes } = req.body;
     console.log(req.body);
 
-    const updatedschedules = await schedules.findByIdAndUpdate(
+    const updatedSchedules = await schedules.findByIdAndUpdate(
       _id,
-      { route_id, bus_number, departure_time, arrival_time },
+      { scheduleID, busName, stopName, departureTimes },
       { new: true }
     );
-    if (updatedschedules) {
-      res.status(200).json(updatedschedules);
+
+    if (updatedSchedules) {
+      res.status(200).json(updatedSchedules);
     } else {
-      res.status(404).json({ erro: 'schedules not found' });
+      res.status(404).json({ error: 'Schedule not found' });
     }
   } catch (error) {
-    res.status(500).json({ error: 'Failed to update the schedules' })
+    res.status(500).json({ error: 'Failed to update the schedule' });
   }
 };
-
 
 //delete schedules
 const deleteschedules = async (req, res) => {
   try {
-    const { _id } = req.params
-    const deletedschedules = await schedules.findByIdAndDelete(_id);
-    if (deletedschedules) {
-      res.status(200).json({ message: 'schedules deleted successfully' })
+    const { scheduleID } = req.params;
+    const deletedSchedule = await schedules.findOneAndDelete(scheduleID);
+
+    if (deletedSchedule) {
+      res.status(200).json({ message: 'Schedule deleted successfully' });
     } else {
-      res.status(404).json({ error: 'schedules not found' });
+      res.status(404).json({ error: 'Schedule not found' });
     }
-  }catch(error){
-    res.status(500).json({error:'Failed to delete schedules'});
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete schedule' });
   }
 };
+
 
 
 module.exports = {
   getschedules,
   getschedule,
-  createschedules,
-  updateschedules,
-  deleteschedules
+ createschedules,
+ updateschedules,
+ deleteschedules
 };
