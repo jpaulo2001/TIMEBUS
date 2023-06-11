@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { REACT_APP_BACKEND_IP } from '@env'
 import { Image, StyleSheet, TextInput, View, Text, TouchableOpacity, Dimensions, SafeAreaView, FlatList } from 'react-native';
 
-export default function LocationForm() {
+export default function LocationForm({stops}) {
   const [filterDataA, setfilterDataA] = useState([]);
   const [masterDataA, setmasterDataA] = useState([]);
   const [searchA, setSearchA] = useState('');
