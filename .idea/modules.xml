@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/TIMEBUS.iml" filepath="$PROJECT_DIR$/.idea/TIMEBUS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TIMEBUS.iml" filepath="$PROJECT_DIR$/TIMEBUS.iml" />
     </modules>
   </component>
 </project>

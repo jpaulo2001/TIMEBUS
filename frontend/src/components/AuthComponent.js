@@ -11,7 +11,6 @@ const AuthComponent = () => {
         email,
         password
       });
-      // Handle the response as per your requirement (e.g., store tokens)
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -24,7 +23,6 @@ const AuthComponent = () => {
         email,
         password
       });
-      // Handle the response as per your requirement (e.g., show success message)
       console.log(response.data);
     } catch (error) {
       console.error(error);
