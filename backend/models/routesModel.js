@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-
 const routesSchema = new Schema({
   routeNumber: {
     type: String,

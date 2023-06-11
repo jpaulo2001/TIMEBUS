@@ -24,7 +24,7 @@ function ScheduleManager() {
         <ul style={styles.elementsList}>
             {schedules.map((schedule, index)=>(
               <div key={index}>
-                <li style={styles.Typography}>Name: {schedule.stopName} , lat: {schedule.lat} , lng: {schedule.lng}</li>
+                <li style={styles.Typography}>Name: {schedule.stopName}</li>
                 <hr style={styles.separatorItem}/>
               </div>
             ))}
