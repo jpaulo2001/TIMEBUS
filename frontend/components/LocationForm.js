@@ -71,9 +71,9 @@ export default function LocationForm() {
   return (
     <View style={styles.container}>
         <View style={styles.textInputConainer}>
-          <Text style={styles.stopLabel}>Stop A</Text>
             <TextInput 
               style={styles.textInput}
+              placeholder='Stop A'
               value={searchA}
               onChangeText={(text) => searchFilter(text, setfilterDataA, masterDataA, setSearchA)}
               onFocus={() => setActiveInput('A')}
@@ -88,9 +88,9 @@ export default function LocationForm() {
                 />
               </View>
             ):null}
-          <Text style={styles.stopLabel}>Stop B</Text>
             <TextInput 
               style={styles.textInput}
+              placeholder='Stop B'
               value={searchB}
               onChangeText={(text) => searchFilter(text, setfilterDataB, masterDataB, setSearchB)}
               onFocus={() => setActiveInput('B')}
@@ -138,7 +138,9 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderBottomLeftRadius:100,
         borderTopLeftRadius:100,
-        paddingHorizontal: 10,
+        paddingHorizontal: 15,
+        marginTop: 15,
+        backgroundColor: 'white',
     },
     searchButton: {
       borderWidth: 2,

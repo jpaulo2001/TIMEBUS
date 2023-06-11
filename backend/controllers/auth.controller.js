@@ -43,7 +43,7 @@ const login = async (req, res, next) => {
       bcrypt.compare(password, user.password, function(err, result){
         if(err) {res.json({error: err})}
         if(result){
-          let token = jwt.sign({name: user.name}, 'private key :) I hope no one knows me', {expiresIn: '1h'})
+          let token = jwt.sign({name: user.name}, 'private key :) I hope no one knows me')
           res.json({
             message: 'Login Successful!',
             token: token,
