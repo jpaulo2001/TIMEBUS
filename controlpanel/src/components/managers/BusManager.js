@@ -3,10 +3,14 @@ import {Link} from 'react-router-dom'
 
 function BusManager() {
   const [buses, setBuses] = useState([]);
+  const [selection, setSelection] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem('jwt');
+    fetchBuses()
+  }, []);
 
+  const fetchBuses = () => {
+    const token = localStorage.getItem('jwt');
     fetch('http://localhost:4000/api/buses',{
       method: 'GET',
       headers: {
@@ -17,29 +21,41 @@ function BusManager() {
       .then((res) => res.json())
       .then((data) => setBuses(data))
       .catch((err) => console.log(err));
-  }, []);
+  }
 
-  const removeSelection = (selection) => {
+  const removeSelection = () => {
+    const token = localStorage.getItem('jwt');
     selection.forEach((element) => {
-      element.remove();
+      fetch(`http://localhost:4000/api/buses/${element.busName}`,{
+      method: 'Delete',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
     });
+    setSelection([]); // clear selection after removal
+    fetchBuses()
   }
 
-  let selection = [];
   const handleOnChange = (event) => {
-    if(event.target.checked) selection.push(event.target.parentNode)
+    if(event.target.checked) {
+      setSelection(prevSelection => [...prevSelection, event.target.parentNode]);
+    } else {
+      setSelection(prevSelection => prevSelection.filter(sel => sel !== event.target.parentNode));
+    }
   }
-    
+
   return (
       <div style={styles.formContainer}>
         <div style={styles.buttonContainerStyle}>
           <Link to="/Dashboard/BusForm" style={styles.buttonStyle}>Add Bus</Link>
-          <input type='button' value="Remove" style={styles.buttonStyle} onClick={() => removeSelection(selection)}/>
+          <input type='button' value="Remove" style={styles.buttonStyle} onClick={() => removeSelection()}/>
         </div>
         <ul style={styles.elementsList}>
-            {buses.map((bus, index)=>(
+        {buses.map((bus, index)=>(
               <div key={index}>
-                <li style={styles.Typography}><input type="checkbox" onChange={handleOnChange}></input>Name: {bus.busName} , Route: {bus.busRoute} , Capacity: {bus.capacity}</li>
+                <li style={styles.Typography}><input type="checkbox" onChange={handleOnChange}/>Name: {bus.busName} , Route: {bus.busRoute} , Capacity: {bus.capacity}</li>
                 <hr style={styles.separatorItem}/>
               </div>
             ))}

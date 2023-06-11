@@ -10,14 +10,11 @@ const {
 const router = express.Router()
 const authenticate = require('../middleware/authenticate')
 
-
-
 router.get('/', authenticate,getBuses)
 router.get('/:busName', authenticate,getBusName)
 
 router.post('/', authenticate, createBus);
 router.put('/:_id', authenticate,updateBus);
 router.delete('/:_id', authenticate,deleteBus);
-
 
 module.exports = router

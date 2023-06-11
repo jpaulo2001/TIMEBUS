@@ -4,8 +4,13 @@ import {Link} from 'react-router-dom'
 function StopManager() {
 
   const [stops, setStops] = useState([]);
+  const [selection, setSelection] = useState([]);
 
   useEffect(() => {
+    fetchStops()
+    }, []);
+
+  const fetchStops = () => {
     const token = localStorage.getItem('jwt');
     fetch('http://localhost:4000/api/stops',{
       method: 'GET',
@@ -17,19 +22,45 @@ function StopManager() {
       .then((res) => res.json())
       .then((data) => setStops(data))
       .catch((err) => console.log(err));
-    }, []);
+  }
+
+  const removeSelection = () => {
+    const token = localStorage.getItem('jwt');
+    selection.forEach((element) => {
+      fetch(`http://localhost:4000/api/stops/${element.busName}`,{
+      method: 'Delete',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    });
+    setSelection([]); // clear selection after removal
+    fetchStops()
+  }
+
+  const handleOnChange = (event) => {
+    if(event.target.checked) {
+      setSelection(prevSelection => [...prevSelection, event.target.parentNode]);
+    } else {
+      setSelection(prevSelection => prevSelection.filter(sel => sel !== event.target.parentNode));
+    }
+  }
 
   return (
       <div style={styles.formContainer}>
+        <div style={styles.buttonContainerStyle}>
+          <Link to="/Dashboard/StopForm" style={styles.buttonStyle}>Add Stop</Link>
+          <input type='button' value="Remove" style={styles.buttonStyle} onClick={() => removeSelection()}/>
+        </div>
         <ul style={styles.elementsList}>
             {stops.map((stop, index)=>(
               <div key={index}>
-                <li style={styles.Typography}>Name: {stop.stopName} , lat: {stop.lat} , lng: {stop.lng}</li>
+                <li style={styles.Typography}><input type="checkbox" onChange={handleOnChange}/>Name: {stop.stopName} , lat: {stop.lat} , lng: {stop.lng}</li>
                 <hr style={styles.separatorItem}/>
               </div>
             ))}
         </ul>
-        <Link to="/Dashboard/StopForm" style={styles.addTypography}>Add Stop</Link>
       </div>
   );
 }
@@ -97,6 +128,16 @@ const styles = {
   },
   separatorItem: {
     backgroundColor: 'Transparent',
-
-  }
+  },
+  buttonContainerStyle:{
+    display: 'flex',
+    marginLeft: '70%',
+  },
+  buttonStyle:{
+    backgroundColor: 'Green',
+    borderRadius: '25px',
+    marginTop: '10vh',
+    padding: '20px',
+    margin: '1vw'
+  },
 }

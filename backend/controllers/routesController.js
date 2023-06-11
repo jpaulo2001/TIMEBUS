@@ -40,7 +40,7 @@ const createRoute = async (req, res) => {
 }
 
 
-//upate route
+//update route
 const updateRoute = async (req, res) => {
   try {
     const { _id } = req.params
@@ -67,8 +67,8 @@ const updateRoute = async (req, res) => {
 //delete route
 const deleteRoute = async (req, res) => {
   try {
-    const { _id } = req.params
-    const deletedRoute = await Routes.findByIdAndDelete(_id);
+    const { routeNumber } = req.params
+    const deletedRoute = await Routes.findOneAndRemove(routeNumber)
     if (deletedRoute) {
       res.status(200).json({ message: 'Route deleted successfully' })
     } else {
