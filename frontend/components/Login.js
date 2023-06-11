@@ -3,7 +3,7 @@ import { StyleSheet, View, TextInput, Button, Alert, Dimensions } from 'react-na
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function LoginScreen(){
+export default function LoginScreen(props){
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -28,10 +28,13 @@ export default function LoginScreen(){
                 return
             }
             console.log("Login successful:", answer);
-            Alert.alert('Success', 'Login successful!');
             setUsername('');
             setPassword('');
+            Alert.alert('Success', 'Login successful!');
+
             await AsyncStorage.setItem('@token', answer.token);
+
+            props.checkToken();
         }
     } catch (error) {
         console.error(error);
