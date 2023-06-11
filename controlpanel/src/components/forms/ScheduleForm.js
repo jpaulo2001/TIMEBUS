@@ -24,13 +24,22 @@ function SchedulesForm() {
     <form id="schedulesForm" action="your-api-url-here" method="POST" style={styles.formContainer}>
       <Link to="/Dashboard/ScheduleManager" style={styles.goBack}>Go Back</Link>
       <div style={styles.inputContainer}>
-        <label htmlFor="routeId" style={styles.Typography}>Route ID:</label>
+        <label htmlFor="routeId" style={styles.Typography}>route_id :</label>
         <input type="text" id="routeId" name="routeId" required style={styles.inputField}/>
 
-        <label htmlFor="busId" style={styles.Typography}>Bus ID:</label>
+        <label htmlFor="busId" style={styles.Typography}>bus_number :</label>
         <input type="text" id="busId" name="busId" required style={styles.inputField}/>
         
-        <label style={styles.Typography}>Departure Times:</label>
+        <label htmlFor="busId" style={styles.Typography}>departure_time :</label>
+        <input type="text" id="busId" name="busId" required style={styles.inputField}/>
+        
+        <label htmlFor="busId" style={styles.Typography}>arrival_time :</label>
+        <input type="text" id="busId" name="busId" required style={styles.inputField}/>
+
+        <label htmlFor="busId" style={styles.Typography}>fare :</label>
+        <input type="text" id="busId" name="busId" required style={styles.inputField}/>
+
+  
         {departureTimes.map((time, index) => (
           <div key={index} style={styles.formGroup}>
             <input
