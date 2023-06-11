@@ -11,7 +11,11 @@ const busSchema = new Schema({
   },
   busRoute: {
     type: String,
-    required: true
+    required: true,
+  },
+  capacity: {
+    type: Number,
+    required: true,
   },
   isAvailable: {
     type: Boolean,

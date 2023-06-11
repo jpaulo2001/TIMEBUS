@@ -1,15 +1,60 @@
-import React, { useState } from "react";
-import {Link} from "react-router-dom"
+import React, { useRef, useEffect, useState } from "react";
+import {Link, useNavigate, useSearchParams} from "react-router-dom"
 
 function RoutesForm() {
+
+  const navigate = useNavigate();
+  const [stops, setStops] = useState([]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('jwt');
+    fetch('http://localhost:4000/api/stops', {  // replace this with your stops API endpoint
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => setStops(data))
+    .catch(err => console.log(err));
+  }, []);
+
+  const routeNumberRef = useRef();
+  const stopsRef = useRef();
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    let route = {
+      routeNumber: routeNumberRef.current.value,
+      //needs to be adapted to the list
+      stopsRef: stopsRef.current.value,
+    };
+    const token = localStorage.getItem('jwt');
+    fetch('http://localhost:4000/api/routes',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(route)
+      }).then(() => {navigate('/Dashboard/RouteManager')}).catch((err) => console.log(err));
+  }
+  //need to be able to add stops (maybe with google maps api?)
   return (
-    <form id="routesForm" action="your-api-url-here" method="POST" style={styles.formContainer}>
+    <form id="routesForm" onSubmit={(event) =>handleSubmit(event)} method="POST" style={styles.formContainer}>
       <Link to="/Dashboard/RouteManager" style={styles.goBack}>Go Back</Link>
       <div style={styles.inputContainer}>
         <label htmlFor="routeNumber" style={styles.Typography}>Route Number:</label>
-        <input type="text" id="routeNumber" name="routeNumber" required style={styles.inputField}/>
+        <input type="text" id="routeNumber" ref={routeNumberRef} name="routeNumber" required style={styles.inputField}/>
         <label style={styles.Typography}>Stops:</label>
-        
+        <ul style={styles.inputField}>
+          {stops.map((stop ,index)=>{return(
+            <div key={index}>
+              <li style={styles.Typography}><input style={styles.Typography} type="checkbox"/>{stop.stopName}</li>
+            </div>
+          );})}
+        </ul>
       </div>
 
       <button type="submit" style={styles.addButton}>Add Route</button>
@@ -60,6 +105,7 @@ const styles = {
       border: '1px solid #ccc',
       fontSize: '100%',
       fontFamily: 'American Typewriter',
+      listStyle: 'none'
     },
     formGroup: {
       display: 'flex',

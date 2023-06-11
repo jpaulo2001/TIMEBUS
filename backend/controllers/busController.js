@@ -1,6 +1,5 @@
 const Bus = require('../models/busesModel')
 
-
 // get all buses
 const getBuses = async (req, res) => {
   try {
@@ -62,10 +61,10 @@ const updateBus = async (req, res) => {
 //delete bus
 const deleteBus = async (req, res) => {
   try{
-    const {_id} = req.params;
-    const deletedBus = await Bus.findByIdAndRemove(_id);
+    const {busName} = req.params;
+    const deletedBus = await Bus.findOneAndRemove(busName);
     if(deletedBus) {
-      res.status(200).json({message: 'Bust deleted successfully'});
+      res.status(200).json({message: 'Bus deleted successfully'});
     }else{
       res.status(404).json({error: 'Bus not found'});
     }

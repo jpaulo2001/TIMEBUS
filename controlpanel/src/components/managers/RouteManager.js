@@ -1,40 +1,71 @@
 import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom'
 
-function BusManager() {
+function RouteManager() {
 
   const [routes, setRoutes] = useState([]);
+  const [selection, setSelection] = useState([]);
 
   useEffect(() => {
+    fetchRoutes()
+    }, []);
+  
+    const fetchRoutes = () => {
+      const token = localStorage.getItem('jwt');
+      fetch('http://localhost:4000/api/routes',{
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+        .then((res) => res.json())
+        .then((data) => setRoutes(data))
+        .catch((err) => console.log(err));
+    }
+
+  const removeSelection = () => {
     const token = localStorage.getItem('jwt');
-    fetch('http://localhost:4000/api/Routes',{
-      method: 'GET',
+    selection.forEach((element) => {
+      fetch(`http://localhost:4000/api/routes/${element.busName}`,{
+      method: 'Delete',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       }
     })
-      .then((res) => res.json())
-      .then((data) => setRoutes(data))
-      .catch((err) => console.log(err));
-    }, []);
+    });
+    setSelection([]); // clear selection after removal
+    fetchRoutes()
+  }
+  
+  const handleOnChange = (event) => {
+    if(event.target.checked) {
+      setSelection(prevSelection => [...prevSelection, event.target.parentNode]);
+    } else {
+      setSelection(prevSelection => prevSelection.filter(sel => sel !== event.target.parentNode));
+    }
+  }
 
   return (
       <div style={styles.formContainer}>
-        <ul style={styles.elementsList}>
+        <div style={styles.buttonContainerStyle}>
+          <Link to="/Dashboard/RouteForm" style={styles.buttonStyle}>Add route</Link>
+          <input type='button' value="Remove" style={styles.buttonStyle} onClick={() => removeSelection()}/>
+        </div>
+       <ul style={styles.elementsList}>
             {routes.map((route, index)=>(
               <div key={index}>
-                <li style={styles.Typography}>Route number: {route.routeNumber} , stops: {route.stops}</li>
+                <li style={styles.Typography}><input type="checkbox" onChange={handleOnChange}/>Route number: {route.routeNumber} , stops: {route.stops}</li>
                 <hr style={styles.separatorItem}/>
               </div>
             ))}
         </ul>
-        <Link to="/Dashboard/RouteForm" style={styles.addTypography}>Add route</Link>
       </div>
   );
 }
 
-export default BusManager
+export default RouteManager
 
 const styles = {
   formContainer:{
@@ -49,6 +80,13 @@ const styles = {
     borderRadius:'30px',
     backgroundColor: '#8ab8a8',
     padding: '5%',
+  },
+  buttonStyle:{
+    backgroundColor: 'Green',
+    borderRadius: '25px',
+    marginTop: '10vh',
+    padding: '20px',
+    margin: '1vw'
   },
   Typography:{
     fontSize: '2rem',
@@ -97,6 +135,9 @@ const styles = {
   },
   separatorItem: {
     backgroundColor: 'Transparent',
-
-  }
+  },
+  buttonContainerStyle:{
+    display: 'flex',
+    marginLeft: '70%',
+    }
 }

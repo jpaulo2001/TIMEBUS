@@ -1,22 +1,49 @@
-import React from "react";
-import {Link} from "react-router-dom"
+import React, { useRef }  from "react";
+import {Link, useNavigate} from "react-router-dom"
 
 function BusForm() {
+
+  const navigate = useNavigate();
+
+  const busNameRef = useRef();
+  const busRouteRef = useRef();
+  const capacityRef = useRef();
+  const isAvailableRef = useRef();
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    let bus = {
+      busName: busNameRef.current.value,
+      busRoute: busRouteRef.current.value,
+      capacity: capacityRef.current.value,
+      isAvailable: isAvailableRef.current.value
+    };
+    const token = localStorage.getItem('jwt');
+    fetch('http://localhost:4000/api/buses',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(bus)
+      }).then(() => {navigate('/Dashboard/BusManager')}).catch((err) => console.log(err));
+  }
+
   return (
-    <form id="busForm" action="your-api-url-here" method="POST" style={styles.formContainer}>
+    <form id="busForm" onSubmit={(event) =>handleSubmit(event)} method="POST" style={styles.formContainer}>
       <Link to="/Dashboard/BusManager" style={styles.goBack}>Go Back</Link>
       <div style={styles.inputContainer}>
-        <label for="busName" style={styles.Typography}>Bus Name:</label>
-        <input type="text" id="busName" name="busName" required style={styles.inputField}/>
+        <label htmlFor="busName" style={styles.Typography}>Bus Name:</label>
+        <input ref={busNameRef} type="text" id="busName" name="busName" required style={styles.inputField}/>
       
-        <label for="busRoute" style={styles.Typography}>Bus Route:</label>
-        <input type="text" id="busRoute" name="busRoute" required style={styles.inputField}/>
+        <label htmlFor="busRoute" style={styles.Typography}>Bus Route:</label>
+        <input ref={busRouteRef} type="text" id="busRoute" name="busRoute" required style={styles.inputField}/>
       
-        <label for="capacity" style={styles.Typography}>Capacity:</label>
-        <input type="number" id="capacity" name="capacity" required style={styles.inputField}/>
+        <label htmlFor="capacity" style={styles.Typography}>Capacity:</label>
+        <input ref={capacityRef} type="number" id="capacity" name="capacity" required style={styles.inputField}/>
 
-        <label for="isAvailable" style={styles.Typography}>Available:</label>
-        <select id="isAvailable" name="isAvailable" required>
+        <label htmlFor="isAvailable" style={styles.Typography}>Available:</label>
+        <select ref={isAvailableRef} id="isAvailable" name="isAvailable" required>
           <option value="">Select...</option>
           <option value="true">Yes</option>
           <option value="false">No</option>

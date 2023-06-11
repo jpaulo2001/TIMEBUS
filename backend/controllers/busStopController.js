@@ -30,10 +30,6 @@ const getStopByName = async (req, res) => {
 //create a stop
 const createStop = async (req, res) => {
   try {
-    // if (!req.user.isAdmin) {
-    //   return res.status(403).json({ error: 'Only admin users can create stops' });
-    // }
-
     console.log(req.body);
     const { stopName, lat, lng } = req.body;
     const newStop = await BusStop.create({ stopName, lat, lng });
@@ -47,10 +43,6 @@ const createStop = async (req, res) => {
 //update a stop
 const updateStop = async (req, res) => {
   try {
-    // if (!req.user.isAdmin) {
-    //   return res.status(403).json({ error: 'Only admin users can update stops' });
-    // }
-
     const { _id } = req.params;
     const { stopName, lat, lng } = req.body;
     console.log(req.body);
@@ -74,12 +66,8 @@ const updateStop = async (req, res) => {
 //delete a stop
 const deleteStop = async (req, res) => {
   try {
-    // if (!req.user.isAdmin) {
-    //   return res.status(403).json({ error: 'Only admin users can delete stops' });
-    // }
-    
-    const { _id } = req.params;
-    const deletedStop = await BusStop.findByIdAndDelete(_id);
+    const { stopName } = req.params;
+    const deletedStop = await BusStop.findOneAndRemove(stopName);
     if (deletedStop) {
       res.status(200).json({ message: 'Bus stop deleted successfully' });
     } else {
