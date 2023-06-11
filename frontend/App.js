@@ -29,7 +29,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {isLoggedIn ? (<HomeScreen/>) : (<LoginScreen checkToken={checkToken}/>)}
+      {isLoggedIn ? (<HomeScreen removeToken={removeToken}/>) : (<LoginScreen checkToken={checkToken}/>)}
     </View>
   );
 }
