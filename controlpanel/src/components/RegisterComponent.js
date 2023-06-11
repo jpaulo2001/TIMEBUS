@@ -46,9 +46,14 @@ function RegisterComponent() {
     } catch (error) {console.log("Error:", error);}
   }
 
+
+
   return (
     <div>
       <h1>Registration Form</h1>
+      <div id="container1">
+          <img src="controlpanel\public\mainlogo.png" alt="" />
+        </div>
       <form onSubmit={handleSubmit} id="registration-form" style={styles.RegistrationContainer}>
           <div style={styles.inputContainer}>
             <label htmlFor="username" style={styles.Typography}>Username:</label>
@@ -75,52 +80,67 @@ function RegisterComponent() {
 
 const styles = {
   RegistrationContainer: {
-    margin: '25%',
-    justifyContent: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    borderColor: 'black',
-    borderWidth: '2px',
-    borderStyle: 'dashed',
-    borderRadius: '30px',
-    padding: '5%'
+    margin: "5%",
+    justifyContent: "center",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    borderColor: "#000",
+    borderWidth: "2px",
+    borderStyle: "solid",
+    borderRadius: "30px",
+    padding: "5%",
+    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
+    backgroundColor: "#f9f9f9",
   },
+  
   Typography: {
-    fontSize: '100%',
-    fontFamily: 'American Typewriter',
+    fontSize: "18px",
+    fontFamily: "Arial, sans-serif",
+    fontWeight: "bold",
+    marginBottom: "20px",
   },
+  
   RegisterButton: {
-    height: '50px',
-    width: '100px',
-    margin: '20px',
-    backgroundColor: '#4CAF50',
-    color: 'white',
-    borderRadius: '5px',
-    border: 'none',
-    cursor: 'pointer',
-    fontSize: '100%',
-    fontFamily: 'American Typewriter',
+    height: "40px",
+    width: "120px",
+    margin: "20px",
+    backgroundColor: "#3498db",
+    color: "white",
+    borderRadius: "5px",
+    border: "none",
+    cursor: "pointer",
+    fontSize: "16px",
+    fontFamily: "Arial, sans-serif",
+    fontWeight: "bold",
+    boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.2)",
+    transition: "background-color 0.3s ease",
   },
+  
   inputContainer: {
-    display: 'grid',
-    gap: '10px',
-    gridTemplateColumns: '1fr 2fr',
+    display: "grid",
+    gap: "10px",
+    gridTemplateColumns: "1fr 2fr",
   },
+  
   inputField: {
-    padding: '15px',
-    borderRadius: '5px',
-    border: '1px solid #ccc',
-    fontSize: '100%',
-    fontFamily: 'American Typewriter',
-    height: '0px',
-
+    padding: "10px",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+    fontSize: "16px",
+    fontFamily: "Arial, sans-serif",
+    height: "40px",
   },
+  
   formGroup: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginBottom: '20px',
-  },
+    display: "flex",
+    flexDirection: "column",
+    marginBottom: "20px",
+  }
+  
+
+
+
 }
 
 export default RegisterComponent;

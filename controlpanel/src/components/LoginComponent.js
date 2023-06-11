@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 
+
+
 function LoginComponent() {
 
   const navigate = useNavigate();
@@ -41,7 +43,7 @@ function LoginComponent() {
 
   return (
     <div>
-      <h1>Login Form</h1>
+      <h1>Login TimeBus</h1>
       <form onSubmit={login} id="login-form" style={styles.LoginContainer}>
         <div style={styles.formGroup}>
           <div style={styles.inputContainer}>
@@ -61,6 +63,9 @@ function LoginComponent() {
         <p>
           Not a user? Click <Link to="/Register">here to register</Link>
         </p>
+ 
+
+
       </form>
     </div>
   );
@@ -69,49 +74,62 @@ function LoginComponent() {
 export default LoginComponent;
 
 const styles = {
+
   LoginContainer: {
-    margin: "25%",
+    margin: "10%",
     justifyContent: "center",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     borderColor: "black",
-    borderWidth: "2px",
-    borderStyle: "dashed",
-    borderRadius: "30px",
+    borderWidth: "3px",
+    borderStyle: "solid",
+    borderRadius: "5px",
     padding: "5%",
+    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
+    backgroundColor: "#f9f9f9",
   },
+  
   Typography: {
-    fontSize: "100%",
-    fontFamily: "American Typewriter",
+    fontSize: "18px",
+    fontFamily: "Arial, sans-serif",
+    fontWeight: "bold",
+    marginBottom: "20px",
   },
+  
   LoginButton: {
-    height: "50px",
-    width: "100px",
+    height: "40px",
+    width: "120px",
     margin: "20px",
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#3498db",
     color: "white",
     borderRadius: "5px",
     border: "none",
     cursor: "pointer",
-    fontSize: "100%",
-    fontFamily: "American Typewriter",
+    fontSize: "16px",
+    fontFamily: "Arial, sans-serif",
+    fontWeight: "bold",
+    boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.2)",
+    transition: "background-color 0.3s ease",
   },
+
   inputContainer: {
     display: "grid",
     gap: "10px",
     gridTemplateColumns: "1fr 2fr",
   },
   inputField: {
-    padding: "5px",
+    padding: "10px",
     borderRadius: "5px",
     border: "1px solid #ccc",
-    fontSize: "100%",
-    fontFamily: "American Typewriter",
+    fontSize: "16px",
+    fontFamily: "Arial, sans-serif",
   },
+  
   formGroup: {
     display: "flex",
     flexDirection: "column",
     marginBottom: "20px",
-  },
+  }
+  
 };

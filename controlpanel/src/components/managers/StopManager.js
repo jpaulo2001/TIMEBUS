@@ -68,7 +68,7 @@ function StopManager() {
 export default StopManager
 
 const styles = {
-  formContainer:{
+  formContainer: {
     margin: '5%',
     justifyContent: 'center',
     display: 'flex',
@@ -77,21 +77,30 @@ const styles = {
     borderColor: 'black',
     borderWidth: '2px',
     borderStyle: 'dashed',
-    borderRadius:'30px',
+    borderRadius: '30px',
     backgroundColor: '#8ab8a8',
     padding: '5%',
   },
-  Typography:{
-    fontSize: '2rem',
-    fontFamily: 'American Typewriter',
-  },
-  addTypography:{
-    backgroundColor: 'Green',
+  buttonStyle: {
+    backgroundColor: 'green',
     borderRadius: '25px',
     marginTop: '10vh',
     padding: '20px',
+    margin: '1vw',
+    color: '#fff',
+    border: 'none',
+    cursor: 'pointer',
+    fontSize: '1.5rem',
+    fontFamily: 'American Typewriter',
+    textDecoration: 'none',
+    boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)',
+    transition: 'background-color 0.3s ease',
   },
-  addButton:{
+  typography: {
+    fontSize: '2rem',
+    fontFamily: 'American Typewriter',
+  },
+  addButton: {
     height: '50px',
     width: '100px',
     margin: '20px',
@@ -103,7 +112,7 @@ const styles = {
     fontSize: '80%',
     fontFamily: 'American Typewriter',
   },
-  inputContainer:{
+  inputContainer: {
     height: '100vh',
   },
   inputField: {
@@ -124,21 +133,19 @@ const styles = {
     background: 'grey',
     borderRadius: '20px',
     padding: '30px',
-    width: '70vw'
+    width: '70vw',
   },
   separatorItem: {
-    backgroundColor: 'Transparent',
+    backgroundColor: 'transparent',
+    height: '1px',
+    border: 'none',
+    borderTop: '1px solid #ccc',
+    margin: '10px 0',
   },
-  buttonContainerStyle:{
+  buttonContainerStyle: {
     display: 'flex',
-    marginLeft: '70%',
-  },
-  buttonStyle:{
-    backgroundColor: 'Green',
-    borderRadius: '25px',
-    marginTop: '10vh',
-    padding: '20px',
-    margin: '1vw'
+    justifyContent: 'flex-end',
+    margin: '1rem',
   },
   
 }
