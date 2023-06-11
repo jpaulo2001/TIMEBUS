@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { REACT_APP_BACKEND_IP } from '@env'
 import { Image, StyleSheet, TextInput, View, Text, TouchableOpacity, Dimensions, SafeAreaView, FlatList } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LocationForm({stops}) {
   const [filterDataA, setfilterDataA] = useState([]);
@@ -19,16 +20,23 @@ export default function LocationForm({stops}) {
     return() => {}
   }, [])
   
-  const fetchStops = (setFilterData,setMasterData) => {
+  const fetchStops = async (setFilterData,setMasterData) => {
+    const token = await AsyncStorage.getItem('@token');
+    
     const apiURL = `http://${REACT_APP_BACKEND_IP}:4000/api/stops/`;
-    fetch(apiURL)
-    .then((response)=>response.json())
-    .then((responseJson) => {
-      setFilterData(responseJson);
-      setMasterData(responseJson);
-    }).catch((error)=>{
-      console.error(error);
-    })
+
+    const response = await fetch(apiURL, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      }
+    });
+
+    const responseJson = await response.json();
+
+    setFilterData(responseJson);
+    setMasterData(responseJson);
   }
 
   const searchFilter = (text, setFilterData, masterData, setSearch) => {

@@ -33,10 +33,10 @@ function StopForm() {
         <input type="text" ref={stopNameRef} required style={styles.inputField}/>
 
         <label htmlFor="lat" style={styles.Typography}>Latitude:</label>
-        <input type="number" ref={latRef} style={styles.inputField}/>
+        <input type="text" ref={latRef} style={styles.inputField}/>
         
         <label htmlFor="lng" style={styles.Typography}>Longitude:</label>
-        <input type="number" ref={lngRef} style={styles.inputField}/>
+        <input type="text" ref={lngRef} style={styles.inputField}/>
       </div>
 
       <button type="submit" style={styles.addButton}>Add Stop</button>

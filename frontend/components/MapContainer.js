@@ -4,11 +4,9 @@ import { StyleSheet, View, TouchableOpacity, Image, Dimensions } from 'react-nat
 import axios from 'axios';
 import { REACT_APP_BACKEND_IP } from '@env'
 import {mapStyleTemplate} from '../public/mapStyle/mapstyle'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const request = 'https://maps.googleapis.com/maps/api/directions/json?origin=37.7749,-122.4194&destination=37.7749,-122.5113&key={}'
-
-
 
 export default function MapContainer() {
 
@@ -31,10 +29,19 @@ export default function MapContainer() {
   //get every stop
   const fetchStops = async () => {
     try {
-      const response = await axios.get(`http://${REACT_APP_BACKEND_IP}:4000/api/stops/`);
-      setStops(response.data);
+      const token = await AsyncStorage.getItem('@token');
+      const apiURL = `http://${REACT_APP_BACKEND_IP}:4000/api/stops/`;
+      const response = await fetch(apiURL, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        }
+      });
+      const responseJson = await response.json();
+      setStops(responseJson);
     } catch (error) {
-      console.error('Error fetching stops:', error);
+      console.error(error);
     }
   };
 
