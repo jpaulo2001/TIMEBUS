@@ -1,12 +1,47 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {Link, useNavigate} from 'react-router-dom'
 
 function SchedulesForm() {
   const navigate = useNavigate();
   const [departureTimes, setDepartureTimes] = useState([""]);
+  const [stops, setStops] = useState([]);
+  const [buses, setBuses] = useState([]);
 
   const StopNameRef = useRef();
   const BusNameRef = useRef();
+
+  useEffect(() => {
+    fetchStops();
+    fetchBuses();
+  }, []);
+
+  const fetchBuses = () => {
+    const token = localStorage.getItem('jwt');
+    fetch('http://localhost:4000/api/buses', {  // replace this with your stops API endpoint
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => setBuses(data))
+    .catch(err => console.log(err));
+  }
+
+  const fetchStops = () => {
+    const token = localStorage.getItem('jwt');
+    fetch('http://localhost:4000/api/stops',{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then((res) => res.json())
+      .then((data) => setStops(data))
+      .catch((err) => console.log(err));
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -46,12 +81,19 @@ function SchedulesForm() {
     <form id="schedulesForm" onSubmit={(event) =>handleSubmit(event)} method="POST" style={styles.formContainer}>
       <Link to="/Dashboard/ScheduleManager" style={styles.goBack}>Go Back</Link>
       <div style={styles.inputContainer}>
-        <label htmlFor="stopId" style={styles.Typography}>Stop Name:</label>
-        <input type="text" ref={StopNameRef} id="routeId" name="routeId" required style={styles.inputField}/>
 
-        <label htmlFor="busId" style={styles.Typography}>Bus Name:</label>
-        <input type="text" ref={BusNameRef} id="busId" name="busId" required style={styles.inputField}/>
-        
+        <label style={styles.Typography}>Stop Name:</label>
+        <select ref={StopNameRef} required style={styles.inputField}>
+          <option value="">Select a Stop...</option>
+          {stops.map((stop) => <option value={stop.stopName}>{stop.stopName}</option>)}
+        </select>
+
+        <label style={styles.Typography}>Bus Name:</label>
+        <select ref={BusNameRef} style={styles.inputField}>
+          <option value="">Select a Bus...</option>
+          {buses.map((bus) => <option value={bus.busName}>{bus.busName}</option>)}
+        </select>
+
         <label style={styles.Typography}>Departure Times:</label>
         <button type="button" onClick={handleAddDeparture}>Add Time</button>
         <div style={styles.departureTimesContainer}>

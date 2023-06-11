@@ -1,9 +1,26 @@
-import React, { useRef }  from "react";
+import React, { useRef, useState, useEffect }  from "react";
 import {Link, useNavigate} from "react-router-dom"
 
 function BusForm() {
-
   const navigate = useNavigate();
+
+  const [routes, setRoutes] = useState([]);
+
+  useEffect(() => {fetchRoutes()}, []);
+
+  const fetchRoutes = () => {
+    const token = localStorage.getItem('jwt');
+    fetch('http://localhost:4000/api/routes',{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then((res) => res.json())
+      .then((data) => setRoutes(data))
+      .catch((err) => console.log(err));
+  }
 
   const busNameRef = useRef();
   const busRouteRef = useRef();
@@ -36,8 +53,12 @@ function BusForm() {
         <label htmlFor="busName" style={styles.Typography}>Bus Name:</label>
         <input ref={busNameRef} type="text" id="busName" name="busName" required style={styles.inputField}/>
       
-        <label htmlFor="busRoute" style={styles.Typography}>Bus Route:</label>
-        <input ref={busRouteRef} type="text" id="busRoute" name="busRoute" required style={styles.inputField}/>
+        <label htmlFor="routeName" style={styles.Typography}>Route Name:</label>
+        <select ref={busRouteRef} id="busRoute" name="busRoute" required style={styles.inputField}>
+          <option value="">Select a route...</option>
+          {routes.map((route, index) => <option key={index} value={route.routeNumber}>{route.routeNumber}</option>)}
+        </select>
+
       
         <label htmlFor="capacity" style={styles.Typography}>Capacity:</label>
         <input ref={capacityRef} type="number" id="capacity" name="capacity" required style={styles.inputField}/>

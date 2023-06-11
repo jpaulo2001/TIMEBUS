@@ -5,6 +5,17 @@ function ScheduleManager() {
 
   const [schedules, setSchedules] = useState([]);
 
+  const scheduleItem = (schedule, event) =>{
+    return (
+      <div>
+        <a>schedule.stopName</a>
+        {schedule.departureTimes.map((time, index)=>{
+          
+        })}
+      </div>
+    )
+  }
+
   useEffect(() => {
     const token = localStorage.getItem('jwt');
     fetch('http://localhost:4000/api/schedules/',{

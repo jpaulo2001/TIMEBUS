@@ -1,9 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {Link, useNavigate} from "react-router-dom"
 
 function StopForm() {
   const navigate = useNavigate();
-
+  
   const stopNameRef = useRef();
   const latRef = useRef();
   const lngRef = useRef();
@@ -19,8 +19,8 @@ function StopForm() {
     fetch('http://localhost:4000/api/stops',{
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Content-Type'  : 'application/json',
+        'Authorization' : `Bearer ${token}`
       },
       body: JSON.stringify(stop)
       }).then(() => {navigate('/Dashboard/BusManager')}).catch((err) => console.log(err));
