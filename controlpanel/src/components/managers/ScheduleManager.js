@@ -141,7 +141,7 @@ const styles = {
   elementsList: {
     display: 'block',
     listStyle: 'none',
-    background: 'grey',
+    background: 'white',
     borderRadius: '20px',
     padding: '30px',
     width: '70vw',
