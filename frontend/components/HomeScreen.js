@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import MapContainer from './MapContainer';
 import LocationForm from './LocationForm';
 import Logo from './Logo';
@@ -15,6 +15,9 @@ export default function HomeScreen() {
   );
 }
 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -22,6 +25,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'lightblue',
+    width: windowWidth,
   },
 });
 

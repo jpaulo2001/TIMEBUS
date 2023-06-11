@@ -12,7 +12,6 @@ export default function LoginScreen(props){
     password,
   };
 
-
   const handleLogin = async () => {
     try {
         const response = await fetch('http://localhost:4000/api/auth/login', {
