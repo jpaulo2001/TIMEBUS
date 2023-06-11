@@ -43,8 +43,9 @@ function LoginComponent() {
 
   return (
     <div>
-      <h1>Login TimeBus</h1>
+      
       <form onSubmit={login} id="login-form" style={styles.LoginContainer}>
+      <h1>Login TimeBus</h1>
         <div style={styles.formGroup}>
           <div style={styles.inputContainer}>
             <label htmlFor="email" style={styles.Typography}>
@@ -76,7 +77,7 @@ export default LoginComponent;
 const styles = {
 
   LoginContainer: {
-    margin: "10%",
+    margin: "5%",
     justifyContent: "center",
     display: "flex",
     flexDirection: "column",

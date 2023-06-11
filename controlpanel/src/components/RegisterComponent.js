@@ -50,11 +50,13 @@ function RegisterComponent() {
 
   return (
     <div>
-      <h1>Registration Form</h1>
+      
       <div id="container1">
+      
           <img src="controlpanel\public\mainlogo.png" alt="" />
         </div>
       <form onSubmit={handleSubmit} id="registration-form" style={styles.RegistrationContainer}>
+      <h1>Registration Form</h1>
           <div style={styles.inputContainer}>
             <label htmlFor="username" style={styles.Typography}>Username:</label>
             <input type="text" id="username" name="username" required style={styles.inputField} />
