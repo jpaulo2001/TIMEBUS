@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import LoginScreen from './components/Login';
 import HomeScreen from './components/HomeScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ContactList from '../controlpanel/src/components/Contacts';
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,6 +30,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+    
       {isLoggedIn ? (<HomeScreen removeToken={removeToken}/>) : (<LoginScreen checkToken={checkToken}/>)}
     </View>
   );

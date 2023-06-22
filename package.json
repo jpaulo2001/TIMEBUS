@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "react-modal": "^3.16.1",
+    "react-native": "^0.72.0"
   }
 }
