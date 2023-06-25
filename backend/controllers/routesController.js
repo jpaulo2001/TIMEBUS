@@ -29,7 +29,6 @@ const getRouteNumber = async (req, res) => {
 // create a new Route
 const createRoute = async (req, res) => {
   try {
-
     console.log(req.body);
     const { routeNumber, stops } = req.body;
     const newRoute = await Routes.create({ routeNumber, stops });
@@ -38,7 +37,6 @@ const createRoute = async (req, res) => {
     res.status(500).json({ error: 'Failed to create a bus stop' });
   }
 }
-
 
 //update route
 const updateRoute = async (req, res) => {
@@ -52,7 +50,6 @@ const updateRoute = async (req, res) => {
       { routeNumber, stops },
       { new: true }
     );
-
     if (updatedRoute) {
       res.status(200).json(updatedRoute);
     } else {
@@ -78,7 +75,6 @@ const deleteRoute = async (req, res) => {
     res.status(500).json({error:'Failed to delete route'});
   }
 };
-
 
 module.exports = {
   getRoutes,

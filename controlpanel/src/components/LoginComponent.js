@@ -64,9 +64,6 @@ function LoginComponent() {
         <p>
           Not a user? Click <Link to="/Register">here to register</Link>
         </p>
- 
-
-
       </form>
     </div>
   );

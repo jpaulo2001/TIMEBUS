@@ -34,7 +34,7 @@ function BusManager() {
       }
     })
     });
-    setSelection([]); // clear selection after removal
+    setSelection([]);
     fetchBuses()
   }
 

@@ -6,16 +6,16 @@ function ScheduleManager() {
   const [schedules, setSchedules] = useState([]);
   const [selection, setSelection] = useState([]);
 
-  const scheduleItem = (schedule, event) =>{
-    return (
-      <div>
-        <a>schedule.stopName</a>
-        {schedule.departureTimes.map((time, index)=>{
+  // const scheduleItem = (schedule, event) =>{
+  //   return (
+  //     <div>
+  //       <a>schedule.stopName</a>
+  //       {schedule.departureTimes.map((time, index)=>{
 
-        })}
-      </div>
-    )
-  }
+  //       })}
+  //     </div>
+  //   )
+  // }
 
   useEffect(() => {
     fetchSchedules()
@@ -46,8 +46,8 @@ function ScheduleManager() {
       }
     })
     });
-    setSelection([]); // clear selection after removal
-    fetchSchedules()
+    setSelection([]);
+    fetchSchedules();
   }
 
   const handleOnChange = (event) => {

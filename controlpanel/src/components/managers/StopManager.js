@@ -35,7 +35,7 @@ function StopManager() {
       }
     })
     });
-    setSelection([]); // clear selection after removal
+    setSelection([]);
     fetchStops()
   }
 

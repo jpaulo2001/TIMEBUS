@@ -30,7 +30,7 @@ export default function MapContainer() {
   const fetchStops = async () => {
     try {
       const token = await AsyncStorage.getItem('@token');
-      const apiURL = `http://${REACT_APP_BACKEND_IP}:4000/api/stops/`;
+      const apiURL = `http://localhost:4000/api/stops/`;
       const response = await fetch(apiURL, {
         method: 'GET',
         headers: {

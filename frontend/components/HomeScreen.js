@@ -9,8 +9,8 @@ export default function HomeScreen(props) {
 
   const logout = () => {
     props.removeToken();
-
   }
+  
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.logoutButton} onPress={logout}><Text>Logout</Text></TouchableOpacity>

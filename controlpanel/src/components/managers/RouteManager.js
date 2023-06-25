@@ -35,7 +35,7 @@ function RouteManager() {
       }
     })
     });
-    setSelection([]); // clear selection after removal
+    setSelection([]);
     fetchRoutes()
   }
   

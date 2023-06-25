@@ -19,7 +19,7 @@ function SchedulesForm() {
 
   const fetchBuses = () => {
     const token = localStorage.getItem('jwt');
-    fetch('http://localhost:4000/api/buses', {  // replace this with your stops API endpoint
+    fetch('http://localhost:4000/api/buses', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
