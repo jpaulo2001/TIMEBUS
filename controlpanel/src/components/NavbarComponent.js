@@ -37,12 +37,14 @@ const styles = {
     alignItems: "center",
     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
   },
-  list: {
+
+  list: { 
     listStyle: "none",
     padding: "0",
     display: "flex",
     gap: "2rem",
     alignItems: "center",
+    flexWrap: "wrap", // add this line
   },
 
   Typography: {
