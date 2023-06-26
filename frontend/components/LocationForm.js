@@ -3,7 +3,7 @@ import { REACT_APP_BACKEND_IP } from '@env'
 import { Image, StyleSheet, TextInput, View, Text, TouchableOpacity, Dimensions, SafeAreaView, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function LocationForm({stops}) {
+export default function LocationForm({updateRouteData}) {
   const [filterDataA, setfilterDataA] = useState([]);
   const [masterDataA, setmasterDataA] = useState([]);
   const [searchA, setSearchA] = useState('');
@@ -24,7 +24,6 @@ export default function LocationForm({stops}) {
     const token = await AsyncStorage.getItem('@token');
     
     const apiURL = `http://localhost:4000/api/stops/`;
-
     const response = await fetch(apiURL, {
       method: 'GET',
       headers: {
@@ -37,6 +36,36 @@ export default function LocationForm({stops}) {
 
     setFilterData(responseJson);
     setMasterData(responseJson);
+  }
+
+  const fetchRoutes = async (stopA, stopB) => {
+    const token = await AsyncStorage.getItem('@token');
+    const apiURL = `http://localhost:4000/api/routes/search/`;
+
+    const response = await fetch(apiURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        stopA: stopA,
+        stopB: stopB
+      })
+      
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    } else {
+      const responseJson = await response.json();
+      updateRouteData(responseJson)
+      setSearchA('')
+      setSearchB('')
+    }
+  }
+
+  const handleSearchButton = () => {
+    if(searchA && searchB) fetchRoutes(searchA,searchB)
   }
 
   const searchFilter = (text, setFilterData, masterData, setSearch) => {
@@ -115,7 +144,7 @@ export default function LocationForm({stops}) {
             ):null}
         </View>
           
-        <TouchableOpacity style= {styles.searchButton}>
+        <TouchableOpacity onPress={handleSearchButton} style= {styles.searchButton}>
           <Image source={require('../public/assets/buttons/search.png')} style={styles.searchButtonImage}/>
         </TouchableOpacity>
     </View>

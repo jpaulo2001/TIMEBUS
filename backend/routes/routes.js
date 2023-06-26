@@ -4,7 +4,8 @@ const {
     getRouteNumber, 
     createRoute,
     updateRoute,
-    deleteRoute   
+    deleteRoute,
+    getRoutesWStopsAB
 } = require('../controllers/routesController')
 
 const router = express.Router()
@@ -12,6 +13,7 @@ const authenticate = require('../middleware/authenticate')
 
 router.get('/', authenticate,getRoutes)
 router.get('/:routeNumber', authenticate,getRouteNumber)
+router.post('/search',authenticate,getRoutesWStopsAB)
 
 //Admin
 router.post('/', authenticate,createRoute)

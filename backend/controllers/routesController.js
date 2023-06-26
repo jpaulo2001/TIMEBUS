@@ -12,6 +12,22 @@ const getRoutes = async (req, res) => {
   }
 };
 
+const getRoutesWStopsAB = async (req, res) => {
+  const { stopA, stopB } = req.body;
+
+  try {
+    const routes = await Routes.find({
+      stops: {
+        $all: [stopA, stopB]
+      }
+    });
+    console.log(routes)
+    res.status(200).json(routes);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to find Routes' });
+  }
+};
+
 
 //get a single route
 const getRouteNumber = async (req, res) => {
@@ -81,5 +97,6 @@ module.exports = {
   getRouteNumber,
   createRoute,
   updateRoute,
-  deleteRoute
+  deleteRoute,
+  getRoutesWStopsAB
 }
