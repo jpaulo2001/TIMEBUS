@@ -4,17 +4,30 @@ import React, { useState, useEffect } from 'react'
 
 export default function RouteDetails({selectedRoute}){
     const [routeData, setRouteData] = useState(selectedRoute)
-
+    
     useEffect(() => {
         setRouteData(selectedRoute);
     }, [selectedRoute]);
 
+    const StopItem = ({item}) => {
+        return (
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View style={styles.stopIcon}/>
+                <View style={styles.verticalLine}/>
+                <Text>Stop: {item} </Text>
+            </View>
+        )
+    }
+
     return (
         <View style={styles.container}>
-            {Array.isArray(routeData) &&
-                routeData["stops"].map((stop, stopIndex)=>{
-                    return <Text key={stopIndex}>stop</Text>
-                })
+            {routeData?.stops ?
+                <FlatList
+                    data={routeData?.stops}
+                    renderItem={StopItem}
+                    keyExtractor={(item, index) => index.toString()}
+                />
+                : <Text>Loading stops...</Text>
             }
         </View>
     )
@@ -30,14 +43,13 @@ const styles = StyleSheet.create({
         left: windowWidth*0.1,
         right: windowWidth*0.1,
         bottom: windowHeight*0.05,
-        backgroundColor: 'rgba(0,30,100,0.5)', // semi-transparent to see underlying map
+        backgroundColor: 'rgba(0,30,100,0.5)',
         borderColor: '',
         borderStyle: 'solid',
         borderWidth: '2px',
         borderRadius: '15px',
         justifyContent: 'center',
         alignItems: 'center',
-      
     },
     text: {
         position: 'absolute',
@@ -58,6 +70,18 @@ const styles = StyleSheet.create({
         bottom: windowHeight*0.05,
         left: windowWidth*0.1,
         right: windowWidth*0.1,
-        
+    },
+    stopIcon:{
+        width: 10,
+        height: 10,
+        borderRadius: 5,
+        backgroundColor: 'red',
+        marginRight: 5
+    },
+    verticalLine: {
+        height: '100%',
+        width: 1,
+        backgroundColor: 'black',
+        marginRight: 5
     }
   });

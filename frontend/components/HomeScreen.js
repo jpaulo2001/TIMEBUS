@@ -13,8 +13,6 @@ export default function HomeScreen(props) {
   const [routeData, setRouteData] = useState(true);
   const [selectedRoute, setSelectedRoute] = useState(null);
 
-  console.log(routeData)
-
   const updateRouteData = (newData) => {
     setRouteData(newData);
   };
@@ -28,8 +26,8 @@ export default function HomeScreen(props) {
       <TouchableOpacity style={styles.logoutButton} onPress={logout}><Text>Logout</Text></TouchableOpacity>
       <Logo/>
       <LocationForm updateRouteData = {updateRouteData}/>
-      <MapContainer/>
-      {selectedRoute ? <RouteDetails route={selectedRoute} /> : <RouteContainerMenu RouteData={routeData} selectRoute={setSelectedRoute} />}
+      <MapContainer selectedRoute={selectedRoute}/>
+      {selectedRoute ? <RouteDetails selectedRoute={selectedRoute} /> : <RouteContainerMenu RouteData={routeData} selectRoute={setSelectedRoute} />}
     </View>
   );
 }

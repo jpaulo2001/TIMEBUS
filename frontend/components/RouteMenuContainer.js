@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         left: windowWidth*0.1,
         right: windowWidth*0.1,
         bottom: windowHeight*0.05,
-        backgroundColor: 'rgba(0,30,100,0.5)', // semi-transparent to see underlying map
+        backgroundColor: 'rgba(0,30,100,0.5)',
         borderColor: '',
         borderStyle: 'solid',
         borderWidth: '2px',

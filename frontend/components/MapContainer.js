@@ -7,9 +7,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const request = 'https://maps.googleapis.com/maps/api/directions/json?origin=37.7749,-122.4194&destination=37.7749,-122.5113&key={}'
 
-export default function MapContainer() {
+export default function MapContainer({selectedRoute}) {
 
   const [isMapEnlarged, setIsMapEnlarged] = useState(false);
+  const [selectedRouteWithCoordinates, setSelectedRouteWithCoordinates] = useState(null);
+  const [pathCoordinates, setPathCoordinates] = useState(null);
   const [stops, setStops] = useState([]);
 
   const toggleMapSize = () => {
@@ -24,6 +26,41 @@ export default function MapContainer() {
   useEffect(() => {
     fetchStops();
   }, []);
+
+  useEffect(() => {
+    if (selectedRoute && stops.length > 0) {
+      const routeWithCoordinates = selectedRoute.stops.map(stopName => {
+        const stopDetails = stops.find(stop => stop.stopName === stopName);
+        return { name: stopName, lat: stopDetails.lat, lng: stopDetails.lng };
+      });
+
+      setSelectedRouteWithCoordinates({ ...selectedRoute, stops: routeWithCoordinates });
+    }
+  }, [selectedRoute, stops]);
+
+  //get the navigation data from mapbox api
+  useEffect(() => {
+    if (selectedRouteWithCoordinates) {
+      const stopsForAPI = selectedRouteWithCoordinates.stops.map((stop, index) => {
+        return `${stop.lng},${stop.lat}`;
+      }).join(';');
+  
+      fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${stopsForAPI}?geometries=geojson&access_token=${'pk.eyJ1IjoicnViZW5zZXJyYWx2YSIsImEiOiJjbGlka3Z5OG8wdGVkM2RuYmV2NXJ2bWM2In0.Q6BEC42wrGzQei_IzqEkAQ'}`)
+        .then(response => response.json())
+        .then(data => {
+          const routeCoordinates = data.routes[0].geometry.coordinates.map(coordinate => {
+            return {
+              latitude: coordinate[1],
+              longitude: coordinate[0],
+            };
+          });
+          setPathCoordinates(routeCoordinates);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+  }, [selectedRoute]);
 
   //get every stop
   const fetchStops = async () => {
@@ -44,10 +81,6 @@ export default function MapContainer() {
     }
   };
 
-  const pathCoordinates = stops.map((stop) => ({
-    latitude: stop.lat,
-    longitude: stop.lng,
-  }));
 
   return (
     <View style={styles.container}>
@@ -62,13 +95,18 @@ export default function MapContainer() {
           longitudeDelta: 0.0421,
         }}
       >
-        {stops.map((stop) => (
-          <Marker
-            key={stop._id}
-            coordinate={{ latitude: parseFloat(stop.lat), longitude: parseFloat(stop.lng) }}
-            title={stop.stopName}
-          />
-        ))}
+        {selectedRouteWithCoordinates?.stops.map((stop, index) => {
+          const lat = parseFloat(stop.lat);
+          const lng = parseFloat(stop.lng);
+
+          return (
+            <Marker
+              key={index}
+              coordinate={{ latitude: lat, longitude: lng }}
+              title={stop.name}
+            />
+          );
+        })}
         <Polyline
           coordinates={pathCoordinates}
           strokeColor="#FF0000" // Specify the color of the polyline
