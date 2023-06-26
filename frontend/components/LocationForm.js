@@ -3,7 +3,7 @@ import { REACT_APP_BACKEND_IP } from '@env'
 import { Image, StyleSheet, TextInput, View, Text, TouchableOpacity, Dimensions, SafeAreaView, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function LocationForm({updateRouteData}) {
+export default function LocationForm({updateRouteData,setMapEnlarged}) {
   const [filterDataA, setfilterDataA] = useState([]);
   const [masterDataA, setmasterDataA] = useState([]);
   const [searchA, setSearchA] = useState('');
@@ -61,11 +61,12 @@ export default function LocationForm({updateRouteData}) {
       updateRouteData(responseJson)
       setSearchA('')
       setSearchB('')
+      if(responseJson) return true;
     }
   }
 
   const handleSearchButton = () => {
-    if(searchA && searchB) fetchRoutes(searchA,searchB)
+    if(searchA && searchB && fetchRoutes(searchA,searchB)) setMapEnlarged(true)
   }
 
   const searchFilter = (text, setFilterData, masterData, setSearch) => {

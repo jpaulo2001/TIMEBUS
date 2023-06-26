@@ -7,19 +7,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const request = 'https://maps.googleapis.com/maps/api/directions/json?origin=37.7749,-122.4194&destination=37.7749,-122.5113&key={}'
 
-export default function MapContainer({selectedRoute}) {
+export default function MapContainer({selectedRoute, setMapEnlarged, mapEnlarged}) {
 
-  const [isMapEnlarged, setIsMapEnlarged] = useState(false);
   const [selectedRouteWithCoordinates, setSelectedRouteWithCoordinates] = useState(null);
   const [pathCoordinates, setPathCoordinates] = useState(null);
   const [stops, setStops] = useState([]);
 
   const toggleMapSize = () => {
-    setIsMapEnlarged(!isMapEnlarged);
+    console.log(mapEnlarged)
+    setMapEnlarged(!mapEnlarged);
   };
 
-  const mapStyle = isMapEnlarged ? styles.enlargedMap : styles.map;
-  const buttonStyle = isMapEnlarged ? styles.enlargeButtonEnlarged : styles.enlargeButton;
+  const mapStyle = mapEnlarged ? styles.enlargedMap : styles.map;
+  const buttonStyle = mapEnlarged ? styles.enlargeButtonEnlarged : styles.enlargeButton;
 
   const coorPontaDelgada = {latitude: 37.73893724181937, longitude: -25.669530728849 }
 
@@ -48,19 +48,22 @@ export default function MapContainer({selectedRoute}) {
       fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${stopsForAPI}?geometries=geojson&overview=full&access_token=pk.eyJ1IjoicnViZW5zZXJyYWx2YSIsImEiOiJjbGlka3Z5OG8wdGVkM2RuYmV2NXJ2bWM2In0.Q6BEC42wrGzQei_IzqEkAQ`)
       .then(response => response.json())
         .then(data => {
-          const routeCoordinates = data.routes[0].geometry.coordinates.map(coordinate => {
-            return {
-              latitude: coordinate[1],
-              longitude: coordinate[0],
-            };
-          });
-          setPathCoordinates(routeCoordinates);
+          if(data.routes && data.routes[0]) {
+            const routeCoordinates = data.routes[0].geometry.coordinates.map(coordinate => {
+              return {
+                latitude: coordinate[1],
+                longitude: coordinate[0],
+              };
+            });
+            setPathCoordinates(routeCoordinates);
+          }
         })
         .catch(error => {
           console.error('Error:', error);
         });
     }
-  }, [selectedRoute]);
+  }, [selectedRouteWithCoordinates]);
+  
 
   //get every stop
   const fetchStops = async () => {
@@ -94,6 +97,22 @@ export default function MapContainer({selectedRoute}) {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
+        onRegionChangeComplete={region => {
+          //we check if the user is outside the island
+          if (region.latitude < 37.6659724843686 || region.latitude > 37.95190359388894 || 
+              region.longitude < -25.962892039672482 || region.longitude > -25.060370604415102) {
+            // If it is, snap back to the initial region
+            this.mapView.animateToRegion({
+              //go to PDL
+              latitude: coorPontaDelgada.latitude,
+              longitude: coorPontaDelgada.longitude,
+              //pan out
+              latitudeDelta: 0.5,
+              longitudeDelta: 0.1,
+            }, 1000); // Duration of animation in ms
+          }
+        }}
+        ref={(ref) => { this.mapView = ref; }}
       >
         {selectedRouteWithCoordinates?.stops.map((stop, index) => {
           const lat = parseFloat(stop.lat);
@@ -110,8 +129,8 @@ export default function MapContainer({selectedRoute}) {
         {pathCoordinates && (
           <Polyline
             coordinates={pathCoordinates}
-            strokeColor="#FF0000" // Specify the color of the polyline
-            strokeWidth={3} // Specify the width of the polyline
+            strokeColor="#FF0000"
+            strokeWidth={6}
           />
         )}
       </MapView>
@@ -151,11 +170,11 @@ const styles = StyleSheet.create({
   enlargedMap: {
     ...StyleSheet.absoluteFill,
     position: 'absolute',
-    top: -windowHeight / 2,
-    left: -windowWidth / 2,
+    top: -windowHeight,
+    left: -windowWidth,
     width: windowWidth * 2,
     height: windowHeight * 2,
-    zIndex: 0, // Adjust the zIndex value to bring the map in front
+    zIndex: 0,
   },
 
   enlargeButton: {
