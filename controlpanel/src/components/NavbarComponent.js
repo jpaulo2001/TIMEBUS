@@ -44,7 +44,7 @@ const styles = {
     display: "flex",
     gap: "2rem",
     alignItems: "center",
-    flexWrap: "wrap", // add this line
+    flexWrap: "wrap",
   },
 
   Typography: {

@@ -6,7 +6,7 @@ const Schema = mongoose.Schema
 
 const busSchema = new Schema({
   busName: {
-    type: String,
+    type: String, 
     required: true,
   },
   busRoute: {
