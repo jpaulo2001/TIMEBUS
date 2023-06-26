@@ -97,6 +97,22 @@ export default function MapContainer({selectedRoute, setMapEnlarged, mapEnlarged
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
+        onRegionChangeComplete={region => {
+          //we check if the user is outside the island
+          if (region.latitude < 37.6659724843686 || region.latitude > 37.95190359388894 || 
+              region.longitude < -25.962892039672482 || region.longitude > -25.060370604415102) {
+            // If it is, snap back to the initial region
+            this.mapView.animateToRegion({
+              //go to PDL
+              latitude: coorPontaDelgada.latitude,
+              longitude: coorPontaDelgada.longitude,
+              //pan out
+              latitudeDelta: 0.5,
+              longitudeDelta: 0.1,
+            }, 1000); // Duration of animation in ms
+          }
+        }}
+        ref={(ref) => { this.mapView = ref; }}
       >
         {selectedRouteWithCoordinates?.stops.map((stop, index) => {
           const lat = parseFloat(stop.lat);
@@ -113,8 +129,8 @@ export default function MapContainer({selectedRoute, setMapEnlarged, mapEnlarged
         {pathCoordinates && (
           <Polyline
             coordinates={pathCoordinates}
-            strokeColor="#FF0000" // Specify the color of the polyline
-            strokeWidth={3} // Specify the width of the polyline
+            strokeColor="#FF0000"
+            strokeWidth={6}
           />
         )}
       </MapView>
@@ -154,11 +170,11 @@ const styles = StyleSheet.create({
   enlargedMap: {
     ...StyleSheet.absoluteFill,
     position: 'absolute',
-    top: -windowHeight / 2,
-    left: -windowWidth / 2,
+    top: -windowHeight,
+    left: -windowWidth,
     width: windowWidth * 2,
     height: windowHeight * 2,
-    zIndex: 0, // Adjust the zIndex value to bring the map in front
+    zIndex: 0,
   },
 
   enlargeButton: {

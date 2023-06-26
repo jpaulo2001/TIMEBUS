@@ -66,9 +66,7 @@ export default function LocationForm({updateRouteData,setMapEnlarged}) {
   }
 
   const handleSearchButton = () => {
-    if(searchA && searchB) {
-      if(fetchRoutes(searchA,searchB)) setMapEnlarged(true)
-    }
+    if(searchA && searchB && fetchRoutes(searchA,searchB)) setMapEnlarged(true)
   }
 
   const searchFilter = (text, setFilterData, masterData, setSearch) => {
