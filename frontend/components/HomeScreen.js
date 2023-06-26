@@ -43,7 +43,12 @@ const styles = StyleSheet.create({
     width: windowWidth,
   },
   logoutButton:{
+    top: windowHeight*-0.17,
     marginRight : windowWidth*0.7,
     marginTop: windowHeight*0,
+    backgroundColor: 'lightblue',
+    borderWidth: '2px',
+    borderRadius:'15px',
+    padding: 5,
   }
 });
