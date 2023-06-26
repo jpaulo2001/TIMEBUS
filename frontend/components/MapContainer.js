@@ -45,8 +45,8 @@ export default function MapContainer({selectedRoute}) {
         return `${stop.lng},${stop.lat}`;
       }).join(';');
   
-      fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${stopsForAPI}?geometries=geojson&access_token=${'pk.eyJ1IjoicnViZW5zZXJyYWx2YSIsImEiOiJjbGlka3Z5OG8wdGVkM2RuYmV2NXJ2bWM2In0.Q6BEC42wrGzQei_IzqEkAQ'}`)
-        .then(response => response.json())
+      fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${stopsForAPI}?geometries=geojson&overview=full&access_token=pk.eyJ1IjoicnViZW5zZXJyYWx2YSIsImEiOiJjbGlka3Z5OG8wdGVkM2RuYmV2NXJ2bWM2In0.Q6BEC42wrGzQei_IzqEkAQ`)
+      .then(response => response.json())
         .then(data => {
           const routeCoordinates = data.routes[0].geometry.coordinates.map(coordinate => {
             return {
@@ -107,11 +107,13 @@ export default function MapContainer({selectedRoute}) {
             />
           );
         })}
-        <Polyline
-          coordinates={pathCoordinates}
-          strokeColor="#FF0000" // Specify the color of the polyline
-          strokeWidth={3} // Specify the width of the polyline
-        />
+        {pathCoordinates && (
+          <Polyline
+            coordinates={pathCoordinates}
+            strokeColor="#FF0000" // Specify the color of the polyline
+            strokeWidth={3} // Specify the width of the polyline
+          />
+        )}
       </MapView>
       <TouchableOpacity onPress={toggleMapSize}>
         <Image source={require('../public/assets/buttons/enlarge.png')} style={buttonStyle} />
