@@ -1,17 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 import MapContainer from './MapContainer';
 import LocationForm from './LocationForm';
 import Logo from './Logo';
-import RouteContainer from './RouteMenuContainer';
 import RouteDetails from './RouteDetails';
 import RouteContainerMenu from './RouteMenuContainer';
 
 
 export default function HomeScreen(props) {
-  const [routeData, setRouteData] = useState(true);
+  const [routeData, setRouteData] = useState(false);
   const [selectedRoute, setSelectedRoute] = useState(null);
+  const [mapEnlarged, setMapEnlarged] = useState(false)
 
   const updateRouteData = (newData) => {
     setRouteData(newData);
@@ -25,9 +24,9 @@ export default function HomeScreen(props) {
     <View style={styles.container}>
       <TouchableOpacity style={styles.logoutButton} onPress={logout}><Text>Logout</Text></TouchableOpacity>
       <Logo/>
-      <LocationForm updateRouteData = {updateRouteData}/>
-      <MapContainer selectedRoute={selectedRoute}/>
-      {selectedRoute ? <RouteDetails selectedRoute={selectedRoute} /> : <RouteContainerMenu RouteData={routeData} selectRoute={setSelectedRoute} />}
+      <LocationForm updateRouteData = {updateRouteData} setMapEnlarged={setMapEnlarged} />
+      <MapContainer selectedRoute={selectedRoute} setMapEnlarged={setMapEnlarged} mapEnlarged={mapEnlarged}/>
+      {mapEnlarged && routeData ? (selectedRoute ? <RouteDetails selectedRoute={selectedRoute} /> : <RouteContainerMenu RouteData={routeData} selectRoute={setSelectedRoute}/>):null}
     </View>
   );
 }
@@ -48,5 +47,3 @@ const styles = StyleSheet.create({
     marginTop: windowHeight*0,
   }
 });
-
-

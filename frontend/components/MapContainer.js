@@ -7,19 +7,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const request = 'https://maps.googleapis.com/maps/api/directions/json?origin=37.7749,-122.4194&destination=37.7749,-122.5113&key={}'
 
-export default function MapContainer({selectedRoute}) {
+export default function MapContainer({selectedRoute, setMapEnlarged, mapEnlarged}) {
 
-  const [isMapEnlarged, setIsMapEnlarged] = useState(false);
   const [selectedRouteWithCoordinates, setSelectedRouteWithCoordinates] = useState(null);
   const [pathCoordinates, setPathCoordinates] = useState(null);
   const [stops, setStops] = useState([]);
 
   const toggleMapSize = () => {
-    setIsMapEnlarged(!isMapEnlarged);
+    console.log(mapEnlarged)
+    setMapEnlarged(!mapEnlarged);
   };
 
-  const mapStyle = isMapEnlarged ? styles.enlargedMap : styles.map;
-  const buttonStyle = isMapEnlarged ? styles.enlargeButtonEnlarged : styles.enlargeButton;
+  const mapStyle = mapEnlarged ? styles.enlargedMap : styles.map;
+  const buttonStyle = mapEnlarged ? styles.enlargeButtonEnlarged : styles.enlargeButton;
 
   const coorPontaDelgada = {latitude: 37.73893724181937, longitude: -25.669530728849 }
 
@@ -48,19 +48,22 @@ export default function MapContainer({selectedRoute}) {
       fetch(`https://api.mapbox.com/directions/v5/mapbox/driving/${stopsForAPI}?geometries=geojson&overview=full&access_token=pk.eyJ1IjoicnViZW5zZXJyYWx2YSIsImEiOiJjbGlka3Z5OG8wdGVkM2RuYmV2NXJ2bWM2In0.Q6BEC42wrGzQei_IzqEkAQ`)
       .then(response => response.json())
         .then(data => {
-          const routeCoordinates = data.routes[0].geometry.coordinates.map(coordinate => {
-            return {
-              latitude: coordinate[1],
-              longitude: coordinate[0],
-            };
-          });
-          setPathCoordinates(routeCoordinates);
+          if(data.routes && data.routes[0]) {
+            const routeCoordinates = data.routes[0].geometry.coordinates.map(coordinate => {
+              return {
+                latitude: coordinate[1],
+                longitude: coordinate[0],
+              };
+            });
+            setPathCoordinates(routeCoordinates);
+          }
         })
         .catch(error => {
           console.error('Error:', error);
         });
     }
-  }, [selectedRoute]);
+  }, [selectedRouteWithCoordinates]);
+  
 
   //get every stop
   const fetchStops = async () => {
