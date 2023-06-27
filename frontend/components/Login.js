@@ -26,14 +26,17 @@ export default function LoginScreen(props){
                 Alert.alert('Error', 'Invalid username or password');
                 return
             }
-            console.log("Login successful:", answer);
             setUsername('');
             setPassword('');
-            Alert.alert('Success', 'Login successful!');
+            try{
+              await AsyncStorage.setItem('@token', answer.token);
+              props.checkToken();
+              Alert.alert('Success', 'Login successful!');
+            }
+            catch{
+              Alert.alert('An error ocurred')
+            }
 
-            await AsyncStorage.setItem('@token', answer.token);
-
-            props.checkToken();
         }
     } catch (error) {
         console.error(error);

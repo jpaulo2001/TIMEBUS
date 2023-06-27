@@ -11,9 +11,11 @@ export default function HomeScreen(props) {
   const [routeData, setRouteData] = useState(false);
   const [selectedRoute, setSelectedRoute] = useState(null);
   const [mapEnlarged, setMapEnlarged] = useState(false)
+  const [startStop, setStartStop] = useState(null);
+  const [endStop, setEndStop] = useState(null);
 
-  const updateRouteData = (newData) => {
-    setRouteData(newData);
+  const updateRouteData = (route) => {
+    setRouteData(route);
   };
 
   const logout = () => {
@@ -25,8 +27,8 @@ export default function HomeScreen(props) {
     <View style={styles.container}>
       <TouchableOpacity style={styles.logoutButton} onPress={logout}><Text>Logout</Text></TouchableOpacity>
       <Logo style = {styles.Image}/>
-      <LocationForm updateRouteData = {updateRouteData} setMapEnlarged={setMapEnlarged} />
-      <MapContainer selectedRoute={selectedRoute} setMapEnlarged={setMapEnlarged} mapEnlarged={mapEnlarged}/>
+      <LocationForm setStartStop={setStartStop} setEndStop={setEndStop} updateRouteData = {updateRouteData} setMapEnlarged={setMapEnlarged} />
+      <MapContainer startStop={startStop} endStop={endStop} selectedRoute={selectedRoute} setMapEnlarged={setMapEnlarged} mapEnlarged={mapEnlarged}/>
       {mapEnlarged && routeData ? (selectedRoute ? <RouteDetails selectedRoute={selectedRoute} /> : <RouteContainerMenu RouteData={routeData} selectRoute={setSelectedRoute}/>):null}
     </View>
   );

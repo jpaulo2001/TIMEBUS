@@ -3,7 +3,7 @@ import { REACT_APP_BACKEND_IP } from '@env'
 import { Image, StyleSheet, TextInput, View, Text, TouchableOpacity, Dimensions, SafeAreaView, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function LocationForm({updateRouteData,setMapEnlarged}) {
+export default function LocationForm({updateRouteData,setMapEnlarged,setStartStop,setEndStop}) {
   const [filterDataA, setfilterDataA] = useState([]);
   const [masterDataA, setmasterDataA] = useState([]);
   const [searchA, setSearchA] = useState('');
@@ -66,8 +66,23 @@ export default function LocationForm({updateRouteData,setMapEnlarged}) {
   }
 
   const handleSearchButton = () => {
-    if(searchA && searchB && fetchRoutes(searchA,searchB)) setMapEnlarged(true)
+    if(searchA && searchB) {
+      fetchRoutes(searchA,searchB).then((response) => {
+        if (response) {
+          const startStop = masterDataA.find(stop => stop.stopName === searchA);
+          const endStop = masterDataB.find(stop => stop.stopName === searchB);
+          if (startStop && endStop) {
+            setStartStop(startStop);
+            setEndStop(endStop);
+            setMapEnlarged(true);
+          } else {
+            console.error('Failed to find stop data for selected stops');
+          }
+        }
+      });
+    }
   }
+  
 
   const searchFilter = (text, setFilterData, masterData, setSearch) => {
     if(text){

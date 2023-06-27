@@ -7,9 +7,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const request = 'https://maps.googleapis.com/maps/api/directions/json?origin=37.7749,-122.4194&destination=37.7749,-122.5113&key={}'
 
-export default function MapContainer({selectedRoute, setMapEnlarged, mapEnlarged}) {
-
+export default function MapContainer({selectedRoute, setMapEnlarged, mapEnlarged, startStop, endStop}) {
+  //full routeData with stop objects
   const [selectedRouteWithCoordinates, setSelectedRouteWithCoordinates] = useState(null);
+  //selected route section with stop objects
+  const [selectedPartCoordinates, setSelectedPartCoordinates] = useState([]);
+  //navigation data
   const [pathCoordinates, setPathCoordinates] = useState(null);
   const [stops, setStops] = useState([]);
 
@@ -27,12 +30,32 @@ export default function MapContainer({selectedRoute, setMapEnlarged, mapEnlarged
     fetchStops();
   }, []);
 
+  const calculateSelectedPath = (selectedStop1, selectedStop2) => {
+    if (!pathCoordinates || !selectedStop1 || !selectedStop2) {
+      return [];
+    }
+    // Assuming stops are objects with {lat, lng} and pathCoordinates is array of {latitude, longitude}
+    const index1 = pathCoordinates.findIndex(coord => Math.abs(coord.latitude - selectedStop1.lat) < 0.001 && Math.abs(coord.longitude - selectedStop1.lng) < 0.001);
+    const index2 = pathCoordinates.findIndex(coord => Math.abs(coord.latitude - selectedStop2.lat) < 0.001 && Math.abs(coord.longitude - selectedStop2.lng) < 0.001);
+  
+    const startIndex = Math.min(index1, index2);
+    const endIndex = Math.max(index1, index2);
+
+    // Get the path between the two stops
+    const selectedPathCoordinates = pathCoordinates.slice(startIndex, endIndex);
+  
+    return selectedPathCoordinates;
+  }
+
+  //transforms the names of stops inside the routeData into stop objects with coordinates
   useEffect(() => {
     if (selectedRoute && stops.length > 0) {
       const routeWithCoordinates = selectedRoute.stops.map(stopName => {
-        const stopDetails = stops.find(stop => stop.stopName === stopName);
-        return { name: stopName, lat: stopDetails.lat, lng: stopDetails.lng };
-      });
+      const stopDetails = stops.find(stop => stop.stopName === stopName);
+      return {  name: stopName,
+                lat: stopDetails.lat, 
+                lng: stopDetails.lng 
+            };});
 
       setSelectedRouteWithCoordinates({ ...selectedRoute, stops: routeWithCoordinates });
     }
@@ -126,11 +149,20 @@ export default function MapContainer({selectedRoute, setMapEnlarged, mapEnlarged
             />
           );
         })}
+        {/*Draw the full route*/}
         {pathCoordinates && (
           <Polyline
             coordinates={pathCoordinates}
             strokeColor="#FF0000"
             strokeWidth={6}
+          />
+        )}
+        {/*Draw the selected section of the route*/}
+        {startStop&&endStop && (
+          <Polyline
+            coordinates={calculateSelectedPath(startStop,endStop)}
+            strokeColor="#00FF00" // Set a different color for the selected part
+            strokeWidth={3}
           />
         )}
       </MapView>
