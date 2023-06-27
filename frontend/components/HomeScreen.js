@@ -18,6 +18,7 @@ export default function HomeScreen(props) {
 
   const logout = () => {
     props.removeToken();
+    props.checkToken();
   }
   
   return (

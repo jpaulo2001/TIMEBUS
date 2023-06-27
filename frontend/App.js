@@ -25,7 +25,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {isLoggedIn ? (<HomeScreen removeToken={removeToken}/>) : (<AuthNavigator checkToken={checkToken}/>)}  
+      {isLoggedIn ? (<HomeScreen removeToken={removeToken} checkToken={checkToken}/>) : (<AuthNavigator checkToken={checkToken}/>)}  
     </View>
   );
 }
