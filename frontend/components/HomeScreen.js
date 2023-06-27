@@ -23,7 +23,7 @@ export default function HomeScreen(props) {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.logoutButton} onPress={logout}><Text>Logout</Text></TouchableOpacity>
-      <Logo/>
+      <Logo style = {styles.Image}/>
       <LocationForm updateRouteData = {updateRouteData} setMapEnlarged={setMapEnlarged} />
       <MapContainer selectedRoute={selectedRoute} setMapEnlarged={setMapEnlarged} mapEnlarged={mapEnlarged}/>
       {mapEnlarged && routeData ? (selectedRoute ? <RouteDetails selectedRoute={selectedRoute} /> : <RouteContainerMenu RouteData={routeData} selectRoute={setSelectedRoute}/>):null}
@@ -50,5 +50,10 @@ const styles = StyleSheet.create({
     borderWidth: '2px',
     borderRadius:'15px',
     padding: 5,
-  }
+  },
+  Image: {
+    width: windowWidth*0.4,
+    top: windowHeight*-0.3,
+    resizeMode: 'contain',  // contain or cover
+  },
 });

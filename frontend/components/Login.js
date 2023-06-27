@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, Button, Alert, Dimensions } from 'react-native';
-import axios from 'axios';
+import { StyleSheet, View, TextInput, Button, Alert, Dimensions, SafeAreaView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Logo from './Logo';
 
 export default function LoginScreen(props){
   const [username, setUsername] = useState('');
@@ -42,22 +42,26 @@ export default function LoginScreen(props){
   };
 
   return (
-    <View styles={styles.container}>
-      <TextInput
-        placeholder="Username/Email"
-        value={username}
-        onChangeText={(text) => setUsername(text)}
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="Password"
-        secureTextEntry
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-        style={styles.input}
-      />
-      <Button title="Login" onPress={handleLogin} />
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <Logo style={styles.logo}/>
+        <TextInput
+          placeholder="Username/Email"
+          value={username}
+          onChangeText={(text) => setUsername(text)}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Password"
+          secureTextEntry
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+          style={styles.input}
+        />
+        <Button title="Login" onPress={handleLogin} />
+      </View>
+    </SafeAreaView>
+    
   );
 };
 
@@ -79,6 +83,10 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         marginBottom: 10,
       },
-
+      logo:{
+        width: windowWidth*0.4,
+        height: windowHeight*0.4,
+        resizeMode: 'contain',
+      }
   });
 
