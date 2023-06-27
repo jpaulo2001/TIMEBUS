@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image, Dimensions } from 'react-native';
+import { StyleSheet, Image, Dimensions } from 'react-native';
 
 export default function Logo({style}) {
     return (

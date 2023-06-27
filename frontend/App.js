@@ -1,12 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import MapContainer from './components/MapContainer';
-import LocationForm from './components/LocationForm';
-import Logo from './components/Logo';
+import { StyleSheet, View } from 'react-native';
 import { useState, useEffect } from 'react';
-import LoginScreen from './components/Login';
 import HomeScreen from './components/HomeScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AuthNavigator from './components/AuthNavigator';  // import the new AuthNavigator
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,7 +25,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {isLoggedIn ? (<HomeScreen removeToken={removeToken}/>) : (<LoginScreen checkToken={checkToken}/>)}
+      {isLoggedIn ? (<HomeScreen removeToken={removeToken}/>) : (<AuthNavigator checkToken={checkToken}/>)}  
     </View>
   );
 }
@@ -37,7 +33,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });

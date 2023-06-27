@@ -21,7 +21,7 @@ export default function LoginScreen(props){
         });
 
         if (response.ok) {
-            answer = await response.json();
+            let answer = await response.json();
             if(answer.message==="No user found!"){
                 Alert.alert('Error', 'Invalid username or password');
                 return
@@ -42,7 +42,6 @@ export default function LoginScreen(props){
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
         <Logo style={styles.logo}/>
         <TextInput
@@ -59,9 +58,8 @@ export default function LoginScreen(props){
           style={styles.input}
         />
         <Button title="Login" onPress={handleLogin} />
-      </View>
-    </SafeAreaView>
-    
+        <Button title="Go to Register" onPress={() => props.navigation.navigate('Register')} />
+      </View>    
   );
 };
 
@@ -71,22 +69,23 @@ const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
+      flex:1,
+      top:windowHeight*-0.2,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     input: {
-        width: windowWidth*0.5,
-        height: 40,
-        padding: 10,
-        borderWidth: 1,
-        borderColor: 'black',
-        marginBottom: 10,
-      },
-      logo:{
-        width: windowWidth*0.4,
-        height: windowHeight*0.4,
-        resizeMode: 'contain',
-      }
+      width: windowWidth*0.5,
+      height: 40,
+      padding: 10,
+      borderWidth: 1,
+      borderColor: 'black',
+      marginBottom: 10,
+    },
+    logo:{
+      width: windowWidth*0.4,
+      height: windowHeight*0.4,
+      resizeMode: 'contain',
+    }
   });
 
