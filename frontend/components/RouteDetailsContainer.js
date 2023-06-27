@@ -2,20 +2,26 @@ import { StyleSheet, Text, TouchableOpacity, View, FlatList } from 'react-native
 import { Dimensions } from 'react-native';
 import React, { useState, useEffect } from 'react'
 
-export default function RouteDetails({selectedRoute}){
+export default function RouteDetailsContainer({selectedRoute,setFocusedStop, focusOnStop}){
     const [routeData, setRouteData] = useState(selectedRoute)
     
     useEffect(() => {
         setRouteData(selectedRoute);
     }, [selectedRoute]);
 
+    const onItemPress = (item) => {
+        setFocusedStop(item);
+      };
+
     const StopItem = ({item}) => {
         return (
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity 
+                style={{flexDirection: 'row', alignItems: 'center'}} 
+                onPress={()=> focusOnStop(item)}>
                 <View style={styles.stopIcon}/>
                 <View style={styles.verticalLine}/>
                 <Text>Stop: {item} </Text>
-            </View>
+            </TouchableOpacity>
         )
     }
 
@@ -23,6 +29,7 @@ export default function RouteDetails({selectedRoute}){
         <View style={styles.container}>
             {routeData?.stops ?
                 <FlatList
+                    onPress={() => onItemPress(item)}
                     data={routeData?.stops}
                     renderItem={StopItem}
                     keyExtractor={(item, index) => index.toString()}

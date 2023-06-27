@@ -1,18 +1,63 @@
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import MapContainer from './MapContainer';
 import LocationForm from './LocationForm';
 import Logo from './Logo';
-import RouteDetails from './RouteDetails';
 import RouteContainerMenu from './RouteMenuContainer';
-
+import RouteDetailsContainer from './RouteDetailsContainer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function HomeScreen(props) {
+  const mapRef = useRef(null);
+
   const [routeData, setRouteData] = useState(false);
   const [selectedRoute, setSelectedRoute] = useState(null);
   const [mapEnlarged, setMapEnlarged] = useState(false)
   const [startStop, setStartStop] = useState(null);
   const [endStop, setEndStop] = useState(null);
+  const [focusedStop, setFocusedStop] = useState(null);
+  const [stops, setStops] = useState([]);
+
+  useEffect(() => {
+    fetchStops();
+    if (focusedStop) {focusOnStop(focusedStop);}
+  }, [focusedStop, stops]);
+
+  const fetchStops = async () => {
+    try {
+      const token = await AsyncStorage.getItem('@token');
+      const apiURL = `http://localhost:4000/api/stops/`;
+      const response = await fetch(apiURL, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        }
+      });
+      const responseJson = await response.json();
+      setStops(responseJson);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const focusOnStop = (stopName) => {
+    if (stops && mapRef.current) {
+      const stop = stops.find((stop) => stop.stopName === stopName);
+      if (stop) {
+        mapRef.current.animateToRegion(
+          {
+            latitude: stop.lat,
+            longitude: stop.lng,
+            latitudeDelta: 0.05,
+            longitudeDelta: 0.05,
+          },
+          1000
+        );
+      }
+    }
+  };
+
 
   const updateRouteData = (route) => {
     setRouteData(route);
@@ -27,9 +72,9 @@ export default function HomeScreen(props) {
     <View style={styles.container}>
       <TouchableOpacity style={styles.logoutButton} onPress={logout}><Text>Logout</Text></TouchableOpacity>
       <Logo style = {styles.Image}/>
-      <LocationForm setStartStop={setStartStop} setEndStop={setEndStop} updateRouteData = {updateRouteData} setMapEnlarged={setMapEnlarged} />
-      <MapContainer startStop={startStop} endStop={endStop} selectedRoute={selectedRoute} setMapEnlarged={setMapEnlarged} mapEnlarged={mapEnlarged}/>
-      {mapEnlarged && routeData ? (selectedRoute ? <RouteDetails selectedRoute={selectedRoute} /> : <RouteContainerMenu RouteData={routeData} selectRoute={setSelectedRoute}/>):null}
+      <LocationForm setSelectedRoute={setSelectedRoute} setStartStop={setStartStop} setEndStop={setEndStop} updateRouteData = {updateRouteData} setMapEnlarged={setMapEnlarged} />
+      <MapContainer focusOnStop={focusOnStop} mapRef={mapRef} stops={stops} focusedStop={focusedStop} startStop={startStop} endStop={endStop} selectedRoute={selectedRoute} setMapEnlarged={setMapEnlarged} mapEnlarged={mapEnlarged}/>
+      {mapEnlarged && routeData ? (selectedRoute ? <RouteDetailsContainer focusOnStop={focusOnStop} setFocusedStop={setFocusedStop} selectedRoute={selectedRoute} /> : <RouteContainerMenu RouteData={routeData} selectRoute={setSelectedRoute}/>):null}
     </View>
   );
 }

@@ -3,7 +3,7 @@ import { REACT_APP_BACKEND_IP } from '@env'
 import { Image, StyleSheet, TextInput, View, Text, TouchableOpacity, Dimensions, SafeAreaView, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function LocationForm({updateRouteData,setMapEnlarged,setStartStop,setEndStop}) {
+export default function LocationForm({updateRouteData,setMapEnlarged,setStartStop,setEndStop,setSelectedRoute}) {
   const [filterDataA, setfilterDataA] = useState([]);
   const [masterDataA, setmasterDataA] = useState([]);
   const [searchA, setSearchA] = useState('');
@@ -58,7 +58,9 @@ export default function LocationForm({updateRouteData,setMapEnlarged,setStartSto
       throw new Error(`HTTP error! status: ${response.status}`);
     } else {
       const responseJson = await response.json();
+      updateRouteData('')
       updateRouteData(responseJson)
+      setSelectedRoute(null)
       setSearchA('')
       setSearchB('')
       if(responseJson) return true;
