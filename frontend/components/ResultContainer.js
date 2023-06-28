@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Dimensions, FlatList } from 'react-native';
 
-export default function ResultContainer() {
-    const [route, setRoute] = useState([{stopName: 'sss'},{stopName: 'ssads'},{stopName: 'ssads'}]);
+const ItemView = ({ item }) => {
+    return (
+        <View style={styles.itemStyle}>
+            <View style={styles.circleStyle} />
+            <Text style={styles.stopName}>{'-- '}{item.stopName}</Text>
+        </View>
+    );
+}
 
-    const ItemView = ({ item }) => {
-        return (
-            <View style={styles.itemStyle}>
-                <View style={styles.circleStyle} />
-                <Text style={styles.stopName}>{'-- '}{item.stopName}</Text>
-            </View>
-        );
-    }
+export default function ResultContainer() {
 
     return (
         <View style={styles.container}>

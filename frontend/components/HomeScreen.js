@@ -72,8 +72,8 @@ export default function HomeScreen(props) {
     <View style={styles.container}>
       <TouchableOpacity style={styles.logoutButton} onPress={logout}><Text>Logout</Text></TouchableOpacity>
       <Logo style = {styles.Image}/>
-      <LocationForm setSelectedRoute={setSelectedRoute} setStartStop={setStartStop} setEndStop={setEndStop} updateRouteData = {updateRouteData} setMapEnlarged={setMapEnlarged} />
       <MapContainer focusOnStop={focusOnStop} mapRef={mapRef} stops={stops} focusedStop={focusedStop} startStop={startStop} endStop={endStop} selectedRoute={selectedRoute} setMapEnlarged={setMapEnlarged} mapEnlarged={mapEnlarged}/>
+      {!mapEnlarged && <LocationForm setSelectedRoute={setSelectedRoute} setStartStop={setStartStop} setEndStop={setEndStop} updateRouteData = {updateRouteData} setMapEnlarged={setMapEnlarged} />}
       {mapEnlarged && routeData ? (selectedRoute ? <RouteDetailsContainer focusOnStop={focusOnStop} setFocusedStop={setFocusedStop} selectedRoute={selectedRoute} /> : <RouteContainerMenu RouteData={routeData} selectRoute={setSelectedRoute}/>):null}
     </View>
   );

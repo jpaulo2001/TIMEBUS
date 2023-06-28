@@ -3,6 +3,8 @@ import { REACT_APP_BACKEND_IP } from '@env'
 import { Image, StyleSheet, TextInput, View, Text, TouchableOpacity, Dimensions, SafeAreaView, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const ItemSeparatorView = () => {return(<View style={{height: 0.5, width: '100%', backgroundColor: 'black'}}/>)}
+
 export default function LocationForm({updateRouteData,setMapEnlarged,setStartStop,setEndStop,setSelectedRoute}) {
   const [filterDataA, setfilterDataA] = useState([]);
   const [masterDataA, setmasterDataA] = useState([]);
@@ -111,6 +113,7 @@ export default function LocationForm({updateRouteData,setMapEnlarged,setStartSto
     setfilterDataB([]);
   }
 
+
   const ItemView = ({item}) => {
     return(
       <View style={styles.itemStyle}>
@@ -120,8 +123,6 @@ export default function LocationForm({updateRouteData,setMapEnlarged,setStartSto
       </View> 
     )
   }
-
-  const ItemSeparatorView = () => {return(<View style={{height: 0.5, width: '100%', backgroundColor: 'black'}}/>)}
   
   return (
     <View style={styles.container}>
@@ -134,7 +135,7 @@ export default function LocationForm({updateRouteData,setMapEnlarged,setStartSto
               onFocus={() => setActiveInput('A')}
             />
             {searchA && filterDataA.length>0 && activeInput==='A' ? (
-              <View style={styles.suggestionBox}>
+              <View style={[styles.suggestionBox, { top: windowHeight * 0.06 }]}>
                 <FlatList
                   data={filterDataA}
                   keyExtractor={(item, index) => index.toString()}
@@ -151,7 +152,7 @@ export default function LocationForm({updateRouteData,setMapEnlarged,setStartSto
               onFocus={() => setActiveInput('B')}
             />
             {searchB && filterDataB.length>0 && activeInput==='B' ? (
-              <View style={styles.suggestionBox}>
+              <View style={[styles.suggestionBox, { top: windowHeight * 0.12 }]}>
                 <FlatList
                   data={filterDataB}
                   keyExtractor={(item, index) => index.toString()}
@@ -199,7 +200,6 @@ const styles = StyleSheet.create({
     },
     searchButton: {
       borderWidth: 2,
-      //borderColor: 'black',
       width: windowWidth*0.2,
       height: windowHeight*0.1,
       borderTopRightRadius:100,
@@ -224,10 +224,10 @@ const styles = StyleSheet.create({
     suggestionBox:{
       borderColor: 'black',
       borderWidth: '2px',
-      left: windowWidth*0.05,
-      top: -windowHeight*0.15,
+      left: -windowWidth*0.01,
       backgroundColor: 'grey',
       position: 'absolute',
+      zIndex: '2',
     },
     suggestionBoxTypography:{
       fontSize:12,
