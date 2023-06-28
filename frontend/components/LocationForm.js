@@ -228,6 +228,7 @@ const styles = StyleSheet.create({
       backgroundColor: 'grey',
       position: 'absolute',
       zIndex: '2',
+      maxHeight: windowHeight*0.1,
     },
     suggestionBoxTypography:{
       fontSize:12,

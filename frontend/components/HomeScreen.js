@@ -74,7 +74,7 @@ export default function HomeScreen(props) {
       <Logo style = {styles.Image}/>
       <MapContainer focusOnStop={focusOnStop} mapRef={mapRef} stops={stops} focusedStop={focusedStop} startStop={startStop} endStop={endStop} selectedRoute={selectedRoute} setMapEnlarged={setMapEnlarged} mapEnlarged={mapEnlarged}/>
       {!mapEnlarged && <LocationForm setSelectedRoute={setSelectedRoute} setStartStop={setStartStop} setEndStop={setEndStop} updateRouteData = {updateRouteData} setMapEnlarged={setMapEnlarged} />}
-      {mapEnlarged && routeData ? (selectedRoute ? <RouteDetailsContainer focusOnStop={focusOnStop} setFocusedStop={setFocusedStop} selectedRoute={selectedRoute} /> : <RouteContainerMenu RouteData={routeData} selectRoute={setSelectedRoute}/>):null}
+      {mapEnlarged && routeData ? (selectedRoute ? <RouteDetailsContainer startStop={startStop} endStop={endStop} focusOnStop={focusOnStop} setFocusedStop={setFocusedStop} selectedRoute={selectedRoute} /> : <RouteContainerMenu RouteData={routeData} selectRoute={setSelectedRoute}/>):null}
     </View>
   );
 }
