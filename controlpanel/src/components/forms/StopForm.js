@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import {Link, useNavigate} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faArrowLeft, faThumbtack} from '@fortawesome/free-solid-svg-icons'
@@ -6,14 +6,16 @@ import mapboxgl from 'mapbox-gl';
 
 function StopForm() {
   const mapContainer = useRef(null);
+  const markerRef = useRef(null); // <--- ADD THIS
+
   const navigate = useNavigate();
+  const [currentMarker, setCurrentMarker] = useState(null);
 
   const stopNameRef = useRef();
   const latRef = useRef();
   const lngRef = useRef();
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
     mapboxgl.accessToken = 'pk.eyJ1IjoicnViZW5zZXJyYWx2YSIsImEiOiJjbGlka3Z5OG8wdGVkM2RuYmV2NXJ2bWM2In0.Q6BEC42wrGzQei_IzqEkAQ';
     const map = new mapboxgl.Map({
       container: mapContainer.current,
@@ -22,16 +24,35 @@ function StopForm() {
       zoom: 10
     });
 
-    // click event
-    map.on('click', function(e) {
-      const { lng, lat } = e.lngLat;
-      
-      latRef.current.value = lat;
-      lngRef.current.value = lng;
+    const preventPageScroll = (event) => {
+      event.preventDefault();
+    };
 
-      new mapboxgl.Marker({ "color": "#FF0000" })
-      .setLngLat([lng, lat])
-      .addTo(map);
+    mapContainer.current.addEventListener('wheel', preventPageScroll, {passive: false});
+
+
+    // click event
+    map.on('load', function() {
+      // click event
+      map.on('click', function(e) {
+        const { lng, lat } = e.lngLat;
+        
+        latRef.current.value = lat;
+        lngRef.current.value = lng;
+  
+        // If there's an existing marker, remove it
+        if (markerRef.current) {
+          markerRef.current.remove();
+        }
+  
+        // Create a new marker
+        const newMarker = new mapboxgl.Marker({ "color": "#FF0000" })
+          .setLngLat([lng, lat])
+          .addTo(map);
+          
+        // Set the current marker to the new marker
+        markerRef.current = newMarker;
+      });
     });
 
     return () => {
@@ -84,15 +105,21 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'end', // Add space between your form and map
+    orientation: '',
     padding: '1%',
     backgroundColor: '#bde0fe',
     border: '2px solid black',
     borderRadius: '15px',
+    width: '90vw',
+    
   },
   Typography: {
     fontSize: '1.5rem',
     fontFamily: 'American Typewriter',
     color: '#464646',
+    fontSize: '1rem'
+
   },
   addButton: {
     backgroundColor: '#219ebc',
@@ -114,13 +141,12 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
-    width: '10%',
+    width: '15%',
     padding: '1rem',
     background: 'white',
     boxShadow: '0 0 10px rgba(0,0,0,0.1)',
     borderTopLeftRadius: '20px',
     borderBottomLeftRadius: '20px',
-
   },
   inputField: {
     padding: '5px',
@@ -128,7 +154,9 @@ const styles = {
     border: '1px solid #ccc',
     fontSize: '1rem',
     fontFamily: 'American Typewriter',
-    height: '5vh'
+    height: '5vh',
+    width: '12vw',
+
   },
   goBack: {
     marginBottom: '30px',
@@ -145,9 +173,11 @@ const styles = {
     border: 'black 1px solid',
   },
   mapContainer: {
-    width: "80vw",
-    height: "45vw",
+    width: "85%",
+    height: "80vh",
     overflow: 'hidden',
-    position: "absolut"
+    position: "relative",
+    border: 'solid 2px black',
+    borderRadius:'15px'
   },
 }
