@@ -25,26 +25,29 @@ function RouteManager() {
       .catch((err) => console.log(err));
   }
 
-  const removeSelection = () => {
+  const removeSelection = async() => {
     const token = localStorage.getItem('jwt');
-    selection.forEach((element) => {
-      fetch(`http://localhost:4000/api/routes/${element.routeNumber}`, {
-        method: 'Delete',
+    const deletePromises = selection.map(routeId => {
+      console.log(`Deleting route with id ${routeId}`);
+      return fetch(`http://localhost:4000/api/routes/${routeId}`, {
+        method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
-      })
+          'Authorization': `Bearer ${token}`,
+        },
+      });
     });
+    await Promise.all(deletePromises);
     setSelection([]);
     fetchRoutes()
   }
+  
 
-  const handleOnChange = (event) => {
+  const handleOnChange = (event, index) => {
     if (event.target.checked) {
-      setSelection(prevSelection => [...prevSelection, event.target.parentNode]);
+      setSelection(prevSelection => [...prevSelection, routes[index]._id]);
     } else {
-      setSelection(prevSelection => prevSelection.filter(sel => sel !== event.target.parentNode));
+      setSelection(prevSelection => prevSelection.filter(sel => sel !== routes[index]._id));
     }
   }
 
@@ -65,7 +68,7 @@ function RouteManager() {
         <tbody>
           {routes.map((route, index) => (
             <tr key={index}>
-              <td style={styles.tableData}><input type="checkbox" onChange={handleOnChange} /></td>
+              <td style={styles.tableData}><input type="checkbox" value={route._id} checked={selection.includes(route._id)} onChange={(e)=>handleOnChange(e,index)} /></td>
               <td style={styles.tableData}>{route.routeNumber}</td>
               <td style={styles.tableData}>{route.stops}</td>
             </tr>

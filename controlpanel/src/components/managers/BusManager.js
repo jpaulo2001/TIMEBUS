@@ -25,26 +25,27 @@ function BusManager() {
       .catch((err) => console.log(err));
   }
 
-  const removeSelection = () => {
+  const removeSelection = async() => {
     const token = localStorage.getItem('jwt');
-    selection.forEach((element) => {
-      fetch(`http://localhost:4000/api/buses/${element.busName}`, {
-        method: 'Delete',
+    const deletePromises = selection.map(busId =>
+      fetch(`http://localhost:4000/api/buses/${busId}`, {
+        method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
+          'Authorization': `Bearer ${token}`,
+        },
       })
-    });
+    );
+    await Promise.all(deletePromises);
     setSelection([]);
     fetchBuses()
-  }
+  }  
 
-  const handleOnChange = (event) => {
+  const handleOnChange = (event, index) => {
     if (event.target.checked) {
-      setSelection(prevSelection => [...prevSelection, event.target.parentNode]);
+      setSelection(prevSelection => [...prevSelection, buses[index]._id]);
     } else {
-      setSelection(prevSelection => prevSelection.filter(sel => sel !== event.target.parentNode));
+      setSelection(prevSelection => prevSelection.filter(sel => sel !== buses[index]._id));
     }
   }
 
@@ -66,7 +67,7 @@ function BusManager() {
         <tbody>
           {buses.map((bus, index) => (
             <tr key={index}>
-              <td style={styles.tableData}><input type="checkbox" onChange={handleOnChange} /></td>
+              <td style={styles.tableData}><input type="checkbox" value={bus._id} checked={selection.includes(bus._id)} onChange={(e)=>handleOnChange(e,index)} /></td>
               <td style={styles.tableData}>{bus.busName}</td>
               <td style={styles.tableData}>{bus.busRoute}</td>
               <td style={styles.tableData}>{bus.capacity}</td>

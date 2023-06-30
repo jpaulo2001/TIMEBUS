@@ -61,8 +61,8 @@ const updateBus = async (req, res) => {
 //delete bus
 const deleteBus = async (req, res) => {
   try{
-    const {busName} = req.params;
-    const deletedBus = await Bus.findOneAndRemove(busName);
+    const {_id} = req.params;
+    const deletedBus = await Bus.findByIdAndRemove(_id);
     if(deletedBus) {
       res.status(200).json({message: 'Bus deleted successfully'});
     }else{
@@ -72,6 +72,7 @@ const deleteBus = async (req, res) => {
     res.status(500).json({error: 'Failed to delete Bus'});
   }
 };
+
 
 
 

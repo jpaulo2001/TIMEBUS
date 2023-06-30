@@ -80,15 +80,15 @@ const updateRoute = async (req, res) => {
 //delete route
 const deleteRoute = async (req, res) => {
   try {
-    const { routeNumber } = req.params
-    const deletedRoute = await Routes.findOneAndRemove(routeNumber)
+    const { _id } = req.params;
+    const deletedRoute = await Routes.findByIdAndRemove(_id);
     if (deletedRoute) {
-      res.status(200).json({ message: 'Route deleted successfully' })
+      res.status(200).json({ message: 'Route deleted successfully' });
     } else {
       res.status(404).json({ error: 'Route not found' });
     }
-  }catch(error){
-    res.status(500).json({error:'Failed to delete route'});
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete route' });
   }
 };
 

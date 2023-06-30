@@ -65,9 +65,8 @@ const updateschedules = async (req, res) => {
 //delete schedules
 const deleteschedules = async (req, res) => {
   try {
-    const { scheduleID } = req.params;
-    const deletedSchedule = await schedules.findOneAndDelete(scheduleID);
-
+    const { _id } = req.params;
+    const deletedSchedule = await schedules.findByIdAndRemove(_id);
     if (deletedSchedule) {
       res.status(200).json({ message: 'Schedule deleted successfully' });
     } else {
@@ -77,7 +76,6 @@ const deleteschedules = async (req, res) => {
     res.status(500).json({ error: 'Failed to delete schedule' });
   }
 };
-
 
 
 module.exports = {

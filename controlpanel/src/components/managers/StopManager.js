@@ -26,26 +26,27 @@ function StopManager() {
       .catch((err) => console.log(err));
   }
 
-  const removeSelection = () => {
+  const removeSelection = async() => {
     const token = localStorage.getItem('jwt');
-    selection.forEach((element) => {
-      fetch(`http://localhost:4000/api/stops/${element.busName}`,{
-      method: 'Delete',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    })
-    });
+    const deletePromises = selection.map(stopId =>
+      fetch(`http://localhost:4000/api/stops/${stopId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+    );
+    await Promise.all(deletePromises);
     setSelection([]);
     fetchStops()
   }
 
-  const handleOnChange = (event) => {
-    if(event.target.checked) {
-      setSelection(prevSelection => [...prevSelection, event.target.parentNode]);
+  const handleOnChange = (event, index) => {
+    if (event.target.checked) {
+      setSelection(prevSelection => [...prevSelection, stops[index]._id]);
     } else {
-      setSelection(prevSelection => prevSelection.filter(sel => sel !== event.target.parentNode));
+      setSelection(prevSelection => prevSelection.filter(sel => sel !== stops[index]._id));
     }
   }
 
@@ -67,7 +68,7 @@ function StopManager() {
           <tbody>
             {stops.map((stop, index) => (
               <tr key={index}>
-                <td style={styles.tableData}><input type="checkbox" onChange={handleOnChange}/></td>
+              <td style={styles.tableData}><input type="checkbox" value={stop._id} checked={selection.includes(stop._id)} onChange={(e)=>handleOnChange(e,index)} /></td>
                 <td style={styles.tableData}>{stop.stopName}</td>
                 <td style={styles.tableData}>{stop.lat}</td>
                 <td style={styles.tableData}>{stop.lng}</td>

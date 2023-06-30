@@ -66,8 +66,8 @@ const updateStop = async (req, res) => {
 //delete a stop
 const deleteStop = async (req, res) => {
   try {
-    const { stopName } = req.params;
-    const deletedStop = await BusStop.findOneAndRemove(stopName);
+    const { _id } = req.params;
+    const deletedStop = await BusStop.findByIdAndRemove(_id);
     if (deletedStop) {
       res.status(200).json({ message: 'Bus stop deleted successfully' });
     } else {

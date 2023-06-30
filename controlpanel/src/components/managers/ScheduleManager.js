@@ -26,26 +26,27 @@ function ScheduleManager() {
       .catch((err) => console.log(err));
   }
 
-  const removeSelection = () => {
+  const removeSelection = async() => {
     const token = localStorage.getItem('jwt');
-    selection.forEach((scheduleID) => {
-      fetch(`http://localhost:4000/api/schedules/${scheduleID}`,{
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    })
-    });
+    const deletePromises = selection.map(scheduleId =>
+      fetch(`http://localhost:4000/api/schedules/${scheduleId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+    );
+    await Promise.all(deletePromises);
     setSelection([]);
     fetchSchedules();
   }
 
-  const handleOnChange = (event) => {
-    if(event.target.checked) {
-      setSelection(prevSelection => [...prevSelection, event.target.getAttribute('data-schedule-id')]);
+  const handleOnChange = (event, index) => {
+    if (event.target.checked) {
+      setSelection(prevSelection => [...prevSelection, schedules[index]._id]);
     } else {
-      setSelection(prevSelection => prevSelection.filter(id => id !== event.target.getAttribute('data-schedule-id')));
+      setSelection(prevSelection => prevSelection.filter(sel => sel !== schedules[index]._id));
     }
   }
 
@@ -67,7 +68,7 @@ function ScheduleManager() {
           <tbody>
             {schedules.map((schedule, index) => (
               <tr key={index}>
-                <td style={styles.tableData}><input type="checkbox" data-schedule-id={schedule.scheduleID} onChange={handleOnChange}/></td>
+                <td style={styles.tableData}><input type="checkbox" value={schedule._id} checked={selection.includes(schedule._id)} onChange={(e)=>handleOnChange(e,index)} /></td>
                 <td style={styles.tableData}>{schedule.scheduleID}</td>
                 <td style={styles.tableData}>{schedule.stopName}</td>
                 <td style={styles.tableData}>{schedule.departureTimes+''}</td>
