@@ -13,6 +13,7 @@ function StopForm() {
   const lngRef = useRef();
 
   useEffect(() => {
+    document.body.style.overflow = 'hidden';
     mapboxgl.accessToken = 'pk.eyJ1IjoicnViZW5zZXJyYWx2YSIsImEiOiJjbGlka3Z5OG8wdGVkM2RuYmV2NXJ2bWM2In0.Q6BEC42wrGzQei_IzqEkAQ';
     const map = new mapboxgl.Map({
       container: mapContainer.current,
@@ -33,7 +34,10 @@ function StopForm() {
       .addTo(map);
     });
 
-    return () => map.remove();
+    return () => {
+      map.remove();
+      document.body.style.overflow = 'auto';
+    }
   }, []);
 
 
@@ -57,19 +61,17 @@ function StopForm() {
 
   return (
     <form id="busStopForm" onSubmit={(event) =>handleSubmit(event)} method="POST" style={styles.formContainer}>
-      <Link to="/Dashboard/StopManager" style={styles.goBack}><FontAwesomeIcon icon={faArrowLeft}/> Go Back</Link>
       <div style={styles.inputContainer}>
+        <Link to="/Dashboard/StopManager" style={styles.goBack}><FontAwesomeIcon icon={faArrowLeft}/> Go Back</Link>
         <label htmlFor="stopName" style={styles.Typography}>Stop Name:</label>
         <input type="text" ref={stopNameRef} required style={styles.inputField}/>
-
         <label htmlFor="lat" style={styles.Typography}>Latitude:</label>
         <input type="text" ref={latRef} style={styles.inputField}/>
-        
         <label htmlFor="lng" style={styles.Typography}>Longitude:</label>
         <input type="text" ref={lngRef} style={styles.inputField}/>
+        <button type="submit" style={styles.addButton}><FontAwesomeIcon icon={faThumbtack}/> Add Stop</button>
       </div>
       <div ref={mapContainer} style={styles.mapContainer} />
-      <button type="submit" style={styles.addButton}><FontAwesomeIcon icon={faThumbtack}/> Add Stop</button>
     </form>
   );
 }
@@ -78,14 +80,14 @@ export default StopForm
 
 const styles = {
   formContainer: {
-    margin: '0.5rem',
+    margin: '0.2rem',
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'center',
-    padding: '5%',
+    padding: '1%',
     backgroundColor: '#bde0fe',
-    border: '2px dashed black',
-    borderRadius: '5px',
+    border: '2px solid black',
+    borderRadius: '15px',
   },
   Typography: {
     fontSize: '1.5rem',
@@ -112,11 +114,13 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
-    width: '100%',
+    width: '10%',
     padding: '1rem',
-    borderRadius: '5px',
     background: 'white',
     boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+    borderTopLeftRadius: '20px',
+    borderBottomLeftRadius: '20px',
+
   },
   inputField: {
     padding: '5px',
@@ -124,6 +128,7 @@ const styles = {
     border: '1px solid #ccc',
     fontSize: '1rem',
     fontFamily: 'American Typewriter',
+    height: '5vh'
   },
   goBack: {
     marginBottom: '30px',
@@ -137,11 +142,12 @@ const styles = {
     justifyContent: 'center',
     boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)',
     transition: 'background-color 0.3s ease',
+    border: 'black 1px solid',
   },
   mapContainer: {
-    width: "100rem",
-    height: "100rem",
+    width: "80vw",
+    height: "45vw",
     overflow: 'hidden',
-    position: "relative"
+    position: "absolut"
   },
 }
