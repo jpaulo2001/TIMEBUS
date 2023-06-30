@@ -1,14 +1,41 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import {Link, useNavigate} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faArrowLeft, faThumbtack} from '@fortawesome/free-solid-svg-icons'
+import mapboxgl from 'mapbox-gl';
 
 function StopForm() {
+  const mapContainer = useRef(null);
   const navigate = useNavigate();
 
   const stopNameRef = useRef();
   const latRef = useRef();
   const lngRef = useRef();
+
+  useEffect(() => {
+    mapboxgl.accessToken = 'pk.eyJ1IjoicnViZW5zZXJyYWx2YSIsImEiOiJjbGlka3Z5OG8wdGVkM2RuYmV2NXJ2bWM2In0.Q6BEC42wrGzQei_IzqEkAQ';
+    const map = new mapboxgl.Map({
+      container: mapContainer.current,
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [-25.684042880880146,37.75310617939103],
+      zoom: 10
+    });
+
+    // click event
+    map.on('click', function(e) {
+      const { lng, lat } = e.lngLat;
+      
+      latRef.current.value = lat;
+      lngRef.current.value = lng;
+
+      new mapboxgl.Marker({ "color": "#FF0000" })
+      .setLngLat([lng, lat])
+      .addTo(map);
+    });
+
+    return () => map.remove();
+  }, []);
+
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -41,7 +68,7 @@ function StopForm() {
         <label htmlFor="lng" style={styles.Typography}>Longitude:</label>
         <input type="text" ref={lngRef} style={styles.inputField}/>
       </div>
-
+      <div ref={mapContainer} style={styles.mapContainer} />
       <button type="submit" style={styles.addButton}><FontAwesomeIcon icon={faThumbtack}/> Add Stop</button>
     </form>
   );
@@ -110,5 +137,11 @@ const styles = {
     justifyContent: 'center',
     boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)',
     transition: 'background-color 0.3s ease',
-  }
+  },
+  mapContainer: {
+    width: "100rem",
+    height: "100rem",
+    overflow: 'hidden',
+    position: "relative"
+  },
 }
