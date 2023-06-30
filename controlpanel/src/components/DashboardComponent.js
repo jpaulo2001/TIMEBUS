@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import NavbarComponent from "./NavbarComponent";
 import BusForm from "./forms/BusForm";
 import BusManager from "./managers/BusManager";
@@ -9,15 +9,15 @@ import StopForm from "./forms/StopForm";
 import StopManager from "./managers/StopManager";
 import RouteManager from "./managers/RouteManager";
 import RouteForm from "./forms/RouteForm";
+import Statistics from "./Statistics"
 
 
 function DashboardComponent() {
-  return (
-    
+  return (    
     <div style={styles.dashContainer}>
       <NavbarComponent />
       <Routes>
-         <Route path="/" element={<h1>Welcome to the Dashboard!</h1>} />
+        <Route path="/" element={<Statistics/>} />
         <Route path="/BusManager" element={<BusManager />} />
         <Route path="/BusForm" element={<BusForm />} />
         <Route path="/StopManager" element={<StopManager />} />
@@ -26,8 +26,6 @@ function DashboardComponent() {
         <Route path="/ScheduleForm" element={<ScheduleForm />} />
         <Route path="/RouteManager" element={<RouteManager />} />
         <Route path="/RouteForm" element={<RouteForm />} />
-       
-
       </Routes>
     </div>
   );
@@ -37,12 +35,12 @@ export default DashboardComponent;
 
 const styles = {
   dashContainer: {
-    backgroundColor: "white",
     minHeight: "100vh",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-start",
-    paddingTop: "2rem",
+    paddingTop: "0rem",
+    backgroundColor: "#edf6f9",
   },
 };

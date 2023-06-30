@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import {Link, useNavigate} from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faArrowLeft, faClock} from '@fortawesome/free-solid-svg-icons'
 
 function SchedulesForm() {
   const navigate = useNavigate();
@@ -82,9 +84,8 @@ function SchedulesForm() {
 
   return (
     <form id="schedulesForm" onSubmit={(event) =>handleSubmit(event)} method="POST" style={styles.formContainer}>
-      <Link to="/Dashboard/ScheduleManager" style={styles.goBack}>Go Back</Link>
+      <Link to="/Dashboard/ScheduleManager" style={styles.goBack}><FontAwesomeIcon icon={faArrowLeft}/> Go Back</Link>
       <div style={styles.inputContainer}>
-      
         <label style={styles.Typography}>ScheduleID:</label>
         <input type="text" ref={scheduleIdRef} required style={styles.inputField}/>
 
@@ -104,7 +105,7 @@ function SchedulesForm() {
         <button type="button" onClick={handleAddDeparture}>Add Time</button>
         <div>
           {departureTimes.map((time, index) => (
-            <div key={index} style={styles.formGroup}>
+            <div key={index}>
               <input
                 type="time"
                 value={time}
@@ -117,7 +118,7 @@ function SchedulesForm() {
           ))}
         </div>
       </div>
-      <button type="submit" style={styles.addButton}>Add Schedule</button>
+      <button type="submit" style={styles.addButton}><FontAwesomeIcon icon={faClock}/> Add Schedule</button>
     </form>
   );
 }
@@ -126,57 +127,65 @@ export default SchedulesForm
 
 
 const styles = {
-    formContainer:{
-      margin: '5%',
-      justifyContent: 'center',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      borderColor: 'black',
-      borderWidth: '2px',
-      borderStyle: 'dashed',
-      borderRadius:'30px',
-      backgroundColor: '#8ab8a8',
-      padding: '5%'
-    },
-    Typography:{
-      fontSize: '100%',
-      fontFamily: 'American Typewriter',
-    },
-    addButton:{
-      height: '50px',
-      width: '100px',
-      margin: '20px',
-      backgroundColor: '#c6cca5',
-      borderRadius: '15px',
-      border: 'solid',
-      borderWidth: '1px',
-      cursor: 'pointer',
-      fontSize: '80%',
-      fontFamily: 'American Typewriter',
-    },
-    inputContainer:{
-      display: 'grid',
-      gap: '10px',
-      gridTemplateColumns: '1fr 2fr',
-    },
-    inputField: {
-      padding: '5px',
-      borderRadius: '5px',
-      border: '1px solid #ccc',
-      fontSize: '100%',
-      fontFamily: 'American Typewriter',
-    },
-    formGroup: {
-      display: 'flex',
-      flexDirection: 'column',
-      marginBottom: '20px',
-    },
-    goBack: {
-      marginBottom: '30px',
-      backgroundColor: 'green',
-      padding: '15px',
-      borderRadius: '15px',
-    }
+  formContainer: {
+    margin: '0.5rem',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '5%',
+    backgroundColor: '#bde0fe',
+    border: '2px dashed black',
+    borderRadius: '5px',
+  },
+  Typography: {
+    fontSize: '1.5rem',
+    fontFamily: 'American Typewriter',
+    color: '#464646',
+  },
+  addButton: {
+    backgroundColor: '#219ebc',
+    borderRadius: '5px',
+    border: '1px solid black',
+    padding: '0.5rem',
+    margin: '1vw',
+    color: '#fff',
+    cursor: 'pointer',
+    fontSize: '1rem',
+    fontFamily: 'American Typewriter',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)',
+    transition: 'background-color 0.3s ease',
+  },
+  inputContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+    width: '100%',
+    padding: '1rem',
+    borderRadius: '5px',
+    background: 'white',
+    boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+  },
+  inputField: {
+    padding: '5px',
+    borderRadius: '5px',
+    border: '1px solid #ccc',
+    fontSize: '1rem',
+    fontFamily: 'American Typewriter',
+  },
+  goBack: {
+    marginBottom: '30px',
+    backgroundColor: '#219ebc',
+    color: 'white',
+    padding: '10px 20px',
+    borderRadius: '5px',
+    textDecoration: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)',
+    transition: 'background-color 0.3s ease',
   }
-  
+}

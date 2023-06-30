@@ -1,5 +1,7 @@
 import React from "react";
 import {Link, useNavigate} from "react-router-dom"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHouse, faBus, faThumbtack, faClock, faRoute, faArrowRightFromBracket} from '@fortawesome/free-solid-svg-icons'
 
 function NavbarComponent() {
   const navigate = useNavigate();
@@ -11,13 +13,14 @@ function NavbarComponent() {
 
   return (
     <div style={styles.navBarContainer}>
+      <img src={'/assets/logo/logo.png'} style={styles.logo}/>
       <ul style={styles.list}>
-      <Link to="/Dashboard/" style={styles.Typography}> Home </Link>
-        <li><Link to="/Dashboard/BusManager" style={styles.Typography}>Bus Manager</Link></li>
-        <li><Link to="/Dashboard/StopManager" style={styles.Typography}>Stop Manager</Link></li>
-        <li><Link to="/Dashboard/ScheduleManager" style={styles.Typography}>Schedule Manager</Link></li>
-        <li><Link to="/Dashboard/RouteManager" style={styles.Typography}>Route Manager</Link></li>
-        <button class onClick={logout} style={styles.Typography}>logout</button>
+        <li style={styles.listItem}><Link to="/Dashboard/" style={styles.button}><FontAwesomeIcon icon={faHouse} style={styles.icon}/>Home </Link></li>
+        <li style={styles.listItem}><Link to="/Dashboard/BusManager" style={styles.button}><FontAwesomeIcon icon={faBus} style={styles.icon}/>Buses</Link></li>
+        <li style={styles.listItem}><Link to="/Dashboard/StopManager" style={styles.button}><FontAwesomeIcon icon={faThumbtack} style={styles.icon}/>Stops</Link></li>
+        <li style={styles.listItem}><Link to="/Dashboard/ScheduleManager" style={styles.button}><FontAwesomeIcon icon={faClock} style={styles.icon}/>Schedules</Link></li>
+        <li style={styles.listItem}><Link to="/Dashboard/RouteManager" style={styles.button}><FontAwesomeIcon icon={faRoute} style={styles.icon}/>Routes</Link></li>
+        <li style={styles.listItem}><button onClick={logout} style={styles.button}><FontAwesomeIcon icon={faArrowRightFromBracket} style={styles.icon}/>Logout</button></li>
       </ul>
     </div>
   );
@@ -27,38 +30,61 @@ export default NavbarComponent
 
 const styles = {
   navBarContainer: {
+    width: '100vw',
     fontSize: "30px",
-    backgroundColor: "#8ab8a8",
-    borderRadius: "30px",
-    borderStyle: "solid",
-    borderWidth: "3px",
+    backgroundColor: "#8ecae6",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
+    border: 'black 2px solid',
+    borderRadius: "5px",
   },
-
   list: { 
     listStyle: "none",
-    padding: "0",
+    marginInlineEnd: '20%',
+    width: "60%",
     display: "flex",
-    gap: "2rem",
-    alignItems: "center",
+    justifyContent: 'space-between',
     flexWrap: "wrap",
+    padding: 0,
   },
-
-  Typography: {
-    margin: "1.3% 0% 0% 0%",
+  listItem: {
+    width: '10vw',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    width: '90%',
+    height: 'auto',
+    padding: '10px 0',
     fontFamily: "Arial, sans-serif",
     fontWeight: "bold",
-    fontSize: "14px",
+    fontSize: "0.8rem",
     color: "#fff",
-    backgroundColor: "#3498db",
-    border: "none",
-    borderRadius: "50px",
-    padding: "5px 24px",
-    cursor: "pointer",
-    transition: "background-color 0.3s ease",
-    boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.2)",
+    backgroundColor: "#219ebc",
+    border: "1px solid black",
+    borderRadius: "10px",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    boxShadow: "1px 1px 8px 4px rgba(0, 0, 0, 0.2)",
+    textDecoration: 'none',
+    flexDirection: 'column',
   },
+  logo:{
+    height: '7rem', 
+    objectFit: 'contain',
+    padding: '0rem',
+    marginInline: '0.5rem',
+    marginBlock: '1rem',
+    borderRadius: '23px',
+    backgroundColor: '#219ebc',
+    border: 'black 1px solid',
+  },
+  icon:{
+    fontSize:'2rem',
+    padding:'0.4rem',
+  }
 };

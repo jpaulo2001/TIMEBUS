@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faPlus, faMinus} from '@fortawesome/free-solid-svg-icons'
 
 function BusManager() {
   const [buses, setBuses] = useState([]);
@@ -49,19 +51,29 @@ function BusManager() {
   return (
     <div style={styles.formContainer}>
       <div style={styles.buttonContainerStyle}>
-        <Link to="/Dashboard/BusForm" style={styles.buttonStyle}>Add Bus</Link>
-        <input type='button' value="Remove" style={styles.buttonStyle} onClick={() => removeSelection()} />
+        <Link to="/Dashboard/BusForm" style={styles.buttonStyle}><FontAwesomeIcon icon={faPlus} />Add Bus</Link>
+        <button style={styles.buttonStyle} onClick={() => removeSelection()} ><FontAwesomeIcon icon={faMinus}/>Remove</button>
       </div>
-      <ul style={styles.elementsList}>
-        {buses.map((bus, index) => (
-          <div key={index}>
-            <li style={styles.Typography}>
-              <input type="checkbox" onChange={handleOnChange} />Name: {bus.busName} , Route: {bus.busRoute} , Capacity: {bus.capacity}
-            </li>
-            <hr style={styles.separatorItem} />
-          </div>
-        ))}
-      </ul>
+      <table style={styles.elementsList}>
+        <thead>
+          <tr>
+            <th style={styles.tableHeader}>Select</th>
+            <th style={styles.tableHeader}>Name</th>
+            <th style={styles.tableHeader}>Route</th>
+            <th style={styles.tableHeader}>Capacity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {buses.map((bus, index) => (
+            <tr key={index}>
+              <td style={styles.tableData}><input type="checkbox" onChange={handleOnChange} /></td>
+              <td style={styles.tableData}>{bus.busName}</td>
+              <td style={styles.tableData}>{bus.busRoute}</td>
+              <td style={styles.tableData}>{bus.capacity}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
@@ -70,48 +82,37 @@ export default BusManager
 
 const styles = {
   formContainer: {
-    margin: '2%',
-    justifyContent: 'center',
+    margin: '0.5rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    borderColor: 'black',
-    borderWidth: '2px',
-    borderStyle: 'dashed',
-    borderRadius: '30px',
-    backgroundColor: '#8ab8a8',
     padding: '5%',
+    backgroundColor: '#bde0fe',
+    border: '2px dashed black',
+    borderRadius: '5px',
   },
   typography: {
     fontSize: '2rem',
     fontFamily: 'American Typewriter',
   },
   buttonStyle: {
-    backgroundColor: 'green',
-    borderRadius: '25px',
-    marginTop: '10vh',
-    padding: '20px',
+    backgroundColor: '#219ebc',
+    borderRadius: '5px',
+    border: '1px solid black',
+    padding: '0.5rem',
     margin: '1vw',
     color: '#fff',
-    border: 'none',
     cursor: 'pointer',
-    fontSize: '1.5rem',
+    fontSize: '1rem',
     fontFamily: 'American Typewriter',
     textDecoration: 'none',
     boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)',
     transition: 'background-color 0.3s ease',
   },
-  addButton: {
-    height: '50px',
-    width: '100px',
-    margin: '20px',
-    backgroundColor: '#c6cca5',
-    borderRadius: '15px',
-    border: 'solid',
-    borderWidth: '1px',
-    cursor: 'pointer',
-    fontSize: '80%',
-    fontFamily: 'American Typewriter',
+  buttonContainerStyle: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    width: '70vw',
   },
   inputContainer: {
     height: '100vh',
@@ -123,29 +124,33 @@ const styles = {
     fontSize: '100%',
     fontFamily: 'American Typewriter',
   },
-  formGroup: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginBottom: '20px',
-  },
   elementsList: {
-    display: 'block',
-    listStyle: 'none',
-    background: 'white',
-    borderRadius: '20px',
-    padding: '30px',
     width: '70vw',
+    borderCollapse: 'collapse',
+    marginTop: '3rem',
+    textAlign: 'left',
+    backgroundColor: '#ffffff',
+    borderRadius: '10px',
   },
   separatorItem: {
     backgroundColor: 'transparent',
     height: '1px',
     border: 'none',
     borderTop: '1px solid #ccc',
-    margin: '10px 0',
+    margin: '1rem 0',
   },
-  buttonContainerStyle: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    margin: '1rem',
+    tableHeader: {
+    backgroundColor: '#219ebc',
+    color: '#fff',
+    fontFamily: 'American Typewriter',
+    fontSize: '1.5rem',
+    padding: '10px',
   },
+  tableData: {
+    padding: '10px',
+    border: '1px solid black',
+    fontFamily: 'American Typewriter',
+    fontSize: '1.2rem',
+  }
+
 }

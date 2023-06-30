@@ -1,5 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import {Link, useNavigate, useSearchParams} from "react-router-dom"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faArrowLeft, faRoute} from '@fortawesome/free-solid-svg-icons'
 
 function RoutesForm() {
 
@@ -53,7 +55,7 @@ function RoutesForm() {
   //need to be able to add stops (maybe with google maps api?)
   return (
     <form id="routesForm" onSubmit={(event) => handleSubmit(event)} method="POST" style={styles.formContainer}>
-      <Link to="/Dashboard/RouteManager" style={styles.goBack}>Go Back</Link>
+      <Link to="/Dashboard/RouteManager" style={styles.goBack}><FontAwesomeIcon icon={faArrowLeft}/> Go Back</Link>
       <div style={styles.inputContainer}>
         <label style={styles.Typography}>Route ID:</label>
         <input type="text" ref={routeNumberRef} style={styles.inputField}/>
@@ -67,7 +69,7 @@ function RoutesForm() {
         </ul>
       </div>
 
-      <button type="submit" style={styles.addButton}>Add Route</button>
+      <button type="submit" style={styles.addButton}><FontAwesomeIcon icon={faRoute}/> Add Route</button>
     </form>
   );
 }
@@ -76,56 +78,66 @@ export default RoutesForm
 
 const styles = {
     formContainer:{
-      margin: '5%',
+      margin: '0.5rem',
       justifyContent: 'center',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      borderColor: 'black',
-      borderWidth: '2px',
-      borderStyle: 'dashed',
-      borderRadius:'30px',
-      backgroundColor: '#8ab8a8',
+      border: '2px dashed black',
+      borderRadius:'5px',
+      backgroundColor: '#bde0fe',
       padding: '5%'
     },
     Typography:{
-      fontSize: '100%',
+      fontSize: '1.5rem',
       fontFamily: 'American Typewriter',
+      color: '#464646',
     },
     addButton:{
-      height: '50px',
-      width: '100px',
-      margin: '20px',
-      backgroundColor: '#c6cca5',
-      borderRadius: '15px',
-      border: 'solid',
-      borderWidth: '1px',
+      backgroundColor: '#219ebc',
+      borderRadius: '5px',
+      border: '1px solid black',
+      padding: '0.5rem',
+      margin: '1vw',
+      color: '#fff',
       cursor: 'pointer',
-      fontSize: '80%',
+      fontSize: '1rem',
       fontFamily: 'American Typewriter',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)',
+      transition: 'background-color 0.3s ease',
     },
     inputContainer:{
-      display: 'grid',
-      gap: '10px',
-      gridTemplateColumns: '1fr 2fr',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '20px',
+      width: '100%',
+      padding: '1rem',
+      borderRadius: '5px',
+      background: 'white',
+      boxShadow: '0 0 10px rgba(0,0,0,0.1)',
     },
     inputField: {
       padding: '5px',
       borderRadius: '5px',
       border: '1px solid #ccc',
-      fontSize: '100%',
+      fontSize: '1rem',
       fontFamily: 'American Typewriter',
       listStyle: 'none'
     },
-    formGroup: {
-      display: 'flex',
-      flexDirection: 'column',
-      marginBottom: '20px',
-    },
     goBack: {
       marginBottom: '30px',
-      backgroundColor: 'green',
-      padding: '15px',
-      borderRadius: '15px',
+      backgroundColor: '#219ebc',
+      color: 'white',
+      padding: '10px 20px',
+      borderRadius: '5px',
+      textDecoration: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)',
+      transition: 'background-color 0.3s ease',
     }
-  }
+}

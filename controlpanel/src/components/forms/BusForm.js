@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect }  from "react";
 import {Link, useNavigate} from "react-router-dom"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faArrowLeft, faBus} from '@fortawesome/free-solid-svg-icons'
 
 function BusForm() {
   const navigate = useNavigate();
@@ -48,7 +50,7 @@ function BusForm() {
 
   return (
     <form id="busForm" onSubmit={(event) =>handleSubmit(event)} method="POST" style={styles.formContainer}>
-      <Link to="/Dashboard/BusManager" style={styles.goBack}>Go Back</Link>
+      <Link to="/Dashboard/BusManager" style={styles.goBack}><FontAwesomeIcon icon={faArrowLeft}/> Go Back</Link>
       <div style={styles.inputContainer}>
         <label htmlFor="busName" style={styles.Typography}>Bus Name:</label>
         <input ref={busNameRef} type="text" id="busName" name="busName" required style={styles.inputField}/>
@@ -64,70 +66,79 @@ function BusForm() {
         <input ref={capacityRef} type="number" id="capacity" name="capacity" required style={styles.inputField}/>
 
         <label htmlFor="isAvailable" style={styles.Typography}>Available:</label>
-        <select ref={isAvailableRef} id="isAvailable" name="isAvailable" required>
+        <select ref={isAvailableRef} id="isAvailable" name="isAvailable" required style={styles.inputField}>
           <option value="">Select...</option>
           <option value="true">Yes</option>
           <option value="false">No</option>
         </select>
       </div>
-    <button type="submit" style={styles.addButton}>Add Bus</button>
+    <button type="submit" style={styles.addButton}><FontAwesomeIcon icon={faBus}/> Add Bus</button>
   </form>
   );
 }
 
-export default BusForm
+export default BusForm;
 
 const styles = {
-  formContainer:{
-    margin: '5%',
-    justifyContent: 'center',
+  formContainer: {
+    margin: '0.5rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    borderColor: 'black',
-    borderWidth: '2px',
-    borderStyle: 'dashed',
-    borderRadius:'30px',
-    backgroundColor: '#8ab8a8',
-    padding: '5%'
+    padding: '5%',
+    backgroundColor: '#bde0fe',
+    border: '2px dashed black',
+    borderRadius: '5px',
   },
-  Typography:{
-    fontSize: '100%',
+  Typography: {
+    fontSize: '1.5rem',
     fontFamily: 'American Typewriter',
+    color: '#464646',
   },
-  addButton:{
-    height: '50px',
-    width: '100px',
-    margin: '20px',
-    backgroundColor: '#c6cca5',
-    borderRadius: '15px',
-    border: 'solid',
-    borderWidth: '1px',
+  addButton: {
+    backgroundColor: '#219ebc',
+    borderRadius: '5px',
+    border: '1px solid black',
+    padding: '0.5rem',
+    margin: '1vw',
+    color: '#fff',
     cursor: 'pointer',
-    fontSize: '80%',
+    fontSize: '1rem',
     fontFamily: 'American Typewriter',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)',
+    transition: 'background-color 0.3s ease',
   },
-  inputContainer:{
-    display: 'grid',
-    gap: '10px',
-    gridTemplateColumns: '1fr 2fr',
+  inputContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+    width: '100%',
+    padding: '1rem',
+    borderRadius: '5px',
+    background: 'white',
+    boxShadow: '0 0 10px rgba(0,0,0,0.1)',
   },
   inputField: {
     padding: '5px',
     borderRadius: '5px',
     border: '1px solid #ccc',
-    fontSize: '100%',
+    fontSize: '1rem',
     fontFamily: 'American Typewriter',
-  },
-  formGroup: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginBottom: '20px',
   },
   goBack: {
     marginBottom: '30px',
-    backgroundColor: 'green',
-    padding: '15px',
-    borderRadius: '15px',
+    backgroundColor: '#219ebc',
+    color: 'white',
+    padding: '10px 20px',
+    borderRadius: '5px',
+    textDecoration: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)',
+    transition: 'background-color 0.3s ease',
   }
 }

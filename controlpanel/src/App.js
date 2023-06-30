@@ -9,18 +9,17 @@ import React from 'react';
  function App() {
    return (
      <div className="App">
-       <Routes>
-         <Route path="/" element={<Navigate to="/Login" replace />} />
-
-         <Route element={<ProtectedRoutes/>}>
-           <Route path="/Dashboard/*" element={<DashboardComponent/>} />
-         </Route>
-         <Route element={<PublicRoute/>}>
-           <Route path="/Register" element={<RegisterComponent />} />
-           <Route path="/Login" element={<LoginComponent />} />
-         </Route>
-       </Routes>
-     </div>
-   );}
+        <Routes>
+          <Route path="/" element={<Navigate to="/Login" replace />} />
+          <Route element={<ProtectedRoutes/>}>
+            <Route path="/Dashboard/*" element={<DashboardComponent/>} />
+          </Route>
+          <Route element={<PublicRoute/>}>
+            <Route path="/Register" element={<RegisterComponent />} />
+            <Route path="/Login" element={<LoginComponent />} />
+          </Route>
+        </Routes>
+      </div>
+    );}
 
 export default App

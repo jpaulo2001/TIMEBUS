@@ -1,9 +1,11 @@
-import React, { useRef, useState } from "react";
-import {Link, useNavigate} from "react-router-dom"
+import React, { useRef } from "react";
+import {Link, useNavigate} from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faArrowLeft, faThumbtack} from '@fortawesome/free-solid-svg-icons'
 
 function StopForm() {
   const navigate = useNavigate();
-  
+
   const stopNameRef = useRef();
   const latRef = useRef();
   const lngRef = useRef();
@@ -25,9 +27,10 @@ function StopForm() {
       body: JSON.stringify(stop)
       }).then(() => {navigate('/Dashboard/StopManager')}).catch((err) => console.log(err));
   }
+
   return (
     <form id="busStopForm" onSubmit={(event) =>handleSubmit(event)} method="POST" style={styles.formContainer}>
-      <Link to="/Dashboard/StopManager" style={styles.goBack}>Go Back</Link>
+      <Link to="/Dashboard/StopManager" style={styles.goBack}><FontAwesomeIcon icon={faArrowLeft}/> Go Back</Link>
       <div style={styles.inputContainer}>
         <label htmlFor="stopName" style={styles.Typography}>Stop Name:</label>
         <input type="text" ref={stopNameRef} required style={styles.inputField}/>
@@ -39,7 +42,7 @@ function StopForm() {
         <input type="text" ref={lngRef} style={styles.inputField}/>
       </div>
 
-      <button type="submit" style={styles.addButton}>Add Stop</button>
+      <button type="submit" style={styles.addButton}><FontAwesomeIcon icon={faThumbtack}/> Add Stop</button>
     </form>
   );
 }
@@ -47,56 +50,65 @@ function StopForm() {
 export default StopForm
 
 const styles = {
-  formContainer:{
-    margin: '5%',
-    justifyContent: 'center',
+  formContainer: {
+    margin: '0.5rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    borderColor: 'black',
-    borderWidth: '2px',
-    borderStyle: 'dashed',
-    borderRadius:'30px',
-    backgroundColor: '#8ab8a8',
-    padding: '5%'
+    padding: '5%',
+    backgroundColor: '#bde0fe',
+    border: '2px dashed black',
+    borderRadius: '5px',
   },
-  Typography:{
-    fontSize: '100%',
+  Typography: {
+    fontSize: '1.5rem',
     fontFamily: 'American Typewriter',
+    color: '#464646',
   },
-  addButton:{
-    height: '50px',
-    width: '100px',
-    margin: '20px',
-    backgroundColor: '#c6cca5',
-    borderRadius: '15px',
-    border: 'solid',
-    borderWidth: '1px',
+  addButton: {
+    backgroundColor: '#219ebc',
+    borderRadius: '5px',
+    border: '1px solid black',
+    padding: '0.5rem',
+    margin: '1vw',
+    color: '#fff',
     cursor: 'pointer',
-    fontSize: '80%',
+    fontSize: '1rem',
     fontFamily: 'American Typewriter',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)',
+    transition: 'background-color 0.3s ease',
   },
-  inputContainer:{
-    display: 'grid',
-    gap: '10px',
-    gridTemplateColumns: '1fr 2fr',
+  inputContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+    width: '100%',
+    padding: '1rem',
+    borderRadius: '5px',
+    background: 'white',
+    boxShadow: '0 0 10px rgba(0,0,0,0.1)',
   },
   inputField: {
     padding: '5px',
     borderRadius: '5px',
     border: '1px solid #ccc',
-    fontSize: '100%',
+    fontSize: '1rem',
     fontFamily: 'American Typewriter',
-  },
-  formGroup: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginBottom: '20px',
   },
   goBack: {
     marginBottom: '30px',
-    backgroundColor: 'green',
-    padding: '15px',
-    borderRadius: '15px',
+    backgroundColor: '#219ebc',
+    color: 'white',
+    padding: '10px 20px',
+    borderRadius: '5px',
+    textDecoration: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)',
+    transition: 'background-color 0.3s ease',
   }
 }
