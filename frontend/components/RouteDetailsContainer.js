@@ -135,9 +135,6 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         paddingLeft: windowWidth*0.06,
     },
-    schedules: {
-        
-    },
     scheduleContainer:{
         display: 'flex',
         flexDirection: 'column',
