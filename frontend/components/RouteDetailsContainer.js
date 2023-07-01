@@ -2,7 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View, FlatList } from 'react-native
 import { Dimensions } from 'react-native';
 import React, { useState, useEffect } from 'react'
 
-export default function RouteDetailsContainer({selectedRoute, setFocusedStop, focusOnStop, startStop, endStop}){
+export default function RouteDetailsContainer({selectedRoute, setFocusedStop, focusedSchedule, focusOnStop, startStop, endStop}){
     const [routeData, setRouteData] = useState(selectedRoute)
     
     useEffect(() => {
@@ -30,7 +30,7 @@ export default function RouteDetailsContainer({selectedRoute, setFocusedStop, fo
                     focusOnStop(item)
                     }}>
                 <View style={[styles.stopIcon, {backgroundColor: isWithinRouteSection ? 'green' : 'red'}]}/>
-                <View style={styles.textContainer}><Text style={styles.test}>{item} </Text></View>
+                <View style={styles.textContainer}><Text>{item} </Text></View>
             </TouchableOpacity>
             </View>
         )
@@ -48,7 +48,16 @@ export default function RouteDetailsContainer({selectedRoute, setFocusedStop, fo
                 />
                 : <Text>Loading stops...</Text>
             }
-            <View style={styles.schedules}><Text>schedules</Text></View>
+            <View style={styles.scheduleContainer}>
+                <Text>Departure Times:</Text>
+                <View style={styles.schedules}>
+                    {
+                    focusedSchedule && focusedSchedule.departureTimes.map((time,index)=>{
+                        return <Text key={index}>{time}</Text>
+                    })
+                    }
+                </View>
+            </View>
         </View>
     )
 }
@@ -72,11 +81,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         overflow: 'hidden',
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
     },
     flatList: {
         flex: 1,
-        position: 'absolute',
         top: 0,
         bottom: 0,
         left: 0,
@@ -128,5 +137,13 @@ const styles = StyleSheet.create({
     },
     schedules: {
         
+    },
+    scheduleContainer:{
+        display: 'flex',
+        flexDirection: 'column',
+        padding: windowWidth*0.04,
+        width: windowWidth * 0.5,
+        height: windowHeight * 0.2,
+        marginRight: 0,
     }
   });

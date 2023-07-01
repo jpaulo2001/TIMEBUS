@@ -10,24 +10,26 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function HomeScreen(props) {
   const mapRef = useRef(null);
 
+  const [stops, setStops] = useState([]);
+  const [schedules, setSchedules] = useState([]);
   const [routeData, setRouteData] = useState(false);
   const [selectedRoute, setSelectedRoute] = useState(null);
   const [mapEnlarged, setMapEnlarged] = useState(false)
   const [startStop, setStartStop] = useState(null);
   const [endStop, setEndStop] = useState(null);
   const [focusedStop, setFocusedStop] = useState(null);
-  const [stops, setStops] = useState([]);
+  const [focusedSchedule, setFocusedSchedule] = useState(null);
 
   useEffect(() => {
-    fetchStops();
+    fetchStopsNSchedules();
     if (focusedStop) {focusOnStop(focusedStop);}
   }, [focusedStop, stops]);
 
-  const fetchStops = async () => {
+  const fetchStopsNSchedules = async () => {
+    const token = await AsyncStorage.getItem('@token');
+
     try {
-      const token = await AsyncStorage.getItem('@token');
-      const apiURL = `http://localhost:4000/api/stops/`;
-      const response = await fetch(apiURL, {
+      const response = await fetch('http://localhost:4000/api/stops/', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -36,14 +38,28 @@ export default function HomeScreen(props) {
       });
       const responseJson = await response.json();
       setStops(responseJson);
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {console.error(error);}
+    
+    try {
+      const response = await fetch('http://localhost:4000/api/schedules/', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        }
+      });
+      const responseJson = await response.json();
+      setSchedules(responseJson);
+    } catch (error) {console.error(error);}
   };
 
   const focusOnStop = (stopName) => {
     if (stops && mapRef.current) {
       const stop = stops.find((stop) => stop.stopName === stopName);
+      const stopSchedule = schedules.find(schedule => schedule.stopName === stopName);
+      if(stopSchedule) setFocusedSchedule(stopSchedule)
+      else setFocusedSchedule(null)
+
       if (stop) {
         mapRef.current.animateToRegion(
           {
@@ -74,7 +90,7 @@ export default function HomeScreen(props) {
       <Logo style = {styles.Image}/>
       <MapContainer focusOnStop={focusOnStop} mapRef={mapRef} stops={stops} focusedStop={focusedStop} startStop={startStop} endStop={endStop} selectedRoute={selectedRoute} setMapEnlarged={setMapEnlarged} mapEnlarged={mapEnlarged}/>
       {!mapEnlarged && <LocationForm setSelectedRoute={setSelectedRoute} setStartStop={setStartStop} setEndStop={setEndStop} updateRouteData = {updateRouteData} setMapEnlarged={setMapEnlarged} />}
-      {mapEnlarged && routeData ? (selectedRoute ? <RouteDetailsContainer startStop={startStop} endStop={endStop} focusOnStop={focusOnStop} setFocusedStop={setFocusedStop} selectedRoute={selectedRoute} /> : <RouteContainerMenu RouteData={routeData} selectRoute={setSelectedRoute}/>):null}
+      {mapEnlarged && routeData ? (selectedRoute ? <RouteDetailsContainer focusedSchedule={focusedSchedule} startStop={startStop} endStop={endStop} focusOnStop={focusOnStop} setFocusedStop={setFocusedStop} selectedRoute={selectedRoute} /> : <RouteContainerMenu RouteData={routeData} selectRoute={setSelectedRoute}/>):null}
     </View>
   );
 }
