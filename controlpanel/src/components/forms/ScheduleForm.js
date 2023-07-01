@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import {Link, useNavigate} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faArrowLeft, faClock} from '@fortawesome/free-solid-svg-icons'
+import {faArrowLeft, faClock, faPlus} from '@fortawesome/free-solid-svg-icons'
 
 function SchedulesForm() {
   const navigate = useNavigate();
@@ -102,18 +102,18 @@ function SchedulesForm() {
         </select>
 
         <label style={styles.Typography}>Departure Times:</label>
-        <button type="button" onClick={handleAddDeparture}>Add Time</button>
+        <button type="button" style={styles.addTimeButton} onClick={handleAddDeparture}><FontAwesomeIcon icon={faPlus}/>Add Time</button>
         <div>
           {departureTimes.map((time, index) => (
             <div key={index}>
+              <button type="button" style={styles.removeButton} onClick={() => handleRemoveDeparture(index)}>X</button>
               <input
                 type="time"
                 value={time}
                 onChange={event => handleDepartureChange(index, event)}
                 required
-                style={styles.inputField}
+                style={styles.timeField}
               />
-              <button type="button" onClick={() => handleRemoveDeparture(index)}>Remove Time</button>
             </div>
           ))}
         </div>
@@ -136,6 +136,7 @@ const styles = {
     backgroundColor: '#bde0fe',
     border: '2px dashed black',
     borderRadius: '5px',
+    justifyContent: 'center'
   },
   Typography: {
     fontSize: '1.5rem',
@@ -156,7 +157,6 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)',
-    transition: 'background-color 0.3s ease',
   },
   inputContainer: {
     display: 'flex',
@@ -186,6 +186,29 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)',
-    transition: 'background-color 0.3s ease',
+  },
+  removeButton: {
+    width: '2rem',
+    height: '2rem',
+    marginInlineEnd: '1rem',
+    backgroundColor: 'red',
+    borderRadius: '5px',
+    borderColor: 'black',
+  },
+  timeField:{
+    width: '10rem',
+    height: '3rem',
+    fontSize: '1.5rem',
+    justifyContent: 'center'
+  },
+  addTimeButton:{
+    width:'5rem',
+    height: '2rem',
+    alignSelf: 'flex-end',
+    borderRadius: '5px',
+    borderColor: 'black',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    backgroundColor: '#bde0fe',
   }
 }
