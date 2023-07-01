@@ -2,7 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View, FlatList } from 'react-native
 import { Dimensions } from 'react-native';
 import React, { useState, useEffect } from 'react'
 
-export default function RouteDetailsContainer({selectedRoute,setFocusedStop, focusOnStop, startStop, endStop}){
+export default function RouteDetailsContainer({selectedRoute, setFocusedStop, focusOnStop, startStop, endStop}){
     const [routeData, setRouteData] = useState(selectedRoute)
     
     useEffect(() => {
@@ -25,7 +25,10 @@ export default function RouteDetailsContainer({selectedRoute,setFocusedStop, foc
              {!isLastStop && <View style={[styles.verticalLine, {backgroundColor: isWithinRouteSection && (index!==endIndex) ? 'green' : 'red'}]}/>}
             <TouchableOpacity
                 style={styles.flatListElement} 
-                onPress={()=> focusOnStop(item)}>
+                onPress={()=> {
+                    console.log("stop pressed: ",item)
+                    focusOnStop(item)
+                    }}>
                 <View style={[styles.stopIcon, {backgroundColor: isWithinRouteSection ? 'green' : 'red'}]}/>
                 <View style={styles.textContainer}><Text style={styles.test}>{item} </Text></View>
             </TouchableOpacity>
@@ -45,6 +48,7 @@ export default function RouteDetailsContainer({selectedRoute,setFocusedStop, foc
                 />
                 : <Text>Loading stops...</Text>
             }
+            <View style={styles.schedules}><Text>schedules</Text></View>
         </View>
     )
 }
@@ -56,9 +60,9 @@ const styles = StyleSheet.create({
     container: {
         position: 'absolute',
         top: windowHeight*0.65,
-        left: windowWidth*0.1,
-        right: windowWidth*0.1,
-        bottom: windowHeight*0.05,
+        left: windowWidth*0.01,
+        right: windowWidth*0.01,
+        bottom: windowHeight*0.04,
         backgroundColor: 'rgba(0,30,100,0.5)',
         borderColor: 'black',
         borderStyle: 'solid',
@@ -67,28 +71,23 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         overflow: 'hidden',
-    },
-    text: {
-        width: windowWidth*0.4,
-        borderColor: 'black',
-        borderWidth: 1,
-        borderStyle: 'solid',
-    },
-    item: {
-        padding: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: 'grey',
-        width: '100%'
+        display: 'flex',
+        flexDirection: 'row'
     },
     flatList: {
         flex: 1,
         position: 'absolute',
         top: 0,
         bottom: 0,
-        left: windowWidth*0.1,
-        right: windowWidth*0.1,
+        left: 0,
+        width:windowWidth*0.40,
         overflow: 'auto',
-        padding: windowHeight*0.02
+        padding: windowHeight*0.02,
+        display: 'flex',
+        flexDirection: 'column',
+        borderRightColor: 'black',
+        borderRightStyle: 'solid',
+        borderRightWidth: '1px',
     },
     stopIcon:{
         position: 'absolute',
@@ -102,9 +101,9 @@ const styles = StyleSheet.create({
     },
     verticalLine: {
         position: 'absolute',
-        height: windowHeight*0.06,
+        height: windowHeight*0.07,
         width: windowWidth*0.02,
-        top: 7.5,
+        top: 30,
         marginLeft: windowWidth*0.009,
         borderColor: 'black',
         borderWidth: '1',
@@ -114,14 +113,20 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center', 
         justifyContent: 'space-between',
+        height: 60,
     },
     stopContainer: {
         position: 'relative',
-        height: windowHeight*0.06,
+        height: windowHeight*0.07,
     },
     textContainer: {
         flex: 1,
         justifyContent: 'center', 
         alignItems: 'center',
+        alignItems: 'flex-start',
+        paddingLeft: windowWidth*0.06,
     },
+    schedules: {
+        
+    }
   });
