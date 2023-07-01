@@ -49,12 +49,12 @@ export default function RouteDetailsContainer({selectedRoute, setFocusedStop, fo
                 : <Text>Loading stops...</Text>
             }
             <View style={styles.scheduleContainer}>
-                <Text>Departure Times:</Text>
+                {focusedSchedule && <Text>Departure Times:</Text>}
                 <View style={styles.schedules}>
                     {
-                    focusedSchedule && focusedSchedule.departureTimes.map((time,index)=>{
+                    focusedSchedule ? focusedSchedule.departureTimes.map((time,index)=>{
                         return <Text key={index}>{time}</Text>
-                    })
+                    }) : <Text>No schedule available</Text>
                     }
                 </View>
             </View>
