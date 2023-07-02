@@ -6,6 +6,7 @@ import Logo from './Logo';
 import RouteContainerMenu from './RouteMenuContainer';
 import RouteDetailsContainer from './RouteDetailsContainer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {BACKEND_IP} from '@env'
 
 export default function HomeScreen(props) {
   const mapRef = useRef(null);
@@ -29,7 +30,7 @@ export default function HomeScreen(props) {
     const token = await AsyncStorage.getItem('@token');
 
     try {
-      const response = await fetch('http://localhost:4000/api/stops/', {
+      const response = await fetch(`http://${BACKEND_IP}:4000/api/stops/`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -41,7 +42,7 @@ export default function HomeScreen(props) {
     } catch (error) {console.error(error);}
     
     try {
-      const response = await fetch('http://localhost:4000/api/schedules/', {
+      const response = await fetch(`http://${BACKEND_IP}:4000/api/schedules/`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -118,6 +119,6 @@ const styles = StyleSheet.create({
   Image: {
     width: windowWidth*0.4,
     top: windowHeight*-0.3,
-    resizeMode: 'contain',  // contain or cover
+    resizeMode: 'contain',
   },
 });

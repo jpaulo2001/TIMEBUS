@@ -1,5 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View, FlatList } from 'react-native'
-import { Dimensions } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, FlatList, Dimensions } from 'react-native'
 import React, { useState, useEffect } from 'react'
 
 export default function RouteDetailsContainer({selectedRoute, setFocusedStop, focusedSchedule, focusOnStop, startStop, endStop}){
