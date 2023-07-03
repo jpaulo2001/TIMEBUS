@@ -71,7 +71,7 @@ function ScheduleManager() {
                 <td style={styles.tableData}><input type="checkbox" value={schedule._id} checked={selection.includes(schedule._id)} onChange={(e)=>handleOnChange(e,index)} /></td>
                 <td style={styles.tableData}>{schedule.scheduleID}</td>
                 <td style={styles.tableData}>{schedule.stopName}</td>
-                <td style={styles.tableData}>{schedule.departureTimes+''}</td>
+                <td style={styles.tableData}>{schedule.departureTimes +'h'}</td>
               </tr>
             ))}
           </tbody>
