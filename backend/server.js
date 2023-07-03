@@ -7,8 +7,6 @@ const stopRoutes = require('./routes/stops')
 const routesRoutes = require('./routes/routes')
 const busesRoutes = require('./routes/buses')
 const schedules = require('./routes/schedules')
-const contactRoutes = require('./routes/contacts');
-
 const userRoute =  require("./routes/user.route");
 const authRoute = require("./routes/auth.route");
 
@@ -31,7 +29,6 @@ app.use('/api/stops', stopRoutes)
 app.use('/api/routes', routesRoutes)
 app.use('/api/buses', busesRoutes)
 app.use('/api/schedules', schedules)
-app.use('/api/contacts', contactRoutes)
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
