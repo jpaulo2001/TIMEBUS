@@ -76,7 +76,6 @@ const ContactList = () => {
   return (
     <div style={{ ...styles.center, ...styles.linearGradient }}>
       <h1>Contact List</h1>
-
       <button style={isBtnHover ? styles.buttonStyles : styles.buttonStylesHover} onClick={openModal}
         onMouseEnter={btnMouseEnter}
         onMouseLeave={btnMouseLeave}
