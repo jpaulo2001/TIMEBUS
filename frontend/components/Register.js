@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {StyleSheet, View, TextInput, Button, Dimensions, Alert } from 'react-native';
+import {StyleSheet, View, TextInput, Button, Dimensions, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import Logo from './Logo';
 import { BACKEND_IP } from '@env'
 
@@ -44,49 +44,52 @@ export default function RegisterScreen(props){
     }
   
     return (
-        <View style={styles.container}>
-          <Logo style={styles.logo}/>
-          <TextInput
-            placeholder="Email"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-            style={styles.input}
-          />
-          <TextInput
-            placeholder="Username"
-            value={name}
-            onChangeText={(text) => setName(text)}
-            style={styles.input}
-          />
-          <TextInput
-            placeholder="Phone number"
-            value={phone}
-            onChangeText={(text) => setPhone(text)}
-            style={styles.input}
-          />
-          <TextInput
-            placeholder="Password"
-            secureTextEntry
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-            style={styles.input}
-          />
-          <TextInput
-            placeholder="confirm password"
-            secureTextEntry
-            value={confirmPassword}
-            onChangeText={(text) => setconfirmPassword(text)}
-            style={styles.input}
-          />
-          <Button title="Register" onPress={handleRegister} />
-          <Button title="Go to Login" onPress={() => props.navigation.navigate('Login')} />
-        </View>      
-    );
-  };
+      <KeyboardAvoidingView 
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? windowHeight*0.40 : 10}
+      style={styles.container}
+    >
+      <Logo style={styles.logo}/>
+      <TextInput
+        placeholder="Email"
+        value={email}
+        onChangeText={(text) => setEmail(text)}
+        style={styles.input}
+      />
+      <TextInput
+        placeholder="Username"
+        value={name}
+        onChangeText={(text) => setName(text)}
+        style={styles.input}
+      />
+      <TextInput
+        placeholder="Phone number"
+        value={phone}
+        onChangeText={(text) => setPhone(text)}
+        style={styles.input}
+      />
+      <TextInput
+        placeholder="Password"
+        secureTextEntry
+        value={password}
+        onChangeText={(text) => setPassword(text)}
+        style={styles.input}
+      />
+      <TextInput
+        placeholder="confirm password"
+        secureTextEntry
+        value={confirmPassword}
+        onChangeText={(text) => setconfirmPassword(text)}
+        style={styles.input}
+      />
+      <Button title="Register" onPress={handleRegister} />
+      <Button title="Go to Login" onPress={() => props.navigation.navigate('Login')} />
+    </KeyboardAvoidingView>      
+  );
+};
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-
 
 const styles = StyleSheet.create({
     container: {
