@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect} from "react";
 import {Link, useNavigate} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faArrowLeft, faThumbtack} from '@fortawesome/free-solid-svg-icons'
@@ -6,14 +6,16 @@ import mapboxgl from 'mapbox-gl';
 
 function StopForm() {
   const mapContainer = useRef(null);
-  const markerRef = useRef(null); // <--- ADD THIS
 
   const navigate = useNavigate();
-  const [currentMarker, setCurrentMarker] = useState(null);
-
   const stopNameRef = useRef();
   const latRef = useRef();
   const lngRef = useRef();
+
+  const geojson = {
+    type: 'FeatureCollection',
+    features: [{type: 'Feature', geometry: {type: 'Point',}}]
+  };
 
   useEffect(() => {
     mapboxgl.accessToken = 'pk.eyJ1IjoicnViZW5zZXJyYWx2YSIsImEiOiJjbGlka3Z5OG8wdGVkM2RuYmV2NXJ2bWM2In0.Q6BEC42wrGzQei_IzqEkAQ';
@@ -24,35 +26,28 @@ function StopForm() {
       zoom: 10
     });
 
-    const preventPageScroll = (event) => {
-      event.preventDefault();
-    };
-
-    mapContainer.current.addEventListener('wheel', preventPageScroll, {passive: false});
-
-
-    // click event
-    map.on('load', function() {
-      // click event
-      map.on('click', function(e) {
-        const { lng, lat } = e.lngLat;
-        
-        latRef.current.value = lat;
-        lngRef.current.value = lng;
-  
-        // If there's an existing marker, remove it
-        if (markerRef.current) {
-          markerRef.current.remove();
+    map.on('load', () => {
+      map.addSource('marker-source', { type: 'geojson', data: geojson });
+      map.addLayer({
+        id: 'marker',
+        type: 'circle',
+        source: 'marker-source',
+        paint: {
+          'circle-radius': 6,
+          'circle-color': '#FF0000'
         }
-  
-        // Create a new marker
-        const newMarker = new mapboxgl.Marker({ "color": "#FF0000" })
-          .setLngLat([lng, lat])
-          .addTo(map);
-          
-        // Set the current marker to the new marker
-        markerRef.current = newMarker;
       });
+    });
+
+    map.on('click', function(e) {
+      const { lng, lat } = e.lngLat;
+      
+      latRef.current.value = lat;
+      lngRef.current.value = lng;
+    
+      geojson.features[0].geometry.coordinates = [lng, lat];
+    
+      map.getSource('marker-source').setData(geojson);
     });
 
     return () => {
@@ -105,17 +100,15 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'end', // Add space between your form and map
+    justifyContent: 'end',
     orientation: '',
     padding: '1%',
     backgroundColor: '#bde0fe',
     border: '2px solid black',
     borderRadius: '15px',
     width: '90vw',
-    
   },
   Typography: {
-    fontSize: '1.5rem',
     fontFamily: 'American Typewriter',
     color: '#464646',
     fontSize: '1rem'
