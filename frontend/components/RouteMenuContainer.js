@@ -47,28 +47,25 @@ const styles = StyleSheet.create({
         borderWidth: '2px',
         borderRadius: '15px',
         justifyContent: 'center',
-        alignItems: 'center',
+        overflow: 'hidden'
       
     },
     text: {
-        position: 'absolute',
-        top: 0,
-        borderColor: 'red',
-        borderStyle: 'solid',
-        borderWidth: 2,
+        position: 'relative',
+        top: windowHeight*0.03,
+        textAlign: 'center',
     },
     item: {
         padding: 10,
+        paddingInlineStart: 10,
         borderBottomWidth: 1,
         borderBottomColor: 'grey',
         width: '100%'
     },
     flatList: {
-        position: 'absolute',
-        top: windowHeight*0.04,
-        bottom: windowHeight*0.05,
-        left: windowWidth*0.1,
-        right: windowWidth*0.1,
-        
+        marginTop: windowHeight*0.05,
+        marginBottom: windowHeight*0.02,
+        marginHorizontal: windowWidth*0.05,
+        textAlign: 'center'
     }
   });
