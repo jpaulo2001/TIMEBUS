@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { REACT_APP_BACKEND_IP } from '@env'
+import {BACKEND_IP} from '@env'
 import { Image, StyleSheet, TextInput, View, Text, TouchableOpacity, Dimensions, SafeAreaView, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -25,7 +25,7 @@ export default function LocationForm({updateRouteData,setMapEnlarged,setStartSto
   const fetchStops = async (setFilterData,setMasterData) => {
     const token = await AsyncStorage.getItem('@token');
     
-    const apiURL = `http://localhost:4000/api/stops/`;
+    const apiURL = `http://${BACKEND_IP}:4000/api/stops/`;
     const response = await fetch(apiURL, {
       method: 'GET',
       headers: {
@@ -42,7 +42,7 @@ export default function LocationForm({updateRouteData,setMapEnlarged,setStartSto
 
   const fetchRoutes = async (stopA, stopB) => {
     const token = await AsyncStorage.getItem('@token');
-    const apiURL = `http://localhost:4000/api/routes/search/`;
+    const apiURL = `http://${BACKEND_IP}:4000/api/routes/search/`;
 
     const response = await fetch(apiURL, {
       method: 'POST',

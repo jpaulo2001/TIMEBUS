@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from 'react-native-maps';
 import { StyleSheet, View, TouchableOpacity, Image, Dimensions } from 'react-native';
-//import { REACT_APP_BACKEND_IP } from '@env'
 import {mapStyleTemplate} from '../public/mapStyle/mapstyle'
 const marker = require('../public/assets/icons/busStopMarker.png')
 

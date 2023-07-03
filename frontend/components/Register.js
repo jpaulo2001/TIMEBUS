@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import {StyleSheet, View, TextInput, Button, Dimensions, SafeAreaView, Alert } from 'react-native';
+import {StyleSheet, View, TextInput, Button, Dimensions, Alert } from 'react-native';
 import Logo from './Logo';
+import { BACKEND_IP } from '@env'
 
 
 export default function RegisterScreen(props){
@@ -21,7 +22,7 @@ export default function RegisterScreen(props){
       try { 
         if(password!==confirmPassword){Alert.alert("Passwords dont match!")}
 
-        const response = await fetch("http://localhost:4000/api/auth/register", {
+        const response = await fetch(`http://${BACKEND_IP}:4000/api/auth/register`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, Button, Alert, Dimensions, SafeAreaView } from 'react-native';
+import { StyleSheet, View, TextInput, Button, Alert, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Logo from './Logo';
+import {BACKEND_IP} from '@env'
 
 export default function LoginScreen(props){
   const [username, setUsername] = useState('');
@@ -14,7 +15,8 @@ export default function LoginScreen(props){
 
   const handleLogin = async () => {
     try {
-        const response = await fetch('http://localhost:4000/api/auth/login', {
+        console.log(BACKEND_IP)
+        const response = await fetch(`http://${BACKEND_IP}:4000/api/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(loginData),
