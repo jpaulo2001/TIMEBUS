@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import {Link, useNavigate, useSearchParams} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faArrowLeft, faRoute} from '@fortawesome/free-solid-svg-icons'
 
