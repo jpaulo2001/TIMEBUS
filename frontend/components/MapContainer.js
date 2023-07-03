@@ -144,6 +144,26 @@ export default function MapContainer({selectedRoute, setMapEnlarged, mapEnlarged
             strokeWidth={3}
           />
         )}
+        {/* Draw every stop if no route is selected */}
+        {!selectedRouteWithCoordinates && stops?.map((stop, index) => {
+          const lat = parseFloat(stop.lat);
+          const lng = parseFloat(stop.lng);
+
+          return (
+            <Marker
+              key={index}
+              coordinate={{ latitude: lat, longitude: lng }}
+              title={stop.name}
+              onPress={() => focusOnStop(stop.name)}
+            >
+               <Image
+                source={marker}
+                style={{ width: 45, height: 45 }}
+                resizeMode="cover"
+              />
+            </Marker>
+          );
+        })}
       </MapView>
       <TouchableOpacity onPress={toggleMapSize}>
         <Image source={require('../public/assets/buttons/enlarge.png')} style={buttonStyle} />
