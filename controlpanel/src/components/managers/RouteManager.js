@@ -68,9 +68,9 @@ function RouteManager() {
         <tbody>
           {routes.map((route, index) => (
             <tr key={index}>
-              <td style={styles.tableData}><input type="checkbox" value={route._id} checked={selection.includes(route._id)} onChange={(e)=>handleOnChange(e,index)} /></td>
+              <td style={styles.tableData}><input type="checkbox" value={route._id} checked={selection.includes(route._id)} onChange={(e)=>handleOnChange(e, index)} /></td>
               <td style={styles.tableData}>{route.routeNumber}</td>
-              <td style={styles.tableData}>{route.stops}</td>
+              <td style={styles.tableData}>{route.stops + " "}</td>
             </tr>
           ))}
         </tbody>
