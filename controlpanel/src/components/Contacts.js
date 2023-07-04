@@ -1,4 +1,7 @@
 import React from "react";
+import {faPhone} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+
 
 function ContactList() {
   return (
@@ -7,15 +10,18 @@ function ContactList() {
       <div style={styles.ContactContainer}>
         <div style={styles.Contact}>
           <h3 style={styles.ContactName}>Varela</h3>
-          <p style={styles.Telephone}>Telemovel: 919191919</p>
+          <p style={styles.Telephone}><FontAwesomeIcon icon={faPhone} style={styles.icon}/> Telemovel:<a href="tel:+11234567890"> 91983212</a></p>
+          
+          
         </div>
         <div style={styles.Contact}>
           <h3 style={styles.ContactName}>CRP</h3>
-          <p style={styles.Telephone}>Telemovel: 919191919</p>
+          <p style={styles.Telephone}><FontAwesomeIcon icon={faPhone} style={styles.icon}/> Telemovel:<a href="tel:+11234567890"> 91983212</a></p>
+          
         </div>
         <div style={styles.Contact}>
           <h3 style={styles.ContactName}>Autoviacao</h3>
-          <p style={styles.Telephone}>Telemovel: 919191919</p>
+          <p style={styles.Telephone}><FontAwesomeIcon icon={faPhone} style={styles.icon}/> Telemovel:<a href="tel:+11234567890"> 91983212</a></p>
         </div>
       </div>
     </div>
@@ -29,6 +35,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    listStyle: "none",
   },
   Contact: {
     width:"150%",
@@ -51,4 +58,5 @@ const styles = {
     fontSize: "16px",
     fontFamily: "Arial, sans-serif",
   },
+
 };
