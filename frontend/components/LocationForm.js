@@ -131,8 +131,9 @@ export default function LocationForm({updateRouteData,setMapEnlarged,setStartSto
               value={searchA}
               onChangeText={(text) => searchFilter(text, setfilterDataA, masterDataA, setSearchA)}
               onFocus={() => setActiveInput('A')}
+              onBlur={() => setActiveInput(null)}
             />
-            {searchA && filterDataA.length>0 && activeInput==='A' ? (
+            {activeInput==="A" && filterDataA.length>0 && activeInput==='A' ? (
               <View style={[styles.suggestionBox, { top: windowHeight * 0.06 }]}>
                 <FlatList
                   data={filterDataA}
@@ -148,14 +149,16 @@ export default function LocationForm({updateRouteData,setMapEnlarged,setStartSto
               value={searchB}
               onChangeText={(text) => searchFilter(text, setfilterDataB, masterDataB, setSearchB)}
               onFocus={() => setActiveInput('B')}
+              onBlur={() => setActiveInput(null)}
             />
-            {searchB && filterDataB.length>0 && activeInput==='B' ? (
+            {activeInput==="B" && filterDataB.length>0 && activeInput==='B' ? (
               <View style={[styles.suggestionBox, { top: windowHeight * 0.12 }]}>
                 <FlatList
                   data={filterDataB}
                   keyExtractor={(item, index) => index.toString()}
                   ItemSeparatorComponent={ItemSeparatorView}
                   renderItem = {ItemView}
+                  onBlur={() => setActiveInput(null)}
                 />
               </View>
             ):null}
