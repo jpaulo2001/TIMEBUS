@@ -6,6 +6,17 @@ import { faHouse, faBus, faThumbtack, faClock, faRoute, faArrowRightFromBracket,
 function NavbarComponent() {
   const navigate = useNavigate();
   const [user, setUser] = useState('');
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
 
   const logout = () => {
     localStorage.removeItem('jwt');
@@ -30,12 +41,11 @@ function NavbarComponent() {
         <li style={styles.listItem}><Link to="/Dashboard/ScheduleManager" style={styles.button}><FontAwesomeIcon icon={faClock} style={styles.icon} />Schedules</Link></li>
         <li style={styles.listItem}><Link to="/Dashboard/RouteManager" style={styles.button}><FontAwesomeIcon icon={faRoute} style={styles.icon} />Routes</Link></li>
         <li style={styles.listItem}><button onClick={logout} style={styles.button}><FontAwesomeIcon icon={faArrowRightFromBracket} style={styles.icon} />Logout</button></li>
-        <li>
-          <div style={styles.userName}>
-            Welcome {user.name}
-          </div>
-        </li>
       </ul>
+      <div style={styles.userBox}>
+            <p>Welcome {user.name}</p>
+            <p>{time.toLocaleTimeString()}</p>
+          </div>
     </div>
   );
 }
@@ -56,8 +66,8 @@ const styles = {
   },
   list: {
     listStyle: "none",
-    marginInlineEnd: '10%',
-    width: "70%",
+
+    width: "50%",
     display: "flex",
     justifyContent: 'space-between',
     flexWrap: "wrap",
@@ -71,6 +81,7 @@ const styles = {
   },
   button: {
     width: '90%',
+    minWidth: '2.5rem',
     height: 'auto',
     padding: '10px 0',
     fontFamily: "Arial, sans-serif",
@@ -100,5 +111,25 @@ const styles = {
   icon: {
     fontSize: '2rem',
     padding: '0.4rem',
+  },
+  userBox:{
+    background: '#219ebc',
+    borderRadius: '15px',
+    borderStyle: 'solid',
+    borderWidth: '1px',
+    borderColor: 'black',
+    padding: '10px',
+    color: '#fff',
+    justifyContent: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    width: '10%',
+    fontSize: '0.8rem',
+    marginInline: '0.5rem',
+    alignItems: 'center',
+    textAlign: 'center',
+    fontFamily: "Arial, sans-serif",
+    boxShadow: "1px 1px 8px 4px rgba(0, 0, 0, 0.2)",
   }
 };
