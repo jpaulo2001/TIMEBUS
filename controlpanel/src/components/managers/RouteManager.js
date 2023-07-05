@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faPlus, faMinus} from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 
 function RouteManager() {
   const [routes, setRoutes] = useState([]);
@@ -25,7 +25,7 @@ function RouteManager() {
       .catch((err) => console.log(err));
   }
 
-  const removeSelection = async() => {
+  const removeSelection = async () => {
     const token = localStorage.getItem('jwt');
     const deletePromises = selection.map(routeId => {
       console.log(`Deleting route with id ${routeId}`);
@@ -41,7 +41,7 @@ function RouteManager() {
     setSelection([]);
     fetchRoutes()
   }
-  
+
 
   const handleOnChange = (event, index) => {
     if (event.target.checked) {
@@ -55,7 +55,7 @@ function RouteManager() {
     <div style={styles.formContainer}>
       <div style={styles.buttonContainerStyle}>
         <Link to="/Dashboard/RouteForm" style={styles.buttonStyle}><FontAwesomeIcon icon={faPlus} />Add route</Link>
-        <button style={styles.buttonStyle} onClick={() => removeSelection()}><FontAwesomeIcon icon={faMinus}/>Remove</button>
+        <button style={styles.buttonStyle} onClick={() => removeSelection()}><FontAwesomeIcon icon={faMinus} />Remove</button>
       </div>
       <table style={styles.elementsList}>
         <thead>
@@ -68,9 +68,13 @@ function RouteManager() {
         <tbody>
           {routes.map((route, index) => (
             <tr key={index}>
-              <td style={styles.tableData}><input type="checkbox" value={route._id} checked={selection.includes(route._id)} onChange={(e)=>handleOnChange(e, index)} /></td>
-              <td style={styles.tableData}>{route.routeNumber}</td>
-              <td style={styles.tableData}>{route.stops + " "}</td>
+              <td style={styles.tableData}><input type="checkbox" value={route._id} checked={selection.includes(route._id)} onChange={(e) => handleOnChange(e, index)} /></td>
+              <td style={{ ...styles.tableData, ...styles.typography }}>
+                {route.routeNumber.toUpperCase()}
+              </td>
+              <td style={styles.tableData}>
+                {route.stops.map(stop => stop.replace(/\b\w/g, c => c.toUpperCase())).join(' - ')}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -88,12 +92,11 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     padding: '5%',
-    backgroundColor: '#bde0fe',
-    border: '2px dashed black',
+    backgroundColor: '#f0f0f0',
+    border: '2px solid #ddd',
     borderRadius: '5px',
   },
   typography: {
-    fontSize: '2rem',
     fontFamily: 'American Typewriter',
   },
   buttonStyle: {
@@ -148,9 +151,10 @@ const styles = {
     padding: '10px',
   },
   tableData: {
-    padding: '10px',
-    border: '1px solid black',
-    fontFamily: 'American Typewriter',
-    fontSize: '1.2rem',
+    padding: '0.75rem',
+    border: 'none',
+    fontFamily: 'Arial, sans-serif',
+    fontSize: '1rem',
+    borderBottom: '1px solid #ddd',
   }
 }

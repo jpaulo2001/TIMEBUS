@@ -29,12 +29,12 @@ function NavbarComponent() {
         <li style={styles.listItem}><Link to="/Dashboard/StopManager" style={styles.button}><FontAwesomeIcon icon={faThumbtack} style={styles.icon} />Stops</Link></li>
         <li style={styles.listItem}><Link to="/Dashboard/ScheduleManager" style={styles.button}><FontAwesomeIcon icon={faClock} style={styles.icon} />Schedules</Link></li>
         <li style={styles.listItem}><Link to="/Dashboard/RouteManager" style={styles.button}><FontAwesomeIcon icon={faRoute} style={styles.icon} />Routes</Link></li>
+        <li style={styles.listItem}><button onClick={logout} style={styles.button}><FontAwesomeIcon icon={faArrowRightFromBracket} style={styles.icon} />Logout</button></li>
         <li>
           <div style={styles.userName}>
             Welcome {user.name}
           </div>
         </li>
-        <li style={styles.listItem}><button onClick={logout} style={styles.button}><FontAwesomeIcon icon={faArrowRightFromBracket} style={styles.icon} />Logout</button></li>
       </ul>
     </div>
   );
@@ -44,7 +44,7 @@ export default NavbarComponent
 
 const styles = {
   navBarContainer: {
-    width: '100vw',
+    width: '99%',
     fontSize: "30px",
     backgroundColor: "#8ecae6",
     display: "flex",
@@ -52,7 +52,7 @@ const styles = {
     alignItems: "center",
     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
     border: 'black 2px solid',
-    borderRadius: "5px",
+    borderRadius: "0px",
   },
   list: {
     listStyle: "none",
@@ -64,7 +64,7 @@ const styles = {
     padding: 0,
   },
   listItem: {
-    width: '10vw',
+    width: '10%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

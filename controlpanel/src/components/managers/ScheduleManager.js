@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faPlus, faMinus} from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 
 function ScheduleManager() {
 
@@ -10,11 +10,11 @@ function ScheduleManager() {
 
   useEffect(() => {
     fetchSchedules()
-    }, []);
+  }, []);
 
   const fetchSchedules = () => {
     const token = localStorage.getItem('jwt');
-    fetch('http://localhost:4000/api/schedules',{
+    fetch('http://localhost:4000/api/schedules', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ function ScheduleManager() {
       .catch((err) => console.log(err));
   }
 
-  const removeSelection = async() => {
+  const removeSelection = async () => {
     const token = localStorage.getItem('jwt');
     const deletePromises = selection.map(scheduleId =>
       fetch(`http://localhost:4000/api/schedules/${scheduleId}`, {
@@ -51,32 +51,32 @@ function ScheduleManager() {
   }
 
   return (
-      <div style={styles.formContainer}>
-        <div style={styles.buttonContainerStyle}>
-          <Link to="/Dashboard/ScheduleForm" style={styles.buttonStyle}><FontAwesomeIcon icon={faPlus} />Add Schedule</Link>
-          <button style={styles.buttonStyle} onClick={() => removeSelection()}><FontAwesomeIcon icon={faMinus}/>Remove</button>
-        </div>
-        <table style={styles.elementsList}>
-          <thead>
-            <tr>
-              <th style={styles.tableHeader}>Select</th>
-              <th style={styles.tableHeader}>Schedule ID</th>
-              <th style={styles.tableHeader}>Stop Name</th>
-              <th style={styles.tableHeader}>Departure Times</th>
-            </tr>
-          </thead>
-          <tbody>
-            {schedules.map((schedule, index) => (
-              <tr key={index}>
-                <td style={styles.tableData}><input type="checkbox" value={schedule._id} checked={selection.includes(schedule._id)} onChange={(e)=>handleOnChange(e,index)} /></td>
-                <td style={styles.tableData}>{schedule.scheduleID}</td>
-                <td style={styles.tableData}>{schedule.stopName}</td>
-                <td style={styles.tableData}>{schedule.departureTimes +'h'}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div style={styles.formContainer}>
+      <div style={styles.buttonContainerStyle}>
+        <Link to="/Dashboard/ScheduleForm" style={styles.buttonStyle}><FontAwesomeIcon icon={faPlus} />Add Schedule</Link>
+        <button style={styles.buttonStyle} onClick={() => removeSelection()}><FontAwesomeIcon icon={faMinus} />Remove</button>
       </div>
+      <table style={styles.elementsList}>
+        <thead>
+          <tr>
+            <th style={styles.tableHeader}>Select</th>
+            <th style={styles.tableHeader}>Schedule ID</th>
+            <th style={styles.tableHeader}>Stop Name</th>
+            <th style={styles.tableHeader}>Departure Times</th>
+          </tr>
+        </thead>
+        <tbody>
+          {schedules.map((schedule, index) => (
+            <tr key={index}>
+              <td style={styles.tableData}><input type="checkbox" value={schedule._id} checked={selection.includes(schedule._id)} onChange={(e) => handleOnChange(e, index)} /></td>
+              <td style={styles.tableData}>{schedule.scheduleID}</td>
+              <td style={styles.tableData}>{schedule.stopName}</td>
+              <td style={styles.tableData}>{schedule.departureTimes + 'h'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
@@ -89,8 +89,8 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     padding: '5%',
-    backgroundColor: '#bde0fe',
-    border: '2px dashed black',
+    backgroundColor: '#f0f0f0',
+    border: '2px solid #ddd',
     borderRadius: '5px',
   },
   typography: {
@@ -149,9 +149,10 @@ const styles = {
     padding: '10px',
   },
   tableData: {
-    padding: '10px',
-    border: '1px solid black',
-    fontFamily: 'American Typewriter',
-    fontSize: '1.2rem',
+    padding: '0.75rem',
+    border: 'none',
+    fontFamily: 'Arial, sans-serif',
+    fontSize: '1rem',
+    borderBottom: '1px solid #ddd',
   }
 }

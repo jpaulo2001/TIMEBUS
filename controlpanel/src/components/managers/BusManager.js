@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faPlus, faMinus} from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 
 
 function BusManager() {
@@ -26,7 +26,7 @@ function BusManager() {
       .catch((err) => console.log(err));
   }
 
-  const removeSelection = async() => {
+  const removeSelection = async () => {
     const token = localStorage.getItem('jwt');
     const deletePromises = selection.map(busId =>
       fetch(`http://localhost:4000/api/buses/${busId}`, {
@@ -40,7 +40,7 @@ function BusManager() {
     await Promise.all(deletePromises);
     setSelection([]);
     fetchBuses()
-  }  
+  }
 
   const handleOnChange = (event, index) => {
     if (event.target.checked) {
@@ -54,7 +54,7 @@ function BusManager() {
     <div style={styles.formContainer}>
       <div style={styles.buttonContainerStyle}>
         <Link to="/Dashboard/BusForm" style={styles.buttonStyle}><FontAwesomeIcon icon={faPlus} />Add Bus</Link>
-        <button style={styles.buttonStyle} onClick={() => removeSelection()} ><FontAwesomeIcon icon={faMinus}/>Remove</button>
+        <button style={styles.buttonStyle} onClick={() => removeSelection()} ><FontAwesomeIcon icon={faMinus} />Remove</button>
       </div>
       <table style={styles.elementsList}>
         <thead>
@@ -68,7 +68,7 @@ function BusManager() {
         <tbody>
           {buses.map((bus, index) => (
             <tr key={index}>
-              <td style={styles.tableData}><input type="checkbox" value={bus._id} checked={selection.includes(bus._id)} onChange={(e)=>handleOnChange(e,index)} /></td>
+              <td style={styles.tableData}><input type="checkbox" value={bus._id} checked={selection.includes(bus._id)} onChange={(e) => handleOnChange(e, index)} /></td>
               <td style={styles.tableData}>{bus.busName}</td>
               <td style={styles.tableData}>{bus.busRoute}</td>
               <td style={styles.tableData}>{bus.capacity}</td>
@@ -89,8 +89,8 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     padding: '5%',
-    backgroundColor: '#bde0fe',
-    border: '2px dashed black',
+    backgroundColor: '#f0f0f0',
+    border: '2px solid #ddd',
     borderRadius: '5px',
   },
   typography: {
@@ -114,7 +114,8 @@ const styles = {
   buttonContainerStyle: {
     display: 'flex',
     justifyContent: 'flex-end',
-    width: '70vw',
+    width: '100%',
+    marginBottom: '1%',
   },
   inputContainer: {
     height: '100vh',
@@ -141,7 +142,7 @@ const styles = {
     borderTop: '1px solid #ccc',
     margin: '1rem 0',
   },
-    tableHeader: {
+  tableHeader: {
     backgroundColor: '#219ebc',
     color: '#fff',
     fontFamily: 'American Typewriter',
@@ -149,10 +150,11 @@ const styles = {
     padding: '10px',
   },
   tableData: {
-    padding: '10px',
-    border: '1px solid black',
-    fontFamily: 'American Typewriter',
-    fontSize: '1.2rem',
+    padding: '0.75rem',
+    border: 'none',
+    fontFamily: 'Arial, sans-serif',
+    fontSize: '1rem',
+    borderBottom: '1px solid #ddd',
   }
 
 }

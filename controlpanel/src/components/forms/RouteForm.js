@@ -63,7 +63,7 @@ function RoutesForm() {
         <ul style={styles.inputField}>
           {stops.map((stop ,index)=>{return(
             <div key={index}>
-              <li style={styles.Typography}><input style={styles.Typography} onChange={(event) => handleStopCB(index, event)} type="checkbox"/>{stop.stopName}</li>
+              <li style={styles.Typography}><input style={styles.Typography} onChange={(event) => handleStopCB(index, event)} type="checkbox"/>{stop.stopName + ' - '}</li>
             </div>
           );})}
         </ul>

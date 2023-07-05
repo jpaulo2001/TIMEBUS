@@ -89,8 +89,8 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     padding: '5%',
-    backgroundColor: '#bde0fe',
-    border: '2px dashed black',
+    backgroundColor: '#f0f0f0',
+    border: '2px solid #ddd',
     borderRadius: '5px',
   },
   typography: {
@@ -149,10 +149,11 @@ const styles = {
     padding: '10px',
   },
   tableData: {
-    padding: '10px',
-    border: '1px solid black',
-    fontFamily: 'American Typewriter',
-    fontSize: '1.2rem',
+    padding: '0.75rem',
+    border: 'none',
+    fontFamily: 'Arial, sans-serif',
+    fontSize: '1rem',
+    borderBottom: '1px solid #ddd',
   }
 
 }

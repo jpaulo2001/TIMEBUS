@@ -1,5 +1,4 @@
 const Routes = require('../models/routesModel')
-const mongoose = require('mongoose')
 
 
 //get all routes

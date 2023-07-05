@@ -31,7 +31,7 @@ function DashboardComponent() {
         <Route path="/ScheduleForm" element={<ScheduleForm />} />
         <Route path="/RouteManager" element={<RouteManager />} />
         <Route path="/RouteForm" element={<RouteForm />} />
-        <Route path="/Contacts" element={<Popup/>} />
+        {/* <Route path="/Contacts" element={<Popup/>} /> */}
       </Routes>
     </div>
   );
