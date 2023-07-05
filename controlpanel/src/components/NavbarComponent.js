@@ -133,5 +133,6 @@ const styles = {
     textAlign: 'center',
     fontFamily: "Arial, sans-serif",
     boxShadow: "1px 1px 8px 4px rgba(0, 0, 0, 0.2)",
+    textShadow: '1px 1px 5px 1px black'
   }
 };
