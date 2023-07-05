@@ -75,7 +75,6 @@ const updateRoute = async (req, res) => {
   }
 };
 
-
 //delete route
 const deleteRoute = async (req, res) => {
   try {

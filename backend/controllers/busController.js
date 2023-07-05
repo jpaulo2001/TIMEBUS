@@ -34,7 +34,6 @@ const createBus = async (req, res) => {
   }
 };
 
-
 //update bus
 const updateBus = async (req, res) => {
   try {
@@ -57,7 +56,6 @@ const updateBus = async (req, res) => {
   }
 };
 
-
 //delete bus
 const deleteBus = async (req, res) => {
   try{
@@ -72,9 +70,6 @@ const deleteBus = async (req, res) => {
     res.status(500).json({error: 'Failed to delete Bus'});
   }
 };
-
-
-
 
 //export functions
 module.exports = {
