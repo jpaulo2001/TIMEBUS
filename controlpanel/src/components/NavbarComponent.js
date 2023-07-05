@@ -86,7 +86,7 @@ const styles = {
     padding: '10px 0',
     fontFamily: "Arial, sans-serif",
     fontWeight: "bold",
-    fontSize: "0.8rem",
+    fontSize: "24%",
     color: "#fff",
     backgroundColor: "#219ebc",
     border: "1px solid black",
