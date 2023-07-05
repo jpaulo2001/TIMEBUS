@@ -1,26 +1,41 @@
-import React from "react";
-import {Link, useNavigate} from "react-router-dom"
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse, faBus, faThumbtack, faClock, faRoute, faArrowRightFromBracket} from '@fortawesome/free-solid-svg-icons'
+import { faHouse, faBus, faThumbtack, faClock, faRoute, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+
 
 function NavbarComponent() {
   const navigate = useNavigate();
+  const [user, setUser] = useState('');
 
   const logout = () => {
     localStorage.removeItem('jwt');
+    localStorage.removeItem('user');
+
     navigate('/Login')
   }
 
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    setUser(storedUser);
+    if (!storedUser) logout();
+  }, []);
+
   return (
     <div style={styles.navBarContainer}>
-      <img src={'/assets/logo/logo.png'} style={styles.logo}/>
+      <img src={'/assets/logo/logo.png'} style={styles.logo} />
       <ul style={styles.list}>
-        <li style={styles.listItem}><Link to="/Dashboard/" style={styles.button}><FontAwesomeIcon icon={faHouse} style={styles.icon}/>Home </Link></li>
-        <li style={styles.listItem}><Link to="/Dashboard/BusManager" style={styles.button}><FontAwesomeIcon icon={faBus} style={styles.icon}/>Buses</Link></li>
-        <li style={styles.listItem}><Link to="/Dashboard/StopManager" style={styles.button}><FontAwesomeIcon icon={faThumbtack} style={styles.icon}/>Stops</Link></li>
-        <li style={styles.listItem}><Link to="/Dashboard/ScheduleManager" style={styles.button}><FontAwesomeIcon icon={faClock} style={styles.icon}/>Schedules</Link></li>
-        <li style={styles.listItem}><Link to="/Dashboard/RouteManager" style={styles.button}><FontAwesomeIcon icon={faRoute} style={styles.icon}/>Routes</Link></li>
-        <li style={styles.listItem}><button onClick={logout} style={styles.button}><FontAwesomeIcon icon={faArrowRightFromBracket} style={styles.icon}/>Logout</button></li>
+        <li style={styles.listItem}><Link to="/Dashboard/" style={styles.button}><FontAwesomeIcon icon={faHouse} style={styles.icon} />Home </Link></li>
+        <li style={styles.listItem}><Link to="/Dashboard/BusManager" style={styles.button}><FontAwesomeIcon icon={faBus} style={styles.icon} />Buses</Link></li>
+        <li style={styles.listItem}><Link to="/Dashboard/StopManager" style={styles.button}><FontAwesomeIcon icon={faThumbtack} style={styles.icon} />Stops</Link></li>
+        <li style={styles.listItem}><Link to="/Dashboard/ScheduleManager" style={styles.button}><FontAwesomeIcon icon={faClock} style={styles.icon} />Schedules</Link></li>
+        <li style={styles.listItem}><Link to="/Dashboard/RouteManager" style={styles.button}><FontAwesomeIcon icon={faRoute} style={styles.icon} />Routes</Link></li>
+        <li>
+          <div style={styles.userName}>
+            Welcome {user.name}
+          </div>
+        </li>
+        <li style={styles.listItem}><button onClick={logout} style={styles.button}><FontAwesomeIcon icon={faArrowRightFromBracket} style={styles.icon} />Logout</button></li>
       </ul>
     </div>
   );
@@ -40,7 +55,7 @@ const styles = {
     border: 'black 2px solid',
     borderRadius: "5px",
   },
-  list: { 
+  list: {
     listStyle: "none",
     marginInlineEnd: '20%',
     width: "60%",
@@ -73,8 +88,8 @@ const styles = {
     textDecoration: 'none',
     flexDirection: 'column',
   },
-  logo:{
-    height: '7rem', 
+  logo: {
+    height: '7rem',
     objectFit: 'contain',
     padding: '0rem',
     marginInline: '0.5rem',
@@ -83,8 +98,8 @@ const styles = {
     backgroundColor: '#219ebc',
     border: 'black 1px solid',
   },
-  icon:{
-    fontSize:'2rem',
-    padding:'0.4rem',
+  icon: {
+    fontSize: '2rem',
+    padding: '0.4rem',
   }
 };

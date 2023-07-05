@@ -1,12 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-
-
+import React, {useContext} from "react";
+import { Link, useNavigate} from "react-router-dom";
 
 
 function LoginComponent() {
-
   const navigate = useNavigate();
   
   const login = async (event) => {
@@ -25,12 +21,15 @@ function LoginComponent() {
       const response = await fetch("http://localhost:4000/api/auth/login", {
         method:   "POST",
         headers:  {"Content-Type": "application/json",},
-        body: JSON.stringify(loginData),});
+        body: JSON.stringify(loginData),
+      });
+
 
       if (response.ok) {
         const answer = await response.json();
         console.log("Login successful:", answer);
         localStorage.setItem('jwt',answer.token)
+        localStorage.setItem('user', JSON.stringify(answer.user));
         navigate("/Dashboard");
       } else {
         const errorData = await response.json();
