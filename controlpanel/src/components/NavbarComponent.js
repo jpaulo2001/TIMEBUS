@@ -40,6 +40,7 @@ function NavbarComponent() {
         <li style={styles.listItem}><Link to="/Dashboard/StopManager" style={styles.button}><FontAwesomeIcon icon={faThumbtack} style={styles.icon} />Stops</Link></li>
         <li style={styles.listItem}><Link to="/Dashboard/ScheduleManager" style={styles.button}><FontAwesomeIcon icon={faClock} style={styles.icon} />Schedules</Link></li>
         <li style={styles.listItem}><Link to="/Dashboard/RouteManager" style={styles.button}><FontAwesomeIcon icon={faRoute} style={styles.icon} />Routes</Link></li>
+        <li style={styles.listItem}><Link to="/Dashboard/Contacts" style={styles.button}><FontAwesomeIcon icon={faPhone} style={styles.icon}/>Contacts </Link></li>
         <li style={styles.listItem}><button onClick={logout} style={styles.button}><FontAwesomeIcon icon={faArrowRightFromBracket} style={styles.icon} />Logout</button></li>
       </ul>
       <div style={styles.userBox}>
@@ -54,7 +55,8 @@ export default NavbarComponent
 
 const styles = {
   navBarContainer: {
-    width: '99%',
+    width: '98%',
+    marginTop: '1%',
     fontSize: "30px",
     backgroundColor: "#8ecae6",
     display: "flex",
@@ -62,16 +64,17 @@ const styles = {
     alignItems: "center",
     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
     border: 'black 2px solid',
-    borderRadius: "0px",
+    borderRadius: "10px",
   },
   list: {
     listStyle: "none",
 
-    width: "50%",
+    width: "70%",
     display: "flex",
     justifyContent: 'space-between',
     flexWrap: "wrap",
     padding: 0,
+
   },
   listItem: {
     width: '10%',
@@ -80,8 +83,8 @@ const styles = {
     alignItems: 'center',
   },
   button: {
-    width: '90%',
     minWidth: '2.5rem',
+    width: '5vw',
     height: 'auto',
     padding: '10px 0',
     fontFamily: "Arial, sans-serif",
@@ -99,12 +102,11 @@ const styles = {
     flexDirection: 'column',
   },
   logo: {
-    height: '7rem',
+    width: '6rem',
     objectFit: 'contain',
-    padding: '0rem',
     marginInline: '0.5rem',
     marginBlock: '1rem',
-    borderRadius: '23px',
+    borderRadius: '20%',
     backgroundColor: '#219ebc',
     border: 'black 1px solid',
   },

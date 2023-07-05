@@ -10,7 +10,7 @@ import StopManager from "./managers/StopManager";
 import RouteManager from "./managers/RouteManager";
 import RouteForm from "./forms/RouteForm";
 import Statistics from "./Statistics"
-
+import ContactList from "./Contacts";
 
 
 
@@ -31,7 +31,7 @@ function DashboardComponent() {
         <Route path="/ScheduleForm" element={<ScheduleForm />} />
         <Route path="/RouteManager" element={<RouteManager />} />
         <Route path="/RouteForm" element={<RouteForm />} />
-        {/* <Route path="/Contacts" element={<Popup/>} /> */}
+        <Route path="/Contacts" element={<ContactList/>} />
       </Routes>
     </div>
   );
