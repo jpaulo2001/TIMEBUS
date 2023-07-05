@@ -7,7 +7,6 @@ const stopRoutes = require('./routes/stops')
 const routesRoutes = require('./routes/routes')
 const busesRoutes = require('./routes/buses')
 const schedules = require('./routes/schedules')
-
 const userRoute =  require("./routes/user.route");
 const authRoute = require("./routes/auth.route");
 

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse, faBus, faThumbtack, faClock, faRoute, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
-
+import { faHouse, faBus, faThumbtack, faClock, faRoute, faArrowRightFromBracket, faPhone} from '@fortawesome/free-solid-svg-icons'
 
 function NavbarComponent() {
   const navigate = useNavigate();
@@ -23,7 +22,7 @@ function NavbarComponent() {
 
   return (
     <div style={styles.navBarContainer}>
-      <img src={'/assets/logo/logo.png'} style={styles.logo} />
+      <img src={'/assets/logo/logo.png'} style={styles.logo} alt="logo"/>
       <ul style={styles.list}>
         <li style={styles.listItem}><Link to="/Dashboard/" style={styles.button}><FontAwesomeIcon icon={faHouse} style={styles.icon} />Home </Link></li>
         <li style={styles.listItem}><Link to="/Dashboard/BusManager" style={styles.button}><FontAwesomeIcon icon={faBus} style={styles.icon} />Buses</Link></li>
@@ -57,8 +56,8 @@ const styles = {
   },
   list: {
     listStyle: "none",
-    marginInlineEnd: '20%',
-    width: "60%",
+    marginInlineEnd: '10%',
+    width: "70%",
     display: "flex",
     justifyContent: 'space-between',
     flexWrap: "wrap",

@@ -116,11 +116,9 @@ export default function LocationForm({updateRouteData,setMapEnlarged,setStartSto
 
   const ItemView = ({item}) => {
     return(
-      <View style={styles.itemStyle}>
-        <TouchableOpacity onPress={()=>suggestionPress(item)}>
-          <Text style={styles.suggestionBoxTypography}>{item.stopName}{' => lat: '}{item.lat.toFixed(2)}{', lng: '}{item.lng.toFixed(2)}</Text>
+        <TouchableOpacity style={styles.itemStyle}onPress={()=>suggestionPress(item)}>
+          <Text style={styles.suggestionBoxTypography}>{item.stopName}</Text>
         </TouchableOpacity>
-      </View> 
     )
   }
   
@@ -133,8 +131,9 @@ export default function LocationForm({updateRouteData,setMapEnlarged,setStartSto
               value={searchA}
               onChangeText={(text) => searchFilter(text, setfilterDataA, masterDataA, setSearchA)}
               onFocus={() => setActiveInput('A')}
+              onBlur={() => setActiveInput(null)}
             />
-            {searchA && filterDataA.length>0 && activeInput==='A' ? (
+            {activeInput==="A" && filterDataA.length>0 && activeInput==='A' ? (
               <View style={[styles.suggestionBox, { top: windowHeight * 0.06 }]}>
                 <FlatList
                   data={filterDataA}
@@ -150,14 +149,16 @@ export default function LocationForm({updateRouteData,setMapEnlarged,setStartSto
               value={searchB}
               onChangeText={(text) => searchFilter(text, setfilterDataB, masterDataB, setSearchB)}
               onFocus={() => setActiveInput('B')}
+              onBlur={() => setActiveInput(null)}
             />
-            {searchB && filterDataB.length>0 && activeInput==='B' ? (
+            {activeInput==="B" && filterDataB.length>0 && activeInput==='B' ? (
               <View style={[styles.suggestionBox, { top: windowHeight * 0.12 }]}>
                 <FlatList
                   data={filterDataB}
                   keyExtractor={(item, index) => index.toString()}
                   ItemSeparatorComponent={ItemSeparatorView}
                   renderItem = {ItemView}
+                  onBlur={() => setActiveInput(null)}
                 />
               </View>
             ):null}
@@ -224,16 +225,23 @@ const styles = StyleSheet.create({
     suggestionBox:{
       borderColor: 'black',
       borderWidth: '2px',
-      left: -windowWidth*0.01,
-      backgroundColor: 'grey',
+      borderRadius:'10px',
+      left: windowWidth*0.01,
+      backgroundColor: '#bacfd1',
       position: 'absolute',
       zIndex: '2',
-      maxHeight: windowHeight*0.1,
+      maxHeight: windowHeight*0.2,
+      width: windowWidth*0.38,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     suggestionBoxTypography:{
       fontSize:12,
     },
     itemStyle:{
-      maxHeight:windowHeight*0.03,
+      textAlign:'right',
+      display: 'flex',
+      justifyContent: 'center',
+      height: windowHeight*0.05,
     }
 });

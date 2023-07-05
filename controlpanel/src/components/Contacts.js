@@ -1,49 +1,62 @@
-import React, { useState } from 'react';
-import { Dialog, DialogTitle, DialogContent, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core';
-import PhoneIcon from '@material-ui/icons/Phone';
+import React from "react";
+import {faPhone} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
-const Popup = () => {
-  const [open, setOpen] = useState(false);
 
-  const contacts = [
-    { name: 'Contact 1', phone: '123-456-7890' },
-    { name: 'Contact 2', phone: '987-654-3210' },
-    { name: 'Contact 3', phone: '555-555-5555' },
-  ];
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleCall = (phone) => {
-    // Implement your call functionality here
-    console.log(`Calling ${phone}`);
-  };
-
+function ContactList() {
   return (
     <div>
-      <button onClick={handleOpen}>Open Popup</button>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Contacts</DialogTitle>
-        <DialogContent>
-          <List>
-            {contacts.map((contact, index) => (
-              <ListItem button key={index} onClick={() => handleCall(contact.phone)}>
-                <ListItemIcon>
-                  <PhoneIcon />
-                </ListItemIcon>
-                <ListItemText primary={contact.name} secondary={contact.phone} />
-              </ListItem>
-            ))}
-          </List>
-        </DialogContent>
-      </Dialog>
+      <h1>Contatos</h1>
+      <div style={styles.ContactContainer}>
+        <div style={styles.Contact}>
+          <h3 style={styles.ContactName}>Varela</h3>
+          <p style={styles.Telephone}><FontAwesomeIcon icon={faPhone} style={styles.icon}/> Telemovel:<a href="tel:+11234567890"> 91983212</a></p>
+          
+          
+        </div>
+        <div style={styles.Contact}>
+          <h3 style={styles.ContactName}>CRP</h3>
+          <p style={styles.Telephone}><FontAwesomeIcon icon={faPhone} style={styles.icon}/> Telemovel:<a href="tel:+11234567890"> 91983212</a></p>
+          
+        </div>
+        <div style={styles.Contact}>
+          <h3 style={styles.ContactName}>Autoviacao</h3>
+          <p style={styles.Telephone}><FontAwesomeIcon icon={faPhone} style={styles.icon}/> Telemovel:<a href="tel:+11234567890"> 91983212</a></p>
+        </div>
+      </div>
     </div>
   );
-};
+}
 
-export default Popup;
+export default ContactList;
+
+const styles = {
+  ContactContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    listStyle: "none",
+  },
+  Contact: {
+    width:"150%",
+    margin: "5%",
+    padding: "10%",
+    borderColor: "black",
+    borderWidth: "2px",
+    borderStyle: "solid",
+    borderRadius: "5px",
+    backgroundColor: "#f9f9f9",
+    boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.2)",
+  },
+  ContactName: {
+    fontSize: "20px",
+    fontFamily: "Arial, sans-serif",
+    fontWeight: "bold",
+    marginBottom: "10px",
+  },
+  Telephone: {
+    fontSize: "16px",
+    fontFamily: "Arial, sans-serif",
+  },
+
+};

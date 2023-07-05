@@ -12,15 +12,17 @@ import RouteForm from "./forms/RouteForm";
 import Statistics from "./Statistics"
 
 
+
+
 function DashboardComponent() {
   return (    
     <div style={styles.dashContainer}>
       
       <NavbarComponent />
-      
+  
       <Routes>
         <Route path="/" element={<Statistics/>} />
-        <Route path="/Contacts" element={<Statistics/>} />
+        <Route path="/Statistics" element={<Statistics/>} />
         <Route path="/BusManager" element={<BusManager />} />
         <Route path="/BusForm" element={<BusForm />} />
         <Route path="/StopManager" element={<StopManager />} />
@@ -29,6 +31,7 @@ function DashboardComponent() {
         <Route path="/ScheduleForm" element={<ScheduleForm />} />
         <Route path="/RouteManager" element={<RouteManager />} />
         <Route path="/RouteForm" element={<RouteForm />} />
+        <Route path="/Contacts" element={<Popup/>} />
       </Routes>
     </div>
   );
@@ -46,4 +49,5 @@ const styles = {
     paddingTop: "0rem",
     backgroundColor: "#edf6f9",
   },
+
 };

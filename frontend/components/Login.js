@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, Button, Alert, Dimensions } from 'react-native';
+import { StyleSheet, View, TextInput, Button, Alert, Dimensions, KeyboardAvoidingView, Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Logo from './Logo';
 import {BACKEND_IP} from '@env'
@@ -47,7 +47,11 @@ export default function LoginScreen(props){
   };
 
   return (
-      <View style={styles.container}>
+        <KeyboardAvoidingView 
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={Platform.OS === "ios" ? windowHeight*0.40 : 10}
+        style={styles.container}
+        >
         <Logo style={styles.logo}/>
         <TextInput
           placeholder="Username/Email"
@@ -64,7 +68,7 @@ export default function LoginScreen(props){
         />
         <Button title="Login" onPress={handleLogin} />
         <Button title="Go to Register" onPress={() => props.navigation.navigate('Register')} />
-      </View>    
+      </KeyboardAvoidingView>      
   );
 };
 
